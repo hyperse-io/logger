@@ -1,0 +1,69 @@
+{
+  "name": "@hyperse/logger-plugin-console",
+  "version": "0.0.1",
+  "homepage": "https://github.com/hyperse-io/logger",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperse-io/logger",
+    "directory": "packages/logger-plugin-console"
+  },
+  "author": {
+    "name": "Hyperse",
+    "url": "https://github.com/hyperse-io"
+  },
+  "type": "module",
+  "license": "SEE LICENSE IN FILE 'LICENSE'",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "bin/",
+    "dist/",
+    "index.js",
+    "README.md",
+    "CHANGELOG.md",
+    "package.json"
+  ],
+  "scripts": {
+    "build:client": "tsup --config ./tsup.config.ts",
+    "build": "rimraf dist && tsc -p ./tsconfig.build.json && yarn build:client && npm run minify",
+    "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
+    "build-release": "yarn build && rimraf ./_release && yarn pack && mkdir ./_release && tar zxvf ./package.tgz --directory ./_release && rm ./package.tgz",
+    "minify": "node ../../scripts/minify.mjs --dest=dist",
+    "clean": "rimraf --no-glob ./dist ./_release ./coverage ./tsconfig.tsbuildinfo",
+    "lint": "eslint .",
+    "test": "run-s test-unit",
+    "test-unit": "vitest run",
+    "test-coverage": "vitest run --coverage",
+    "test-unit-watch": "vitest watch --ui",
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hyperse/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@hyperse/eslint-config-hyperse": "^1.4.5",
+    "@types/node": "^24.0.4",
+    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "eslint": "^9.29.0",
+    "jsdom": "26.1.0",
+    "npm-run-all": "4.1.5",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "_release/package"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "allowJs": false,
+    "noImplicitAny": true,
+    "noEmit": false,
+    "incremental": true,
+    "paths": {
+      "@hyperse/logger": ["../logger/src/index.ts"]
+    },
+    "types": ["vitest/globals"]
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/.*/", "dist", "build"]
+}

@@ -1,0 +1,76 @@
+{
+  "folders": [
+    {
+      "name": "website",
+      "path": "website",
+    },
+    {
+      "name": "logger",
+      "path": "packages/logger",
+    },
+    {
+      "name": "logger-plugin-console",
+      "path": "packages/logger-plugin-console",
+    },
+    {
+      "name": "logger-plugin-sentry",
+      "path": "packages/logger-plugin-sentry",
+    },
+    {
+      "name": "root",
+      "path": ".",
+    },
+  ],
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint"
+    ],
+  },
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "never",
+    },
+    "files.associations": {
+      "*.css": "tailwindcss",
+    },
+    "tailwindCSS.classFunctions": ["tw", "tv", "clsx", "twMerge", "extendVariants"],
+    "tailwindCSS.classAttributes": [
+      "class",
+      "className",
+      "classNames"
+    ],
+    "tailwindCSS.experimental.configFile": {
+      "website/src/app/globals.css": "website/src/**"
+    },
+    // Disable vscode formatting for js,jsx,ts,tsx files
+    // to allow dbaeumer.vscode-eslint to format them
+    "[javascript]": {
+      "editor.formatOnSave": false,
+    },
+    "[typescript]": {
+      "editor.formatOnSave": true,
+    },
+    "[rust]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    },
+    "[json]": {
+      "editor.formatOnSave": false,
+    },
+    "[jsonc]": {
+      "editor.formatOnSave": false,
+    },
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    // https://github.com/Microsoft/vscode-eslint#mono-repository-setup
+    "eslint.workingDirectories": [
+      "./website",
+      "./packages/logger",
+      "./packages/logger-plugin-console",
+      "./packages/logger-plugin-sentry",
+    ],
+    "typescript.tsdk": "root/node_modules/typescript/lib"
+  },
+}
