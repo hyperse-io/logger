@@ -30,6 +30,7 @@
     "package.json"
   ],
   "scripts": {
+    "console": "yarn node --import=@hyperse/ts-node/register ./tests/console.ts",
     "build:client": "tsup --config ./tsup.config.ts",
     "build": "rimraf dist && tsc -p ./tsconfig.build.json && yarn build:client && npm run minify",
     "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
@@ -44,7 +45,10 @@
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@hyperse/logger": "workspace:*"
+    "@hyperse/config-loader": "^1.0.5",
+    "@hyperse/logger": "workspace:*",
+    "figures": "^6.1.0",
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
     "@hyperse/eslint-config-hyperse": "^1.4.5",

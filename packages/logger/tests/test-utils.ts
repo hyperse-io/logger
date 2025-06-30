@@ -1,12 +1,26 @@
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import { LogLevel } from '../src/constant/log-level.js';
+import type { LoggerMessage } from '../src/types/type-plugin.js';
 
-/**
- * Get the directory name of a file
- * @param url - The URL of the file
- * @param paths - The paths to join with the directory name
- * @returns The directory name
- */
-export const getDirname = (url: string, ...paths: string[]) => {
-  return join(dirname(fileURLToPath(url)), ...paths);
+export const setUpForTest = (
+  ctx: any,
+  level: LogLevel,
+  message: LoggerMessage
+) => {
+  switch (level) {
+    case LogLevel.Error:
+      console.error(ctx.name, ctx.pluginName, level, message);
+      break;
+    case LogLevel.Warn:
+      console.warn(ctx.name, ctx.pluginName, level, message);
+      break;
+    case LogLevel.Debug:
+      console.debug(ctx.name, ctx.pluginName, level, message);
+      break;
+    case LogLevel.Info:
+      console.info(ctx.name, ctx.pluginName, level, message);
+      break;
+    case LogLevel.Verbose:
+      console.log(ctx.name, ctx.pluginName, level, message);
+      break;
+  }
 };

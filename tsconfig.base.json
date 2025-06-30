@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
+    "moduleResolution": "nodenext",
     "outDir": "dist"
   },
   "exclude": ["**/node_modules", "**/.*/"]

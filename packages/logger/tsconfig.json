@@ -2,14 +2,13 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "allowJs": false,
     "noImplicitAny": true,
     "noEmit": false,
     "incremental": true,
-    "paths": {
-    },
-    "types": ["vitest/globals"]
+    "paths": {},
+    "types": ["vitest/globals", "node"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["**/node_modules", "**/.*/", "dist", "build"]
