@@ -53,8 +53,8 @@ export class Logger<
     setup?: () => DeepPartial<Context> | Promise<DeepPartial<Context>>
   ) => {
     this.pipeline.use(async (ctx, next) => {
-      const finalCtx = await executeFunction(setup);
-      ctx.ctx = mergeOptions(ctx.ctx, finalCtx || {});
+      const dynamicCtx = await executeFunction(setup);
+      ctx.ctx = mergeOptions(ctx.ctx, dynamicCtx || {});
       next();
     });
   };
