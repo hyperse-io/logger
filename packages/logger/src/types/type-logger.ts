@@ -1,5 +1,4 @@
-import type { LoggerMessage } from '@hyperse/logger-common';
-import type { LogLevel } from '@hyperse/logger-common';
+import type { LoggerMessage, LogLevel } from '@hyperse/logger-common';
 import type { LoggerPlugin } from './type-logger-plugin.js';
 
 export type LoggerContext = {

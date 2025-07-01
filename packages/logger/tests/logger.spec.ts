@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LogLevel, sleep } from '@hyperse/logger-common';
 import { createLogger } from '../src/core/create-logger.js';
 import type { LoggerContext } from '../src/index.js';
