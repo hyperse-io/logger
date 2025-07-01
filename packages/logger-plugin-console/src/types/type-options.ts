@@ -3,7 +3,13 @@ import type { Color } from './type-color.js';
 
 export type ConsoleOptions = {
   /**
-   * Show logger name
+   * If true, the plugin will be disabled
+   * @default false
+   */
+  disable?: boolean;
+
+  /**
+   * If true, the logger name will be shown
    * @default false
    */
   showLoggerName?: boolean;
@@ -15,7 +21,7 @@ export type ConsoleOptions = {
   capitalizeLoggerName?: boolean;
 
   /**
-   * Show plugin name
+   * If true, the plugin name will be shown
    * @default false
    */
   showPluginName?: boolean;
@@ -27,8 +33,8 @@ export type ConsoleOptions = {
   capitalizePluginName?: boolean;
 
   /**
-   * Show prefix
-   * @default false
+   * If true, the prefix will be shown
+   * @default true
    */
   showPrefix?: boolean;
 

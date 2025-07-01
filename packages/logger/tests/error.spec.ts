@@ -6,7 +6,7 @@ import { sleep } from './test-utils.js';
 describe('Logger Error Handling', () => {
   it('should handle errors thrown by plugins during log execution', async () => {
     const consolePlugin = definePlugin({
-      name: 'consolePlugin',
+      pluginName: 'consolePlugin',
       execute(options) {
         throw new Error('console plugin error ' + options.message);
       },
@@ -21,7 +21,7 @@ describe('Logger Error Handling', () => {
     });
 
     const logger = createLogger<NewLoggerContext>({
-      level: LogLevel.Verbose,
+      thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
       errorHandling: errorHandlingMock,

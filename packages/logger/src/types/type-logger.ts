@@ -4,7 +4,7 @@ import type { LoggerMessage } from './type-message.js';
 
 export type LoggerContext<Context extends object = object> = Context & {
   name: string;
-  level: LogLevel;
+  thresholdLevel: LogLevel;
 };
 
 export type LoggerPluginList<

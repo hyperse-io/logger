@@ -5,5 +5,5 @@ export const isLoggable = (
   ctx: LoggerContext<ConsolePluginContext>,
   level: LogLevel
 ) => {
-  return ctx.level >= level;
+  return ctx.thresholdLevel >= level;
 };

@@ -1,8 +1,8 @@
-import type { LoggerMessage } from '../src/index.js';
+import type { LoggerMessage, LoggerPluginContext } from '../src/index.js';
 import { LogLevel } from '../src/index.js';
 
-export const setUpForTest = (
-  ctx: any,
+export const setUpForTest = <Context extends object>(
+  ctx: LoggerPluginContext<Context>,
   level: LogLevel,
   message: LoggerMessage
 ) => {

@@ -1,5 +1,4 @@
 import { createLogger } from '../src/core/create-logger.js';
-import type { LoggerContext } from '../src/index.js';
 import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
 import { sleep } from './test-utils.js';
@@ -9,7 +8,7 @@ describe('Logger Context Setup', () => {
     const executeMock = vi.fn(({ _ctx, _priority, _message }) => {});
 
     const consolePlugin = definePlugin({
-      name: 'consolePlugin',
+      pluginName: 'consolePlugin',
       execute: executeMock,
     });
 
@@ -18,7 +17,7 @@ describe('Logger Context Setup', () => {
     };
 
     const logger = createLogger<NewLoggerContext>({
-      level: LogLevel.Verbose,
+      thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
       setup: () => {
@@ -53,14 +52,14 @@ describe('Logger Context Setup', () => {
     };
 
     const consolePlugin = definePlugin<NewLoggerContext>({
-      name: 'consolePlugin',
-      execute: ({ ctx, priority, message }) => {
-        executeMock({ ctx, priority, message });
+      pluginName: 'consolePlugin',
+      execute: ({ ctx, level, message }) => {
+        executeMock({ ctx, level, message });
       },
     });
 
     const logger = createLogger<NewLoggerContext>({
-      level: LogLevel.Verbose,
+      thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
       setup: async () => {

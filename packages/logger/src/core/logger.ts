@@ -35,7 +35,7 @@ export class Logger<
   private pipeline: Pipeline<{
     ctx: LoggerContext<Context>;
     message: Message;
-    priority: LogLevel;
+    level: LogLevel;
   }> = new Pipeline();
 
   constructor(
@@ -49,7 +49,7 @@ export class Logger<
     const { setup, errorHandling, ...ctx } = options || {};
     const defaultCtx = {
       name: defaultLoggerName,
-      level: defaultLogLevel,
+      thresholdLevel: defaultLogLevel,
     } as LoggerContext<Context>;
     this.ctx = mergeOptions<LoggerContext<Context>>(defaultCtx, {
       ...(ctx || {}),
@@ -70,12 +70,17 @@ export class Logger<
     });
   };
 
+  /**
+   * Registers a Logger plugin into the logging pipeline.
+   * @param plugin LoggerPlugin instance to be used in the pipeline
+   * @returns this, for chaining
+   */
   public use(plugin: LoggerPlugin<LoggerContext<Context>, Message>) {
     this.pipeline.use(async (ctx, next) => {
-      const { priority, message, ctx: pluginCtx } = ctx;
+      const { level, message, ctx: pluginCtx } = ctx;
       const options = {
-        ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.name },
-        priority: priority,
+        ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.pluginName },
+        level: level,
         message: message,
         pipe: pipe,
         exitPipe: exitPipe,
@@ -88,6 +93,12 @@ export class Logger<
     return this;
   }
 
+  /**
+   * Builds the Logger and returns an object with common logging methods
+   * (debug, info, warn, error, verbose). Also registers error handling logic
+   * at the end of the pipeline.
+   * @returns An object containing only the logging methods
+   */
   public build(): Pick<
     BaseLogger<LoggerContext<Context>, Message>,
     'debug' | 'info' | 'warn' | 'error' | 'verbose'
@@ -101,43 +112,63 @@ export class Logger<
     return this;
   }
 
+  /**
+   * Logs a message at debug level.
+   * @param message The log message
+   */
   public debug(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
       message: message,
-      priority: LogLevel.Debug,
+      level: LogLevel.Debug,
     });
   }
 
+  /**
+   * Logs a message at info level.
+   * @param message The log message
+   */
   public info(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
       message: message,
-      priority: LogLevel.Info,
+      level: LogLevel.Info,
     });
   }
 
+  /**
+   * Logs a message at warn level.
+   * @param message The log message
+   */
   public warn(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
       message: message,
-      priority: LogLevel.Warn,
+      level: LogLevel.Warn,
     });
   }
 
+  /**
+   * Logs a message at error level.
+   * @param message The log message
+   */
   public error(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
       message: message,
-      priority: LogLevel.Error,
+      level: LogLevel.Error,
     });
   }
 
+  /**
+   * Logs a message at verbose level.
+   * @param message The log message
+   */
   public verbose(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
       message: message,
-      priority: LogLevel.Verbose,
+      level: LogLevel.Verbose,
     });
   }
 }

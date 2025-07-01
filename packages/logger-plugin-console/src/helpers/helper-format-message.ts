@@ -11,11 +11,11 @@ import { strTimePad } from './helper-str-pad.js';
 
 export const formatMessage = (formatOptions: {
   ctx: LoggerPluginContext<ConsolePluginContext>;
-  priority: LogLevel;
+  level: LogLevel;
   inputMessage: ConsolePluginMessage;
   options: Required<ConsoleOptions>;
 }) => {
-  const { ctx, priority, inputMessage, options } = formatOptions;
+  const { ctx, level, inputMessage, options } = formatOptions;
   const { name: loggerName, pluginName } = ctx;
   const { message, name: messageName, stack, prefix } = inputMessage;
   const {
@@ -38,7 +38,7 @@ export const formatMessage = (formatOptions: {
 
   const time = new Date();
   let output = '';
-  const levelData = normalizeLevelData(priority, options);
+  const levelData = normalizeLevelData(level, options);
 
   const color = getColorApplier('COLOR', levelData.color, noColor);
   const decorate = getColorApplier('DECORATION', levelData.color, noColor);

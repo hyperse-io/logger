@@ -28,7 +28,7 @@ export function simpleDeepClone<T extends string | number | any[] | object>(
   let output: any;
   let i: number | string;
   // handle case: array
-  if (input instanceof Array) {
+  if (Array.isArray(input)) {
     let l;
     output = [] as any[];
     for (i = 0, l = input.length; i < l; i++) {
@@ -42,8 +42,7 @@ export function simpleDeepClone<T extends string | number | any[] | object>(
   // handle case: object
   output = {};
   for (i in input) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (input.hasOwnProperty(i)) {
+    if (Object.prototype.hasOwnProperty.call(input, i)) {
       output[i] = simpleDeepClone((input as any)[i]);
     }
   }

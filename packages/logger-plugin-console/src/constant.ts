@@ -15,6 +15,7 @@ export const defaultLoggerNameColor: Color[] = ['bold', 'cyan'];
 export const defaultPluginNameColor: Color[] = ['bold', 'cyan'];
 
 export const defaultConfig: Required<ConsoleOptions> = {
+  disable: false,
   showTimestamp: true,
   showLoggerName: false,
   capitalizeLoggerName: false,

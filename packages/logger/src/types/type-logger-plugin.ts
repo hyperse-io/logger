@@ -17,14 +17,14 @@ export interface LoggerPlugin<
   Context extends object,
   Message extends LoggerMessage,
 > {
-  name: string;
+  pluginName: string;
   execute(options: {
     ctx: LoggerPluginContext<Context>;
     pipe: typeof pipe;
     exitPipe: typeof exitPipe;
     pipeContext: typeof pipeContext;
     isExitPipeValue: typeof isExitPipeValue;
-    priority: LogLevel;
+    level: LogLevel;
     message: Message;
   }): void | Promise<void>;
 }

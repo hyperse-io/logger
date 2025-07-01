@@ -12,17 +12,14 @@ import type {
 export const createConsolePlugin = (options?: ConsoleOptions) => {
   const newOptions = mergeConsoleOptions(options);
   return definePlugin<ConsolePluginContext, ConsolePluginMessage | string>({
-    name: 'hps-logger-plugin-console',
-    execute: async ({ ctx, priority, message, pipe, exitPipe }) => {
+    pluginName: 'hps-logger-plugin-console',
+    execute: async ({ ctx, level, message, pipe, exitPipe }) => {
       await pipe(
         () => {
-          if (!isLoggable(ctx, priority)) {
-            return exitPipe('priority is too low');
+          const { disable } = newOptions;
+          if (disable || !isLoggable(ctx, level)) {
+            return exitPipe('level is too low');
           }
-          return;
-        },
-        () => {
-          //ensure message is object
           return {
             inputMessage: assertMessage(message),
           };
@@ -30,7 +27,7 @@ export const createConsolePlugin = (options?: ConsoleOptions) => {
         ({ inputMessage }) => {
           const formatOptions = {
             ctx,
-            priority,
+            level,
             inputMessage,
             options: newOptions,
           };

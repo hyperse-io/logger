@@ -4,7 +4,7 @@ import { createConsolePlugin } from '../src/create-console-plugin.js';
 
 const logger = createLogger({
   name: 'hps-logger',
-  level: LogLevel.Verbose,
+  thresholdLevel: LogLevel.Verbose,
 })
   .use(createConsolePlugin({}))
   .build();

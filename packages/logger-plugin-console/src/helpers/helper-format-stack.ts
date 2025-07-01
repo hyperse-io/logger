@@ -1,6 +1,9 @@
 import { terminalColor } from './helper-color-applier.js';
 
 function parseStack(stack: string) {
+  if (!stack || typeof stack !== 'string') {
+    return [];
+  }
   const lines = stack
     .split('\n')
     .splice(1)

@@ -29,9 +29,9 @@ describe('Logger Basic Functionality', () => {
 
   it('should log messages with single plugin', async () => {
     const consolePlugin = definePlugin({
-      name: 'consolePlugin',
-      execute({ ctx, priority, message }) {
-        setUpForTest(ctx, priority, message);
+      pluginName: 'consolePlugin',
+      execute({ ctx, level, message }) {
+        setUpForTest(ctx, level, message);
       },
     });
 
@@ -40,7 +40,7 @@ describe('Logger Basic Functionality', () => {
     };
 
     const logger = createLogger<NewLoggerContext>({
-      level: LogLevel.Verbose,
+      thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
     })
@@ -64,16 +64,16 @@ describe('Logger Basic Functionality', () => {
 
   it('should log messages with multiple plugins', async () => {
     const consolePlugin = definePlugin({
-      name: 'consolePlugin',
-      execute({ ctx, priority, message }) {
-        setUpForTest(ctx, priority, message);
+      pluginName: 'consolePlugin',
+      execute({ ctx, level, message }) {
+        setUpForTest(ctx, level, message);
       },
     });
 
     const terminalPlugin = definePlugin({
-      name: 'terminalPlugin',
-      execute({ ctx, priority, message }) {
-        setUpForTest(ctx, priority, message);
+      pluginName: 'terminalPlugin',
+      execute({ ctx, level, message }) {
+        setUpForTest(ctx, level, message);
       },
     });
 
@@ -82,7 +82,7 @@ describe('Logger Basic Functionality', () => {
     };
 
     const logger = createLogger<NewLoggerContext>({
-      level: LogLevel.Verbose,
+      thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
     })
@@ -115,15 +115,15 @@ describe('Logger Basic Functionality', () => {
     });
 
     const consolePlugin = definePlugin<NewLoggerContext>({
-      name: 'consolePlugin',
-      execute({ ctx, priority, message, pipe }) {
+      pluginName: 'consolePlugin',
+      execute({ ctx, level, message, pipe }) {
         pipe(
           (ctx: LoggerContext<NewLoggerContext>) => ctx,
           (ctx) => {
             if (typeof message === 'string') {
-              return `ctx: ${ctx.name} ${ctx.env} ${priority} ${message}`;
+              return `ctx: ${ctx.name} ${ctx.env} ${level} ${message}`;
             }
-            return `${message.prefix} ctx: ${ctx.name} ${ctx.env} ${priority} ${message.name} ${message.message}`;
+            return `${message.prefix} ctx: ${ctx.name} ${ctx.env} ${level} ${message.name} ${message.message}`;
           },
           (msg) => {
             executeMock(msg);
@@ -133,7 +133,7 @@ describe('Logger Basic Functionality', () => {
     });
 
     const logger = createLogger<NewLoggerContext>({
-      level: LogLevel.Verbose,
+      thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
     })

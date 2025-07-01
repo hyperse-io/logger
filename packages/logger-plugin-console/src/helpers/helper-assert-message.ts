@@ -4,11 +4,12 @@ export const assertMessage = <T extends LoggerMessageObject>(
   message: T | string
 ): T => {
   if (typeof message === 'string') {
-    return {
+    const newMessage = {
       message: message,
       name: undefined,
       stack: undefined,
-    } as T;
+    };
+    return newMessage as T;
   }
   return message;
 };
