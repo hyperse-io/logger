@@ -1,5 +1,5 @@
-import { LogLevel } from '../src/constant/log-level.js';
-import type { LoggerMessage } from '../src/types/type-plugin.js';
+import type { LoggerMessage } from '@hyperse/logger-common';
+import { LogLevel } from '@hyperse/logger-common';
 
 export const setUpForTest = (
   ctx: any,

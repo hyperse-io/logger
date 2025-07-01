@@ -1,12 +1,15 @@
-import type { LoggerContext } from '../types/type-logger-builder.js';
-import type { LoggerMessage } from '../types/type-plugin.js';
-import { LoggerBuilder } from './logger-builder.js';
+import type { DeepPartial, LoggerMessage } from '@hyperse/logger-common';
+import type { LoggerContext } from '../types/type-logger.js';
+import { Logger } from './logger.js';
 
 export const createLogger = <
   Context extends LoggerContext = LoggerContext,
   Message extends LoggerMessage = LoggerMessage,
 >(
-  context?: Omit<Context, 'name'> & { name?: string }
-): LoggerBuilder<Context, Message> => {
-  return new LoggerBuilder<Context, Message>(context);
+  options?: Context & {
+    setup?: () => DeepPartial<Context> | Promise<DeepPartial<Context>>;
+    errorHandling?: (error: Error) => void;
+  }
+) => {
+  return new Logger<Context, Message>(options);
 };

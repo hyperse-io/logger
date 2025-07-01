@@ -1,2 +1,2 @@
-export * from './type-logger-builder.js';
-export * from './type-plugin.js';
+export * from './type-logger.js';
+export * from './type-logger-plugin.js';

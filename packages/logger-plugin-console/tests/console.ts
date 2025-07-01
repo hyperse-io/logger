@@ -1,7 +1,9 @@
-import { createLogger, LogLevel } from '@hyperse/logger';
+import { createLogger } from '@hyperse/logger';
+import { LogLevel } from '@hyperse/logger-common';
 import { createConsolePlugin } from '../src/create-console-plugin.js';
 
 const logger = createLogger({
+  name: 'test',
   level: LogLevel.Verbose,
 })
   .use(createConsolePlugin({ showTimestamp: true }))

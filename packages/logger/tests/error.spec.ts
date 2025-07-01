@@ -1,16 +1,15 @@
 import { describe, expect, it, vi } from 'vitest';
-import { LogLevel } from '../src/constant/log-level.js';
+import { LogLevel, sleep } from '@hyperse/logger-common';
 import { createLogger } from '../src/core/create-logger.js';
 import type { LoggerContext } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
-import type { LoggerMessage } from '../src/types/type-plugin.js';
 
-describe('error logger', () => {
-  it('throw error when execute error log', async () => {
+describe('Logger Error Handling', () => {
+  it('should handle errors thrown by plugins during log execution', async () => {
     const consolePlugin = definePlugin({
       name: 'consolePlugin',
-      setup() {
-        throw new Error('console plugin error');
+      execute(options) {
+        throw new Error('console plugin error ' + options.message);
       },
     });
 
@@ -18,45 +17,42 @@ describe('error logger', () => {
       env: 'node' | 'browser';
     };
 
-    const setupMock = vi.fn((_: any, __: any, message: LoggerMessage) => {
-      console.log('error message', message.name, message.message);
+    const errorHandlingMock = vi.fn((error: Error) => {
+      console.log('errorHandling: ', error.message);
     });
-
-    const mockErrorLogger = {
-      name: 'errorPlugin',
-      setup: setupMock,
-    };
-    vi.spyOn(
-      await import('../src/helpers/helper-error-logger.js'),
-      'createErrorLogger'
-    ).mockReturnValue(mockErrorLogger);
 
     const logger = createLogger<NewLoggerContext>({
       level: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
+      errorHandling: errorHandlingMock,
     })
       .use(consolePlugin)
       .build();
 
-    await logger.info('info message');
-    await logger.debug('debug message');
-    await logger.verbose('verbose message');
-    await logger.warn('warn message');
-    await logger.error('error message');
+    logger.info('info message');
+    logger.debug('debug message');
+    logger.verbose('verbose message');
+    logger.warn('warn message');
+    logger.error('error message');
 
-    expect(setupMock).toHaveBeenCalledTimes(5);
-    expect(setupMock.mock.lastCall?.[0]).toMatchObject({
-      env: 'node',
-      level: LogLevel.Verbose,
-      name: 'sampleLogger',
-      pluginName: 'errorPlugin',
-    });
-    expect(setupMock.mock.lastCall?.[1]).toEqual(LogLevel.Error);
-    expect(setupMock.mock.lastCall?.[2]).toMatchObject({
-      name: 'Error',
-      message: 'console plugin error',
-      stack: expect.any(String),
-    });
+    await sleep(100);
+
+    expect(errorHandlingMock).toHaveBeenCalledTimes(5);
+    expect(errorHandlingMock.mock.calls[0][0].message).toEqual(
+      'console plugin error info message'
+    );
+    expect(errorHandlingMock.mock.calls[1][0].message).toEqual(
+      'console plugin error debug message'
+    );
+    expect(errorHandlingMock.mock.calls[2][0].message).toEqual(
+      'console plugin error verbose message'
+    );
+    expect(errorHandlingMock.mock.calls[3][0].message).toEqual(
+      'console plugin error warn message'
+    );
+    expect(errorHandlingMock.mock.calls[4][0].message).toEqual(
+      'console plugin error error message'
+    );
   });
 });

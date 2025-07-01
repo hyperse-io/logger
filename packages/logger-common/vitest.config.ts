@@ -6,15 +6,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@hyperse/logger': getDirname(import.meta.url, '../logger/src/index.ts'),
-      '@hyperse/logger-common': getDirname(
-        import.meta.url,
-        '../logger-common/src/index.ts'
-      ),
     },
   },
   test: {
     globals: true,
-    testTimeout: 100000,
     exclude: [...configDefaults.exclude],
     include: ['**/?(*.){test,spec}.?(c|m)[jt]s?(x)'],
   },

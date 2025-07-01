@@ -1,4 +1,4 @@
-import { LogLevel } from './log-level.js';
+import { LogLevel } from '@hyperse/logger-common';
 
 export const defaultLoggerName = 'hps-logger';
 

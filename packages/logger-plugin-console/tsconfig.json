@@ -7,7 +7,8 @@
     "noEmit": false,
     "incremental": true,
     "paths": {
-      "@hyperse/logger": ["../logger/src/index.ts"]
+      "@hyperse/logger": ["../logger/src/index.ts"],
+      "@hyperse/logger-common": ["../logger-common/src/index.ts"]
     },
     "types": ["vitest/globals"]
   },

@@ -1,15 +1,29 @@
-import type { LogLevel } from '@hyperse/logger';
-import { type LoggerContext } from '@hyperse/logger';
-import { definePlugin, type LoggerMessage } from '@hyperse/logger';
-import { createFormatter } from './helpers/helper-formatter.js';
+import { definePlugin } from '@hyperse/logger';
+import { assertMessage } from './helpers/helper-assert-message.js';
+import { formatMessage } from './helpers/helper-format-message.js';
+import { mergeConsoleOptions } from './helpers/helper-merge-optons.js';
 import type { ConsoleOptions } from './types/type-options.js';
+import type {
+  ConsolePluginContext,
+  ConsolePluginMessage,
+} from './types/type-plugin.js';
 
 export const createConsolePlugin = (options?: ConsoleOptions) => {
-  return definePlugin({
+  const newOptions = mergeConsoleOptions(options);
+  return definePlugin<ConsolePluginContext, ConsolePluginMessage>({
     name: 'console',
-    setup: (ctx: LoggerContext, level: LogLevel, message: LoggerMessage) => {
-      const formatter = createFormatter(ctx, level, options);
-      formatter.print(message);
+    execute: async ({ ctx, priority, message, pipe }) => {
+      await pipe(
+        () => {
+          return assertMessage(message);
+        },
+        (message) => {
+          return formatMessage(ctx, priority, message, newOptions);
+        },
+        (message) => {
+          console.log(message);
+        }
+      )();
     },
   });
 };

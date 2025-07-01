@@ -1,11 +1,11 @@
 {
-  "name": "@hyperse/logger",
+  "name": "@hyperse/logger-common",
   "version": "0.0.1",
   "homepage": "https://github.com/hyperse-io/logger",
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperse-io/logger",
-    "directory": "packages/logger"
+    "directory": "packages/logger-common"
   },
   "author": {
     "name": "Hyperse",
@@ -42,10 +42,6 @@
     "test-coverage": "vitest run --coverage",
     "test-unit-watch": "vitest watch --ui",
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
-  },
-  "dependencies": {
-    "@hyperse/logger-common": "workspace:*",
-    "@hyperse/pipeline": "^1.0.6"
   },
   "devDependencies": {
     "@hyperse/eslint-config-hyperse": "^1.4.5",
