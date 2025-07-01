@@ -1,4 +1,4 @@
-import { mergeOptions } from '@hyperse/config-loader';
+import { mergeOptions } from '@hyperse/logger';
 import { defaultConfig } from '../constant.js';
 import type { ConsoleOptions } from '../types/type-options.js';
 

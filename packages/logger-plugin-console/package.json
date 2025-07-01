@@ -45,10 +45,7 @@
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@hyperse/config-loader": "^1.0.5",
     "@hyperse/logger": "workspace:*",
-    "@hyperse/logger-common": "workspace:*",
-    "figures": "^6.1.0",
     "picocolors": "^1.1.1"
   },
   "devDependencies": {

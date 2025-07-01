@@ -1,3 +1,2 @@
-export const demoCore = () => {
-  console.log('demoCore');
-};
+export * from './create-console-plugin.js';
+export * from './types/index.js';

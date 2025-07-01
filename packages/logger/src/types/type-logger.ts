@@ -1,7 +1,8 @@
-import type { LoggerMessage, LogLevel } from '@hyperse/logger-common';
+import type { LogLevel } from '../constant/log-level.js';
 import type { LoggerPlugin } from './type-logger-plugin.js';
+import type { LoggerMessage } from './type-message.js';
 
-export type LoggerContext = {
+export type LoggerContext<Context extends object = object> = Context & {
   name: string;
   level: LogLevel;
 };

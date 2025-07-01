@@ -1,5 +1,5 @@
-import type { LoggerMessage } from '@hyperse/logger-common';
-import { LogLevel } from '@hyperse/logger-common';
+import type { LoggerMessage } from '../src/index.js';
+import { LogLevel } from '../src/index.js';
 
 export const setUpForTest = (
   ctx: any,
@@ -24,3 +24,9 @@ export const setUpForTest = (
       break;
   }
 };
+
+export async function sleep(ms = 1000) {
+  return await new Promise<void>((resolver) => {
+    setTimeout(resolver, ms);
+  });
+}

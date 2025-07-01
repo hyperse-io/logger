@@ -1,14 +1,14 @@
-import type { ConsolePluginMessage } from '../types/type-plugin.js';
+import type { LoggerMessageObject } from '@hyperse/logger';
 
-export const assertMessage = (
-  message: ConsolePluginMessage | string
-): ConsolePluginMessage => {
+export const assertMessage = <T extends LoggerMessageObject>(
+  message: T | string
+): T => {
   if (typeof message === 'string') {
     return {
-      message,
+      message: message,
       name: undefined,
       stack: undefined,
-    };
+    } as T;
   }
   return message;
 };

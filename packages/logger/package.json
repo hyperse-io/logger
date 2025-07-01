@@ -44,7 +44,6 @@
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@hyperse/logger-common": "workspace:*",
     "@hyperse/pipeline": "^1.0.6"
   },
   "devDependencies": {

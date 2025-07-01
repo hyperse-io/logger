@@ -1,4 +1,4 @@
-import { LogLevel } from '@hyperse/logger-common';
+import { LogLevel } from '@hyperse/logger';
 import type { Color } from './types/type-color.js';
 import type { ConsoleOptions } from './types/type-options.js';
 
@@ -11,20 +11,24 @@ export const defaultLevelColor: Record<LogLevel, Color[]> = {
 };
 
 export const defaultPrefixColor: Color[] = ['bold', 'magenta'];
+export const defaultLoggerNameColor: Color[] = ['bold', 'cyan'];
+export const defaultPluginNameColor: Color[] = ['bold', 'cyan'];
 
 export const defaultConfig: Required<ConsoleOptions> = {
-  showTimestamp: false,
+  showTimestamp: true,
   showLoggerName: false,
+  capitalizeLoggerName: false,
   showPluginName: false,
-  showPrefix: false,
-  showLevelName: false,
-  capitalizeLevelName: false,
+  capitalizePluginName: false,
+  showPrefix: true,
+  showLevelName: true,
+  capitalizeLevelName: true,
   showDate: false,
-  showMonthBeforeDay: false,
-  showRelativeTimestamp: false,
-  showTimestampRelativeToLastLog: false,
-  use24HourClock: false,
+  use24HourClock: true,
+  showArrow: false,
   noColor: false,
   levelColor: defaultLevelColor,
   prefixColor: defaultPrefixColor,
+  loggerNameColor: defaultLoggerNameColor,
+  pluginNameColor: defaultPluginNameColor,
 };

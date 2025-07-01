@@ -1,4 +1,4 @@
-import colors from 'picocolors';
+import { terminalColor } from './helper-color-applier.js';
 
 function parseStack(stack: string) {
   const lines = stack
@@ -11,10 +11,5 @@ function parseStack(stack: string) {
 
 export const formatStack = (stack: string) =>
   `\n${parseStack(stack)
-    .map(
-      (line) =>
-        `  ${line.replace(/^at ([\s\S]+) \((.+)\)/, (_, m1, m2) =>
-          colors.gray(`at ${m1} (${colors.cyan(m2)})`)
-        )}`
-    )
+    .map((line) => `  ${terminalColor(['red'])(line)}`)
     .join('\n')}`;

@@ -1,1 +1,0 @@
-# @hyperse/logger-common

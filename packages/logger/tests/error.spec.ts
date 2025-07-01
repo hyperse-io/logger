@@ -1,7 +1,7 @@
-import { LogLevel, sleep } from '@hyperse/logger-common';
 import { createLogger } from '../src/core/create-logger.js';
-import type { LoggerContext } from '../src/index.js';
+import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
+import { sleep } from './test-utils.js';
 
 describe('Logger Error Handling', () => {
   it('should handle errors thrown by plugins during log execution', async () => {
@@ -12,7 +12,7 @@ describe('Logger Error Handling', () => {
       },
     });
 
-    type NewLoggerContext = LoggerContext & {
+    type NewLoggerContext = {
       env: 'node' | 'browser';
     };
 

@@ -1,81 +1,145 @@
-import type { LogLevel } from '@hyperse/logger-common';
-import { defaultLevelColor } from '../constant.js';
+import type { LoggerPluginContext, LogLevel } from '@hyperse/logger';
 import type { ConsoleOptions } from '../types/type-options.js';
 import type {
   ConsolePluginContext,
   ConsolePluginMessage,
 } from '../types/type-plugin.js';
+import { getColorApplier, terminalColor } from './helper-color-applier.js';
 import { formatStack } from './helper-format-stack.js';
-import { getColorApplier } from './helper-get-color-applier.js';
+import { normalizeLevelData } from './helper-normalize-level.js';
+import { strTimePad } from './helper-str-pad.js';
 
-export const formatMessage = (
-  ctx: ConsolePluginContext,
-  level: LogLevel,
-  inputMessage: ConsolePluginMessage,
-  options: Required<ConsoleOptions>
-) => {
-  const time = new Date();
+export const formatMessage = (formatOptions: {
+  ctx: LoggerPluginContext<ConsolePluginContext>;
+  priority: LogLevel;
+  inputMessage: ConsolePluginMessage;
+  options: Required<ConsoleOptions>;
+}) => {
+  const { ctx, priority, inputMessage, options } = formatOptions;
   const { name: loggerName, pluginName } = ctx;
-  const { message, name, stack, prefix } = inputMessage;
+  const { message, name: messageName, stack, prefix } = inputMessage;
   const {
     showLoggerName,
+    capitalizeLoggerName,
     showPluginName,
+    capitalizePluginName,
     showPrefix,
     showLevelName,
     capitalizeLevelName,
     showDate,
-    showMonthBeforeDay,
-    showRelativeTimestamp,
     showTimestamp,
-    showTimestampRelativeToLastLog,
     use24HourClock,
+    showArrow,
     noColor,
-    levelColor,
     prefixColor,
+    loggerNameColor,
+    pluginNameColor,
   } = options;
 
-  const currentLevelColor = levelColor[level] ?? defaultLevelColor[level];
+  const time = new Date();
+  let output = '';
+  const levelData = normalizeLevelData(priority, options);
 
-  const color = getColorApplier('COLOR', currentLevelColor, noColor);
-  const decorate = getColorApplier('DECORATION', currentLevelColor, noColor);
+  const color = getColorApplier('COLOR', levelData.color, noColor);
+  const decorate = getColorApplier('DECORATION', levelData.color, noColor);
+  const context: string[] = [];
 
-  const levelContext: string[] = [];
-  // Should add context if we have.
+  // date and timestamp
+  if (showDate || showTimestamp) {
+    output += '[';
+    if (showDate) {
+      output += color(
+        ' ' +
+          decorate(
+            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`
+          ) +
+          ' '
+      );
+    }
+
+    if (showDate && showTimestamp) {
+      output += '|';
+    }
+
+    if (showTimestamp) {
+      const hours = time.getHours();
+
+      output += color(
+        ' ' +
+          decorate(
+            `${strTimePad(
+              use24HourClock || !(hours >= 13 || hours === 0)
+                ? hours
+                : Math.abs(hours - 12)
+            )}:${strTimePad(time.getMinutes())}:${strTimePad(time.getSeconds())}`
+          ) +
+          ' ' +
+          (use24HourClock ? '' : decorate(hours >= 13 ? 'PM' : 'AM') + ' ')
+      );
+    }
+
+    output += '] ';
+  }
+
+  // level name
+  if (showLevelName) {
+    output +=
+      '[ ' +
+      color(
+        capitalizeLevelName ? levelData.name.toUpperCase() : levelData.name
+      ) +
+      ' ] ';
+  }
+
+  // prefix
   if (showPrefix && prefix) {
     const ctxColor = getColorApplier('COLOR', prefixColor, noColor);
-    levelContext.push(' ' + ctxColor(prefix.toUpperCase()) + ' ');
+    context.push(' ' + ctxColor(prefix.toUpperCase()) + ' ');
   }
 
-  // Should look like: [ ERROR ] or [ error ]
-  if (showLevelName) {
-    // levelContext.push(
-    //   color(
-    //     ' ' +
-    //       decorate(
-    //         capitalizeLevelName ? level.name.toUpperCase() : level.name
-    //       ) +
-    //       ' '
-    //   )
-    // );
+  // logger name
+  if (showLoggerName && loggerName) {
+    const ctxColor = getColorApplier('COLOR', loggerNameColor, noColor);
+    context.push(
+      ' ' +
+        ctxColor(capitalizeLoggerName ? loggerName.toUpperCase() : loggerName) +
+        ' '
+    );
   }
 
-  let messageStr = ``;
-
-  if (showLoggerName) {
-    messageStr += `[${name}] `;
+  // plugin name
+  if (showPluginName && pluginName) {
+    const ctxColor = getColorApplier('COLOR', pluginNameColor, noColor);
+    context.push(
+      ' ' +
+        ctxColor(capitalizePluginName ? pluginName.toUpperCase() : pluginName) +
+        ' '
+    );
   }
 
-  if (showTimestamp) {
-    messageStr += `${new Date().toISOString()} `;
+  // level context
+  if (context.length) {
+    output += '[' + context.join(':') + '] ';
   }
-  if (name) {
-    messageStr += `${color(name)}: `;
+
+  // arrow
+  if (showArrow) {
+    output += ` ${terminalColor(['bold'])('>>')} `;
   }
+
+  // message name
+  if (messageName) {
+    output += `${messageName} `;
+  }
+
+  // message
   if (message) {
-    messageStr += `${color(JSON.stringify(message))} `;
+    output += `${message} `;
   }
+
+  // stack
   if (stack) {
-    messageStr += `${color(formatStack(stack))}`;
+    output += `${formatStack(stack)}`;
   }
-  return messageStr;
+  return output;
 };

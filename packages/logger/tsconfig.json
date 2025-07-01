@@ -6,9 +6,7 @@
     "noImplicitAny": true,
     "noEmit": false,
     "incremental": true,
-    "paths": {
-      "@hyperse/logger-common": ["../logger-common/src/index.ts"]
-    },
+    "paths": {},
     "types": ["vitest/globals"]
   },
   "include": ["**/*.ts", "**/*.tsx"],

@@ -1,7 +1,8 @@
-import { LogLevel, sleep } from '@hyperse/logger-common';
 import { createLogger } from '../src/core/create-logger.js';
 import type { LoggerContext } from '../src/index.js';
+import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
+import { sleep } from './test-utils.js';
 
 describe('Logger Context Setup', () => {
   it('should merge context with setup function result', async () => {
@@ -12,7 +13,7 @@ describe('Logger Context Setup', () => {
       execute: executeMock,
     });
 
-    type NewLoggerContext = LoggerContext & {
+    type NewLoggerContext = {
       env: 'node' | 'browser';
     };
 
@@ -45,16 +46,18 @@ describe('Logger Context Setup', () => {
   it('should merge context with async setup function result', async () => {
     const executeMock = vi.fn(({ _ctx, _priority, _message }) => {});
 
-    const consolePlugin = definePlugin({
-      name: 'consolePlugin',
-      execute: executeMock,
-    });
-
-    type NewLoggerContext = LoggerContext & {
+    type NewLoggerContext = {
       env: 'node' | 'browser';
       platform?: 'android' | 'ios';
       agent?: string;
     };
+
+    const consolePlugin = definePlugin<NewLoggerContext>({
+      name: 'consolePlugin',
+      execute: ({ ctx, priority, message }) => {
+        executeMock({ ctx, priority, message });
+      },
+    });
 
     const logger = createLogger<NewLoggerContext>({
       level: LogLevel.Verbose,

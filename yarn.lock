@@ -2656,19 +2656,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperse/config-loader@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@hyperse/config-loader@npm:1.0.5"
-  dependencies:
-    "@hyperse/unplugin-swc": "npm:^1.0.1"
-    "@manypkg/get-packages": "npm:^3.0.0"
-    "@swc/core": "npm:^1.11.31"
-    cosmiconfig: "npm:^9.0.0"
-    get-tsconfig: "npm:^4.10.1"
-  checksum: 10c0/8dfc3e2ce7afab43f8f82b6f45e9162a607e720617b7f53dd10287392db004e9ecc3f1fdaf8d41caec2466550c6e1585e8abc4c554cfb586b1fe1f4719231b0a
-  languageName: node
-  linkType: hard
-
 "@hyperse/eslint-config-hyperse@npm:^1.4.5":
   version: 1.4.5
   resolution: "@hyperse/eslint-config-hyperse@npm:1.4.5"
@@ -2701,24 +2688,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperse/logger-common@workspace:*, @hyperse/logger-common@workspace:packages/logger-common":
-  version: 0.0.0-use.local
-  resolution: "@hyperse/logger-common@workspace:packages/logger-common"
-  dependencies:
-    "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
-    "@types/node": "npm:^24.0.4"
-    "@vitest/coverage-istanbul": "npm:^3.2.4"
-    "@vitest/ui": "npm:^3.2.4"
-    eslint: "npm:^9.29.0"
-    jsdom: "npm:26.1.0"
-    npm-run-all: "npm:4.1.5"
-    rimraf: "npm:^6.0.1"
-    tsup: "npm:^8.5.0"
-    typescript: "npm:^5.8.3"
-    vitest: "npm:^3.2.4"
-  languageName: unknown
-  linkType: soft
-
 "@hyperse/logger-monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@hyperse/logger-monorepo@workspace:."
@@ -2744,15 +2713,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperse/logger-plugin-console@workspace:packages/logger-plugin-console"
   dependencies:
-    "@hyperse/config-loader": "npm:^1.0.5"
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
     "@hyperse/logger": "workspace:*"
-    "@hyperse/logger-common": "workspace:*"
     "@types/node": "npm:^24.0.4"
     "@vitest/coverage-istanbul": "npm:^3.2.4"
     "@vitest/ui": "npm:^3.2.4"
     eslint: "npm:^9.29.0"
-    figures: "npm:^6.1.0"
     jsdom: "npm:26.1.0"
     npm-run-all: "npm:4.1.5"
     picocolors: "npm:^1.1.1"
@@ -2824,7 +2790,6 @@ __metadata:
   resolution: "@hyperse/logger@workspace:packages/logger"
   dependencies:
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
-    "@hyperse/logger-common": "workspace:*"
     "@hyperse/pipeline": "npm:^1.0.6"
     "@types/node": "npm:^24.0.4"
     "@vitest/coverage-istanbul": "npm:^3.2.4"
@@ -2871,21 +2836,6 @@ __metadata:
     package-up: "npm:^5.0.0"
     tsconfig-paths: "npm:^4.2.0"
   checksum: 10c0/505ec6695e4faad15fc179d755412ed781b5be2cdbcbab0b6a358a77dbd86c046ead522cebb6f3239732f6e0005b12627407561e92c0ba76588838e93e478c5e
-  languageName: node
-  linkType: hard
-
-"@hyperse/unplugin-swc@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@hyperse/unplugin-swc@npm:1.0.1"
-  dependencies:
-    "@rollup/pluginutils": "npm:^5.1.4"
-    defu: "npm:^6.1.4"
-    get-tsconfig: "npm:^4.10.1"
-    path-exists: "npm:^5.0.0"
-    unplugin: "npm:^2.3.5"
-  peerDependencies:
-    "@swc/core": ">=1.3.42"
-  checksum: 10c0/e081fbc0890e25fe113b2f86dd07ebb2f7b403baa6d8ce59b607ba149377e422bd6178ef0667a35fc3b4aef2f487355e5d802664e748bb7300a3cb22ea51bd63
   languageName: node
   linkType: hard
 
@@ -3238,15 +3188,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@manypkg/find-root@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@manypkg/find-root@npm:3.0.0"
-  dependencies:
-    "@manypkg/tools": "npm:^2.0.0"
-  checksum: 10c0/51bd0bb63dbb0822356f14329772e1baf716ae0be56724f984592f06a79b312562f833422590cf3f35b89d41f969e41b07b9111a85b9c0f79c82c9abf9e7468c
-  languageName: node
-  linkType: hard
-
 "@manypkg/get-packages@npm:^1.1.3":
   version: 1.1.3
   resolution: "@manypkg/get-packages@npm:1.1.3"
@@ -3258,27 +3199,6 @@ __metadata:
     globby: "npm:^11.0.0"
     read-yaml-file: "npm:^1.1.0"
   checksum: 10c0/f05907d1174ae28861eaa06d0efdc144f773d9a4b8b65e1e7cdc01eb93361d335351b4a336e05c6aac02661be39e8809a3f7ad28bc67b6b338071434ab442130
-  languageName: node
-  linkType: hard
-
-"@manypkg/get-packages@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@manypkg/get-packages@npm:3.0.0"
-  dependencies:
-    "@manypkg/find-root": "npm:^3.0.0"
-    "@manypkg/tools": "npm:^2.0.0"
-  checksum: 10c0/bacbb484d4a1c9ec1e19704953786b51d7ebe3ceeace7a17ff1408a26893aa37262ccf60b193a3a35a073e6c46f1eb63c994120bc7d4f5b97c4517ff147b47b5
-  languageName: node
-  linkType: hard
-
-"@manypkg/tools@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@manypkg/tools@npm:2.0.0"
-  dependencies:
-    jju: "npm:^1.4.0"
-    js-yaml: "npm:^4.1.0"
-    tinyglobby: "npm:^0.2.13"
-  checksum: 10c0/ac2e45e648846b4edd170e1d4efa5c3b7a9df2cb7758fc21bcfea8e1b73c0b05df4d65dbd0275502c71b69efded431967aed61dd9a34f634faad7c4112077ebd
   languageName: node
   linkType: hard
 
@@ -5131,22 +5051,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^5.1.4":
-  version: 5.2.0
-  resolution: "@rollup/pluginutils@npm:5.2.0"
-  dependencies:
-    "@types/estree": "npm:^1.0.0"
-    estree-walker: "npm:^2.0.2"
-    picomatch: "npm:^4.0.2"
-  peerDependencies:
-    rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-  peerDependenciesMeta:
-    rollup:
-      optional: true
-  checksum: 10c0/794890d512751451bcc06aa112366ef47ea8f9125dac49b1abf72ff8b079518b09359de9c60a013b33266541634e765ae61839c749fae0edb59a463418665c55
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-android-arm-eabi@npm:4.44.1":
   version: 4.44.1
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.44.1"
@@ -5476,7 +5380,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.11.29, @swc/core@npm:^1.11.31":
+"@swc/core@npm:^1.11.29":
   version: 1.12.7
   resolution: "@swc/core@npm:1.12.7"
   dependencies:
@@ -6628,7 +6532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.0.0, acorn@npm:^8.14.0, acorn@npm:^8.14.1, acorn@npm:^8.15.0, acorn@npm:^8.5.0, acorn@npm:^8.9.0":
+"acorn@npm:^8.0.0, acorn@npm:^8.14.0, acorn@npm:^8.15.0, acorn@npm:^8.5.0, acorn@npm:^8.9.0":
   version: 8.15.0
   resolution: "acorn@npm:8.15.0"
   bin:
@@ -8312,13 +8216,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"defu@npm:^6.1.4":
-  version: 6.1.4
-  resolution: "defu@npm:6.1.4"
-  checksum: 10c0/2d6cc366262dc0cb8096e429368e44052fdf43ed48e53ad84cc7c9407f890301aa5fcb80d0995abaaf842b3949f154d060be4160f7a46cb2bc2f7726c81526f5
-  languageName: node
-  linkType: hard
-
 "delaunator@npm:5":
   version: 5.0.1
   resolution: "delaunator@npm:5.0.1"
@@ -9241,13 +9138,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-walker@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "estree-walker@npm:2.0.2"
-  checksum: 10c0/53a6c54e2019b8c914dc395890153ffdc2322781acf4bd7d1a32d7aedc1710807bdcd866ac133903d5629ec601fbb50abe8c2e5553c7f5a0afdd9b6af6c945af
-  languageName: node
-  linkType: hard
-
 "estree-walker@npm:^3.0.0, estree-walker@npm:^3.0.3":
   version: 3.0.3
   resolution: "estree-walker@npm:3.0.3"
@@ -9447,15 +9337,6 @@ __metadata:
   dependencies:
     escape-string-regexp: "npm:^1.0.5"
   checksum: 10c0/9c421646ede432829a50bc4e55c7a4eb4bcb7cc07b5bab2f471ef1ab9a344595bbebb6c5c21470093fbb730cd81bbca119624c40473a125293f656f49cb47629
-  languageName: node
-  linkType: hard
-
-"figures@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "figures@npm:6.1.0"
-  dependencies:
-    is-unicode-supported: "npm:^2.0.0"
-  checksum: 10c0/9159df4264d62ef447a3931537de92f5012210cf5135c35c010df50a2169377581378149abfe1eb238bd6acbba1c0d547b1f18e0af6eee49e30363cedaffcfe4
   languageName: node
   linkType: hard
 
@@ -10942,13 +10823,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-unicode-supported@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "is-unicode-supported@npm:2.1.0"
-  checksum: 10c0/a0f53e9a7c1fdbcf2d2ef6e40d4736fdffff1c9f8944c75e15425118ff3610172c87bf7bc6c34d3903b04be59790bb2212ddbe21ee65b5a97030fc50370545a5
-  languageName: node
-  linkType: hard
-
 "is-utf8@npm:^0.2.1":
   version: 0.2.1
   resolution: "is-utf8@npm:0.2.1"
@@ -11122,13 +10996,6 @@ __metadata:
   bin:
     jiti: lib/jiti-cli.mjs
   checksum: 10c0/4ceac133a08c8faff7eac84aabb917e85e8257f5ad659e843004ce76e981c457c390a220881748ac67ba1b940b9b729b30fb85cbaf6e7989f04b6002c94da331
-  languageName: node
-  linkType: hard
-
-"jju@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "jju@npm:1.4.0"
-  checksum: 10c0/f3f444557e4364cfc06b1abf8331bf3778b26c0c8552ca54429bc0092652172fdea26cbffe33e1017b303d5aa506f7ede8571857400efe459cb7439180e2acad
   languageName: node
   linkType: hard
 
@@ -16038,7 +15905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinyglobby@npm:^0.2.11, tinyglobby@npm:^0.2.12, tinyglobby@npm:^0.2.13, tinyglobby@npm:^0.2.14":
+"tinyglobby@npm:^0.2.11, tinyglobby@npm:^0.2.12, tinyglobby@npm:^0.2.14":
   version: 0.2.14
   resolution: "tinyglobby@npm:0.2.14"
   dependencies:
@@ -16673,17 +16540,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unplugin@npm:^2.3.5":
-  version: 2.3.5
-  resolution: "unplugin@npm:2.3.5"
-  dependencies:
-    acorn: "npm:^8.14.1"
-    picomatch: "npm:^4.0.2"
-    webpack-virtual-modules: "npm:^0.6.2"
-  checksum: 10c0/42d172be9b52cc139c69a8baefab6c44e99d7fbdafb9e5738348bc60f6c1302b9913543641f69b76bb07c6ff7d01fde3d8a67c9d3d7a976cc17d972c1ff88081
-  languageName: node
-  linkType: hard
-
 "update-browserslist-db@npm:^1.1.3":
   version: 1.1.3
   resolution: "update-browserslist-db@npm:1.1.3"
@@ -17092,13 +16948,6 @@ __metadata:
   version: 7.0.0
   resolution: "webidl-conversions@npm:7.0.0"
   checksum: 10c0/228d8cb6d270c23b0720cb2d95c579202db3aaf8f633b4e9dd94ec2000a04e7e6e43b76a94509cdb30479bd00ae253ab2371a2da9f81446cc313f89a4213a2c4
-  languageName: node
-  linkType: hard
-
-"webpack-virtual-modules@npm:^0.6.2":
-  version: 0.6.2
-  resolution: "webpack-virtual-modules@npm:0.6.2"
-  checksum: 10c0/5ffbddf0e84bf1562ff86cf6fcf039c74edf09d78358a6904a09bbd4484e8bb6812dc385fe14330b715031892dcd8423f7a88278b57c9f5002c84c2860179add
   languageName: node
   linkType: hard
 

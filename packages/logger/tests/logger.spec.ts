@@ -1,8 +1,8 @@
-import { LogLevel, sleep } from '@hyperse/logger-common';
 import { createLogger } from '../src/core/create-logger.js';
 import type { LoggerContext } from '../src/index.js';
+import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
-import { setUpForTest } from './test-utils.js';
+import { setUpForTest, sleep } from './test-utils.js';
 
 describe('Logger Basic Functionality', () => {
   let mockConsoleLog: ReturnType<typeof vi.spyOn>;
@@ -35,7 +35,7 @@ describe('Logger Basic Functionality', () => {
       },
     });
 
-    type NewLoggerContext = LoggerContext & {
+    type NewLoggerContext = {
       env: 'node' | 'browser';
     };
 
@@ -106,7 +106,7 @@ describe('Logger Basic Functionality', () => {
   });
 
   it('should log messages with multiple plugins pipeline', async () => {
-    type NewLoggerContext = LoggerContext & {
+    type NewLoggerContext = {
       env: 'node' | 'browser';
     };
 
@@ -118,7 +118,7 @@ describe('Logger Basic Functionality', () => {
       name: 'consolePlugin',
       execute({ ctx, priority, message, pipe }) {
         pipe(
-          (ctx: NewLoggerContext) => ctx,
+          (ctx: LoggerContext<NewLoggerContext>) => ctx,
           (ctx) => {
             if (typeof message === 'string') {
               return `ctx: ${ctx.name} ${ctx.env} ${priority} ${message}`;

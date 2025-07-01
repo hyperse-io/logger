@@ -1,9 +1,8 @@
-import type { LoggerMessage } from '@hyperse/logger-common';
-import type { LoggerContext } from '../types/type-logger.js';
+import type { LoggerMessage } from '../types/index.js';
 import type { LoggerPlugin } from '../types/type-logger-plugin.js';
 
 type DefineConfigFn = <
-  Context extends LoggerContext = LoggerContext,
+  Context extends object = object,
   Message extends LoggerMessage = LoggerMessage,
 >(
   plugin: LoggerPlugin<Context, Message>

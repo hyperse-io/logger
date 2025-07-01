@@ -1,6 +1,7 @@
 import { definePlugin } from '@hyperse/logger';
 import { assertMessage } from './helpers/helper-assert-message.js';
 import { formatMessage } from './helpers/helper-format-message.js';
+import { isLoggable } from './helpers/helper-is-loggable.js';
 import { mergeConsoleOptions } from './helpers/helper-merge-optons.js';
 import type { ConsoleOptions } from './types/type-options.js';
 import type {
@@ -10,18 +11,36 @@ import type {
 
 export const createConsolePlugin = (options?: ConsoleOptions) => {
   const newOptions = mergeConsoleOptions(options);
-  return definePlugin<ConsolePluginContext, ConsolePluginMessage>({
-    name: 'console',
-    execute: async ({ ctx, priority, message, pipe }) => {
+  return definePlugin<ConsolePluginContext, ConsolePluginMessage | string>({
+    name: 'hps-logger-plugin-console',
+    execute: async ({ ctx, priority, message, pipe, exitPipe }) => {
       await pipe(
         () => {
-          return assertMessage(message);
+          if (!isLoggable(ctx, priority)) {
+            return exitPipe('priority is too low');
+          }
+          return;
         },
-        (message) => {
-          return formatMessage(ctx, priority, message, newOptions);
+        () => {
+          //ensure message is object
+          return {
+            inputMessage: assertMessage(message),
+          };
         },
-        (message) => {
-          console.log(message);
+        ({ inputMessage }) => {
+          const formatOptions = {
+            ctx,
+            priority,
+            inputMessage,
+            options: newOptions,
+          };
+          const outputMessage = formatMessage(formatOptions);
+          return {
+            outputMessage,
+          };
+        },
+        ({ outputMessage }) => {
+          console.log(outputMessage);
         }
       )();
     },
