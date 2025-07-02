@@ -42,13 +42,13 @@ export type ConsoleOptions = {
    *
    * `[ FATAL ] WHAT WILL I DO?!`
    *
-   * @default false
+   * @default true
    */
   showLevelName?: boolean;
 
   /**
    * If true, the level name will be capitalized
-   * @default false
+   * @default true
    */
   capitalizeLevelName?: boolean;
 
@@ -64,7 +64,7 @@ export type ConsoleOptions = {
    * If true, each message logged to the terminal will have a timestamp corresponding to the exact time the message was logged.
    *
    * `[ 13:43:10.23 ] bar`
-   * @default false
+   * @default true
    */
   showTimestamp?: boolean;
 
@@ -78,7 +78,7 @@ export type ConsoleOptions = {
    * ### **12 hour clock:**
    *
    * `[ 1:27:55.33 PM ] pow`
-   * @default false
+   * @default true
    */
   use24HourClock?: boolean;
 
