@@ -10,7 +10,10 @@ import { LogLevel } from '../constant/log-level.js';
 import { executeFunction } from '../helpers/helper-execute-fun.js';
 import { mergeOptions } from '../helpers/helper-merge-options.js';
 import { simpleDeepClone } from '../helpers/helper-simple-deep-clone.js';
-import type { BaseLogger, LoggerContext } from '../types/type-logger.js';
+import type {
+  Logger as BaseLogger,
+  LoggerContext,
+} from '../types/type-logger.js';
 import type { LoggerPlugin } from '../types/type-logger-plugin.js';
 import type { LoggerMessage } from '../types/type-message.js';
 import type { DeepPartial } from '../types/type-partial-deep.js';

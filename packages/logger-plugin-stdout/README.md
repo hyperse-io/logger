@@ -130,13 +130,13 @@ If `true`, each message will have the level name attached to it.
 [ VERBOSE ] Verbose information
 ```
 
-- **Default**: `false`
+- **Default**: `true`
 
 ### `capitalizeLevelName?: boolean`
 
 If `true`, the level name will be capitalized.
 
-- **Default**: `false`
+- **Default**: `true`
 
 ### `showDate?: boolean`
 
@@ -160,7 +160,7 @@ If `true`, each message will have a timestamp attached to it.
 [ 13:43:10.23 ] bar
 ```
 
-- **Default**: `false`
+- **Default**: `true`
 
 ### `use24HourClock?: boolean`
 
@@ -178,7 +178,7 @@ If `true`, timestamps will use 24-hour format instead of 12-hour format.
 [ 1:27:55.33 PM ] pow
 ```
 
-- **Default**: `false`
+- **Default**: `true`
 
 ### `showArrow?: boolean`
 

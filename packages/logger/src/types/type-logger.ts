@@ -12,15 +12,15 @@ export type LoggerPluginList<
   Message extends LoggerMessage,
 > = Array<LoggerPlugin<Context, Message>>;
 
-export interface BaseLogger<
-  Context extends LoggerContext,
-  Message extends LoggerMessage,
+export interface Logger<
+  Context extends LoggerContext = LoggerContext,
+  Message extends LoggerMessage = LoggerMessage,
 > {
   use: (
     ...plugins: LoggerPlugin<Context, Message>[]
-  ) => Pick<BaseLogger<Context, Message>, 'use' | 'build'>;
+  ) => Pick<Logger<Context, Message>, 'use' | 'build'>;
   build: () => Pick<
-    BaseLogger<Context, Message>,
+    Logger<Context, Message>,
     'debug' | 'info' | 'warn' | 'error' | 'verbose'
   >;
   debug: (message: Message) => void;
