@@ -14,7 +14,7 @@ describe('createConsolePlugin', () => {
     mockConsoleLog.mockRestore();
   });
 
-  it('logs string message when disable is true', async () => {
+  it('does not log when plugin is disabled', async () => {
     const logger = createLogger({
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
