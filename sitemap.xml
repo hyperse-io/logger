@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://nextra.site/docs/advanced/customize-the-cascade-layers</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/tailwind-css</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/typescript</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/custom-css</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/about</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/table</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/twoslash</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/image</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/github-alert-syntax</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/markdown</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/search</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/static-exports</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/link</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/turbopack</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/showcase</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/latex</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/mermaid</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/advanced/npm2yarn</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/i18n</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://nextra.site/docs/guide/syntax-highlighting</loc><lastmod>2025-06-17T03:14:19.264Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+</urlset>
