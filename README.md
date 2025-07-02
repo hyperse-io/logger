@@ -5,7 +5,7 @@
   <a aria-label="Build" href="https://github.com/hyperse-io/logger/actions?query=workflow%3ACI">
     <img alt="build" src="https://img.shields.io/github/actions/workflow/status/hyperse-io/logger/ci-integrity.yml?branch=main&label=ci&logo=github&style=flat-quare&labelColor=000000" />
   </a>
-  <a aria-label="stable version" href="https://www.npmjs.com/package/hyperse-io/logger">
+  <a aria-label="stable version" href="https://www.npmjs.com/package/@hyperse/logger">
     <img alt="stable version" src="https://img.shields.io/npm/v/%40hyperse%2Flogger?branch=main&label=version&logo=npm&style=flat-quare&labelColor=000000" />
   </a>
   <a aria-label="Top language" href="https://github.com/hyperse-io/logger/search?l=typescript">
@@ -132,7 +132,7 @@ const consolePlugin = createConsolePlugin();
 
 #### Std Plugin (`@hyperse/logger-plugin-std`)
 
-A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich terminal output with customizable formatting, colors, and timestamps. This plugin is designed specifically for Node.js environments and outputs to
+A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich terminal output with customizable formatting, colors, and timestamps. This plugin is designed specifically for Node.js environments and outputs to stdout/stderr.
 
 **Features:**
 

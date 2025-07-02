@@ -2,7 +2,7 @@ import { definePlugin } from '@hyperse/logger';
 import { assertMessage } from './helpers/helper-assert-message.js';
 import { formatMessage } from './helpers/helper-format-message.js';
 import { isLoggable } from './helpers/helper-is-loggable.js';
-import { mergeConsoleOptions } from './helpers/helper-merge-optons.js';
+import { mergeConsoleOptions } from './helpers/helper-merge-options.js';
 import type { ConsoleOptions } from './types/type-options.js';
 import type {
   ConsolePluginContext,
