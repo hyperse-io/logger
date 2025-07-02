@@ -1,26 +1,12 @@
 import { createLogger } from '@hyperse/logger';
 import { LogLevel } from '@hyperse/logger';
-import { createConsolePlugin } from '../src/create-console-plugin.js';
+import { createStdoutPlugin } from '../src/create-stdout-plugin.js';
 
 const logger = createLogger({
   name: 'hps-logger',
   thresholdLevel: LogLevel.Verbose,
 })
-  .use(
-    createConsolePlugin({
-      showTimestamp: true,
-      showLoggerName: true,
-      capitalizeLoggerName: true,
-      showPluginName: true,
-      capitalizePluginName: true,
-      showPrefix: true,
-      showLevelName: true,
-      capitalizeLevelName: true,
-      showDate: true,
-      use24HourClock: true,
-      showArrow: true,
-    })
-  )
+  .use(createStdoutPlugin())
   .build();
 
 logger.info('info message');

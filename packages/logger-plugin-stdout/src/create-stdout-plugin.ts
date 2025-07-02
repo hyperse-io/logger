@@ -2,20 +2,27 @@ import { definePlugin } from '@hyperse/logger';
 import { assertMessage } from './helpers/helper-assert-message.js';
 import { formatMessage } from './helpers/helper-format-message.js';
 import { isLoggable } from './helpers/helper-is-loggable.js';
-import { mergeConsoleOptions } from './helpers/helper-merge-options.js';
-import type { ConsoleOptions } from './types/type-options.js';
+import { mergeStdOptions } from './helpers/helper-merge-options.js';
+import type { StdoutOptions } from './types/type-options.js';
 import type {
-  ConsolePluginContext,
-  ConsolePluginMessage,
+  StdoutPluginContext,
+  StdoutPluginMessage,
 } from './types/type-plugin.js';
 
-export const createConsolePlugin = (options?: ConsoleOptions) => {
-  const newOptions = mergeConsoleOptions(options);
-  return definePlugin<ConsolePluginContext, ConsolePluginMessage | string>({
-    pluginName: 'hps-logger-plugin-console',
+export const createStdoutPlugin = (options?: StdoutOptions) => {
+  const newOptions = mergeStdOptions(options);
+  return definePlugin<StdoutPluginContext, StdoutPluginMessage | string>({
+    pluginName: 'hps-logger-plugin-stdout',
     execute: async ({ ctx, level, message, pipe, exitPipe }) => {
       await pipe(
         () => {
+          // Check if we're in a Node.js environment
+          if (
+            typeof process === 'undefined' ||
+            typeof process.stdout === 'undefined'
+          ) {
+            return exitPipe('This plugin requires Node.js environment');
+          }
           const { disable } = newOptions;
           if (disable || !isLoggable(ctx, level)) {
             return exitPipe('This level is too low');
@@ -37,7 +44,7 @@ export const createConsolePlugin = (options?: ConsoleOptions) => {
           };
         },
         ({ outputMessage }) => {
-          console.log(...outputMessage);
+          process.stdout.write(outputMessage);
         }
       )();
     },

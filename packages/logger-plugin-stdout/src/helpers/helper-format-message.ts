@@ -1,19 +1,19 @@
 import type { LoggerPluginContext, LogLevel } from '@hyperse/logger';
-import type { ConsoleOptions } from '../types/type-options.js';
+import type { StdoutOptions } from '../types/type-options.js';
 import type {
-  ConsolePluginContext,
-  ConsolePluginMessage,
+  StdoutPluginContext,
+  StdoutPluginMessage,
 } from '../types/type-plugin.js';
-import { colorApplier } from './helper-color-applier.js';
+import { getColorApplier, terminalColor } from './helper-color-applier.js';
 import { formatStack } from './helper-format-stack.js';
 import { normalizeLevelData } from './helper-normalize-level.js';
 import { strTimePad } from './helper-str-pad.js';
 
 export const formatMessage = (formatOptions: {
-  ctx: LoggerPluginContext<ConsolePluginContext>;
+  ctx: LoggerPluginContext<StdoutPluginContext>;
   level: LogLevel;
-  inputMessage: ConsolePluginMessage;
-  options: Required<ConsoleOptions>;
+  inputMessage: StdoutPluginMessage;
+  options: Required<StdoutOptions>;
 }) => {
   const { ctx, level, inputMessage, options } = formatOptions;
   const { name: loggerName, pluginName } = ctx;
@@ -38,26 +38,23 @@ export const formatMessage = (formatOptions: {
 
   const time = new Date();
   let output = '';
-  const { color: levelColor, name: levelName } = normalizeLevelData(
-    level,
-    options
-  );
+  const levelData = normalizeLevelData(level, options);
 
-  const color = colorApplier(noColor);
+  const color = getColorApplier('COLOR', levelData.color, noColor);
+  const decorate = getColorApplier('DECORATION', levelData.color, noColor);
   const context: string[] = [];
-  const colors: string[] = [];
 
   // date and timestamp
   if (showDate || showTimestamp) {
     output += '[';
     if (showDate) {
-      output +=
+      output += color(
         ' ' +
-        color(
-          `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`
-        ) +
-        ' ';
-      colors.push(levelColor, 'color:inherit;');
+          decorate(
+            `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`
+          ) +
+          ' '
+      );
     }
 
     if (showDate && showTimestamp) {
@@ -67,18 +64,18 @@ export const formatMessage = (formatOptions: {
     if (showTimestamp) {
       const hours = time.getHours();
 
-      output +=
+      output += color(
         ' ' +
-        color(
-          `${strTimePad(
-            use24HourClock || !(hours >= 13 || hours === 0)
-              ? hours
-              : Math.abs(hours - 12)
-          )}:${strTimePad(time.getMinutes())}:${strTimePad(time.getSeconds())}` +
-            ' ' +
-            (use24HourClock ? '' : (hours >= 13 ? 'PM' : 'AM') + ' ')
-        );
-      colors.push(levelColor, 'color:inherit;');
+          decorate(
+            `${strTimePad(
+              use24HourClock || !(hours >= 13 || hours === 0)
+                ? hours
+                : Math.abs(hours - 12)
+            )}:${strTimePad(time.getMinutes())}:${strTimePad(time.getSeconds())}`
+          ) +
+          ' ' +
+          (use24HourClock ? '' : decorate(hours >= 13 ? 'PM' : 'AM') + ' ')
+      );
     }
 
     output += '] ';
@@ -88,35 +85,36 @@ export const formatMessage = (formatOptions: {
   if (showLevelName) {
     output +=
       '[ ' +
-      color(capitalizeLevelName ? levelName.toUpperCase() : levelName) +
+      color(
+        capitalizeLevelName ? levelData.name.toUpperCase() : levelData.name
+      ) +
       ' ] ';
-    colors.push(levelColor, 'color:inherit;');
   }
 
   // prefix
   if (showPrefix && prefix) {
-    context.push(' ' + color(prefix.toUpperCase()) + ' ');
-    colors.push(prefixColor, 'color:inherit;');
+    const ctxColor = getColorApplier('COLOR', prefixColor, noColor);
+    context.push(' ' + ctxColor(prefix.toUpperCase()) + ' ');
   }
 
   // logger name
   if (showLoggerName && loggerName) {
+    const ctxColor = getColorApplier('COLOR', loggerNameColor, noColor);
     context.push(
       ' ' +
-        color(capitalizeLoggerName ? loggerName.toUpperCase() : loggerName) +
+        ctxColor(capitalizeLoggerName ? loggerName.toUpperCase() : loggerName) +
         ' '
     );
-    colors.push(loggerNameColor, 'color:inherit;');
   }
 
   // plugin name
   if (showPluginName && pluginName) {
+    const ctxColor = getColorApplier('COLOR', pluginNameColor, noColor);
     context.push(
       ' ' +
-        color(capitalizePluginName ? pluginName.toUpperCase() : pluginName) +
+        ctxColor(capitalizePluginName ? pluginName.toUpperCase() : pluginName) +
         ' '
     );
-    colors.push(pluginNameColor, 'color:inherit;');
   }
 
   // level context
@@ -126,7 +124,7 @@ export const formatMessage = (formatOptions: {
 
   // arrow
   if (showArrow) {
-    output += ' >> ';
+    output += ` ${terminalColor(['bold'])('>>')} `;
   }
 
   // message name
@@ -141,12 +139,8 @@ export const formatMessage = (formatOptions: {
 
   // stack
   if (stack) {
-    output += color(formatStack(stack));
-    colors.push('color:red;', 'color:inherit;');
+    output += `${formatStack(stack)}`;
   }
 
-  if (noColor) {
-    return [output];
-  }
-  return [output, ...colors];
+  return output.endsWith('\n') ? output : output + '\n';
 };

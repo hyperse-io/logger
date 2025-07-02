@@ -1,11 +1,11 @@
 {
-  "name": "@hyperse/logger-plugin-console",
+  "name": "@hyperse/logger-plugin-stdout",
   "version": "0.0.1",
   "homepage": "https://github.com/hyperse-io/logger",
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperse-io/logger",
-    "directory": "packages/logger-plugin-console"
+    "directory": "packages/logger-plugin-stdout"
   },
   "author": {
     "name": "Hyperse",
@@ -30,7 +30,7 @@
     "package.json"
   ],
   "scripts": {
-    "console": "yarn node --import=@hyperse/ts-node/register ./tests/console.ts",
+    "stdout": "yarn node --import=@hyperse/ts-node/register ./tests/stdout.ts",
     "build:client": "tsup --config ./tsup.config.ts",
     "build": "rimraf dist && tsc -p ./tsconfig.build.json && yarn build:client",
     "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
@@ -44,7 +44,8 @@
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@hyperse/logger": "workspace:*"
+    "@hyperse/logger": "workspace:*",
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
     "@hyperse/eslint-config-hyperse": "^1.4.5",

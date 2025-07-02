@@ -1,18 +1,17 @@
 import { LogLevel } from '@hyperse/logger';
-import type { Color } from './types/type-color.js';
 import type { ConsoleOptions } from './types/type-options.js';
 
-export const defaultLevelColor: Record<LogLevel, Color[]> = {
-  [LogLevel.Error]: ['red'],
-  [LogLevel.Warn]: ['yellow'],
-  [LogLevel.Info]: ['green'],
-  [LogLevel.Debug]: ['blue'],
-  [LogLevel.Verbose]: ['magenta'],
+export const defaultLevelColor: Record<LogLevel, string> = {
+  [LogLevel.Error]: 'color:red;',
+  [LogLevel.Warn]: 'color:yellow;',
+  [LogLevel.Info]: 'color:blue;',
+  [LogLevel.Debug]: 'color:magenta;',
+  [LogLevel.Verbose]: 'color:magenta;',
 };
 
-export const defaultPrefixColor: Color[] = ['bold', 'magenta'];
-export const defaultLoggerNameColor: Color[] = ['bold', 'cyan'];
-export const defaultPluginNameColor: Color[] = ['bold', 'cyan'];
+export const defaultPrefixColor: string = 'color: magenta; font-weight: bold;';
+export const defaultLoggerNameColor: string = 'color: cyan; font-weight: bold;';
+export const defaultPluginNameColor: string = 'color: cyan; font-weight: bold;';
 
 export const defaultConfig: Required<ConsoleOptions> = {
   disable: false,

@@ -1,5 +1,4 @@
 import type { LoggerMessageObject } from '@hyperse/logger';
-
 export const assertMessage = (
   message: LoggerMessageObject | string
 ): LoggerMessageObject => {

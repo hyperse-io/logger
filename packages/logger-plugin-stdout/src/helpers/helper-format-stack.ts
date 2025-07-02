@@ -1,3 +1,5 @@
+import { terminalColor } from './helper-color-applier.js';
+
 function parseStack(stack: string) {
   if (!stack || typeof stack !== 'string') {
     return [];
@@ -12,5 +14,5 @@ function parseStack(stack: string) {
 
 export const formatStack = (stack: string) =>
   `\n${parseStack(stack)
-    .map((line) => `  ${line}`)
+    .map((line) => `  ${terminalColor(['red'])(line)}`)
     .join('\n')}`;

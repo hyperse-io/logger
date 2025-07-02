@@ -1,28 +1,28 @@
-# @hyperse/logger-plugin-console
+# @hyperse/logger-plugin-stdout
 
-A console plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich console output with customizable formatting, colors, and timestamps.
+A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich terminal output with customizable formatting, colors, and timestamps. This plugin is designed specifically for Node.js environments and outputs to `process.stdout`.
 
 ## Installation
 
 ```bash
-npm install @hyperse/logger-plugin-console
+npm install @hyperse/logger-plugin-stdout
 # or
-yarn add @hyperse/logger-plugin-console
+yarn add @hyperse/logger-plugin-stdout
 # or
-pnpm add @hyperse/logger-plugin-console
+pnpm add @hyperse/logger-plugin-stdout
 ```
 
 ## Quick Start
 
 ```typescript
 import { createLogger, LogLevel } from '@hyperse/logger';
-import { createConsolePlugin } from '@hyperse/logger-plugin-console';
+import { createStdoutPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger({
   name: 'my-app',
   thresholdLevel: LogLevel.Info,
 })
-  .use(createConsolePlugin())
+  .use(createStdoutPlugin())
   .build();
 
 logger.info('Hello, World!');
@@ -34,13 +34,13 @@ logger.error('Something went wrong');
 
 ```typescript
 import { createLogger, LogLevel } from '@hyperse/logger';
-import { createConsolePlugin } from '@hyperse/logger-plugin-console';
+import { createStdoutPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger({
   name: 'my-app',
   thresholdLevel: LogLevel.Debug,
 })
-  .use(createConsolePlugin())
+  .use(createStdoutPlugin())
   .build();
 
 // Simple messages
@@ -65,13 +65,13 @@ logger.error({
 
 ## API Reference
 
-### `createConsolePlugin(options?: ConsoleOptions)`
+### `createStdoutPlugin(options?: StdOptions)`
 
-Creates a console plugin instance with the specified options.
+Creates a standard output plugin instance with the specified options.
 
 #### Parameters
 
-- `options` (optional): Configuration options for the console plugin
+- `options` (optional): Configuration options for the std plugin
 
 #### Returns
 
@@ -194,43 +194,52 @@ If `true`, a cool arrow will be shown before each log message.
 
 ### `noColor?: boolean`
 
-If `true`, colors will be removed from the console output.
+If `true`, colors will be removed from the terminal output.
 
 - **Default**: `false`
 
-### `levelColor?: { [key in LogLevel]?: string }`
+### `levelColor?: { [key in LogLevel]?: Color[] }`
 
-Custom colors for different log levels.
+Custom colors for different log levels using picocolors.
 
 **Default:**
 
 ```typescript
 {
-  [LogLevel.Error]: 'color:red;',
-  [LogLevel.Warn]: 'color:yellow;',
-  [LogLevel.Info]: 'color:blue;',
-  [LogLevel.Debug]: 'color:magenta;',
-  [LogLevel.Verbose]: 'color:magenta;',
+  [LogLevel.Error]: ['red'],
+  [LogLevel.Warn]: ['yellow'],
+  [LogLevel.Info]: ['green'],
+  [LogLevel.Debug]: ['blue'],
+  [LogLevel.Verbose]: ['magenta'],
 }
 ```
 
-### `prefixColor?: string`
+**Available Colors:**
+
+- `'black'`, `'red'`, `'green'`, `'yellow'`, `'blue'`, `'magenta'`, `'cyan'`, `'white'`
+- `'gray'`, `'grey'`
+- `'blackBright'`, `'redBright'`, `'greenBright'`, `'yellowBright'`, `'blueBright'`, `'magentaBright'`, `'cyanBright'`, `'whiteBright'`
+- `'bgBlack'`, `'bgRed'`, `'bgGreen'`, `'bgYellow'`, `'bgBlue'`, `'bgMagenta'`, `'bgCyan'`, `'bgWhite'`
+- `'bgBlackBright'`, `'bgRedBright'`, `'bgGreenBright'`, `'bgYellowBright'`, `'bgBlueBright'`, `'bgMagentaBright'`, `'bgCyanBright'`, `'bgWhiteBright'`
+- `'bold'`, `'dim'`, `'italic'`, `'underline'`, `'inverse'`, `'hidden'`, `'strikethrough'`, `'reset'`
+
+### `prefixColor?: Color[]`
 
 The color for the prefix.
 
-- **Default**: `'color: magenta; font-weight: bold;'`
+- **Default**: `['bold', 'magenta']`
 
-### `loggerNameColor?: string`
+### `loggerNameColor?: Color[]`
 
 The color for the logger name.
 
-- **Default**: `'color: cyan; font-weight: bold;'`
+- **Default**: `['bold', 'magenta']`
 
-### `pluginNameColor?: string`
+### `pluginNameColor?: Color[]`
 
 The color for the plugin name.
 
-- **Default**: `'color: cyan; font-weight: bold;'`
+- **Default**: `['bold', 'magenta']`
 
 ## Examples
 
@@ -241,7 +250,7 @@ const logger = createLogger({
   name: 'app',
   thresholdLevel: LogLevel.Info,
 })
-  .use(createConsolePlugin())
+  .use(createStdoutPlugin())
   .build();
 ```
 
@@ -253,7 +262,7 @@ const logger = createLogger({
   thresholdLevel: LogLevel.Verbose,
 })
   .use(
-    createConsolePlugin({
+    createStdoutPlugin({
       disable: false,
       showTimestamp: true,
       showLoggerName: true,
@@ -268,54 +277,15 @@ const logger = createLogger({
       showArrow: true,
       noColor: false,
       levelColor: {
-        [LogLevel.Error]: 'color: #ff0000; font-weight: bold;',
-        [LogLevel.Warn]: 'color: #ffaa00; font-weight: bold;',
-        [LogLevel.Info]: 'color: #0066ff; font-weight: bold;',
-        [LogLevel.Debug]: 'color: #aa00ff; font-weight: bold;',
-        [LogLevel.Verbose]: 'color: #00aaff; font-weight: bold;',
+        [LogLevel.Error]: ['red', 'bold'],
+        [LogLevel.Warn]: ['yellow', 'bold'],
+        [LogLevel.Info]: ['green', 'bold'],
+        [LogLevel.Debug]: ['blue', 'bold'],
+        [LogLevel.Verbose]: ['magenta', 'bold'],
       },
-      prefixColor: 'color: #ff00ff; font-weight: bold;',
-      loggerNameColor: 'color: #00ffff; font-weight: bold;',
-      pluginNameColor: 'color: #ffff00; font-weight: bold;',
-    })
-  )
-  .build();
-```
-
-### Production Configuration
-
-```typescript
-const logger = createLogger({
-  name: 'production-app',
-  thresholdLevel: LogLevel.Info,
-})
-  .use(
-    createConsolePlugin({
-      showTimestamp: true,
-      showLoggerName: true,
-      showLevelName: true,
-      noColor: true, // Disable colors in production
-    })
-  )
-  .build();
-```
-
-### Development Configuration
-
-```typescript
-const logger = createLogger({
-  name: 'dev-app',
-  thresholdLevel: LogLevel.Verbose,
-})
-  .use(
-    createConsolePlugin({
-      showTimestamp: true,
-      showLoggerName: true,
-      showLevelName: true,
-      showArrow: true,
-      showDate: true,
-      use24HourClock: true,
-      // Keep colors enabled for better readability
+      prefixColor: ['bold', 'cyan'],
+      loggerNameColor: ['bold', 'blue'],
+      pluginNameColor: ['bold', 'green'],
     })
   )
   .build();
@@ -338,7 +308,7 @@ info message
 ### With Logger Name and Plugin
 
 ```
-[ 13:43:10 ] [ INFO ] [ MY-APP : HPS-LOGGER-PLUGIN-CONSOLE ] >> info message
+[ 13:43:10 ] [ INFO ] [ MY-APP : HPS-LOGGER-PLUGIN-STD ] >> info message
 ```
 
 ### With Prefix
@@ -356,7 +326,17 @@ Error: Connection failed
     at Server.start (/app/server.js:25:5)
 ```
 
-## Requirements
+## Environment Requirements
+
+This plugin is specifically designed for **Node.js environments** and requires:
 
 - Node.js >= 18.0.0
+- Access to `process.stdout` for output
 - `@hyperse/logger` as a peer dependency
+
+The plugin will automatically detect if it's running in a Node.js environment and will exit gracefully with an error message if used in a non-Node.js environment.
+
+## Dependencies
+
+- `@hyperse/logger` - Core logger functionality
+- `picocolors` - Terminal color support

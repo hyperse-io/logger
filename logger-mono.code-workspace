@@ -9,6 +9,10 @@
       "path": "packages/logger",
     },
     {
+      "name": "logger-plugin-stdout",
+      "path": "packages/logger-plugin-stdout",
+    },
+    {
       "name": "logger-plugin-console",
       "path": "packages/logger-plugin-console",
     },
@@ -68,6 +72,7 @@
     "eslint.workingDirectories": [
       "./website",
       "./packages/logger",
+      "./packages/logger-plugin-stdout",
       "./packages/logger-plugin-console",
       "./packages/logger-plugin-sentry",
     ],
