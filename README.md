@@ -15,7 +15,7 @@
     <img alt="Licence" src="https://img.shields.io/github/license/hyperse-io/logger?style=flat-quare&labelColor=000000" />
   </a>
 
-**A powerful, pluggable, and flexible type-safe logger.**
+**A powerful, pluggable, and flexible type-safe logger for modern applications.**
 
 </div>
 
@@ -28,6 +28,11 @@
 - **🛡️ TypeScript Support**: Full TypeScript support with comprehensive type definitions
 - **🚀 High Performance**: Optimized for production use with minimal overhead
 - **🔧 Flexible Configuration**: Easy setup with sensible defaults
+- **📝 Rich Message Formatting**: Support for structured logging with metadata
+- **🔄 Async Support**: Built-in support for asynchronous operations
+- **🛠️ Error Handling**: Comprehensive error handling and recovery mechanisms
+- **🎭 Multiple Output Formats**: Console, file, and custom output formats
+- **🔍 Debugging Tools**: Enhanced debugging capabilities with stack traces
 
 ## 📦 Installation
 
@@ -35,8 +40,9 @@
 # Install the core logger
 npm install @hyperse/logger
 
-# Install console plugin for basic console output
-npm install @hyperse/logger-plugin-console
+# Install plugins for different output formats
+npm install @hyperse/logger-plugin-console  # Console output with colors
+npm install @hyperse/logger-plugin-std      # Standard output formatting
 ```
 
 ## 🚀 Quick Start
@@ -97,23 +103,55 @@ logger.error('Database connection failed');
 
 ## 🔌 Plugin System
 
-Hyperse Logger uses a powerful plugin architecture that allows you to customize every aspect of the logging process.
+Hyperse Logger uses a powerful plugin architecture that allows you to customize every aspect of the logging process. Plugins can be combined to create sophisticated logging pipelines.
 
 ### Available Plugins
 
 #### Console Plugin (`@hyperse/logger-plugin-console`)
 
-Provides formatted console output with colors and timestamps.
+A console plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich console output with customizable formatting, colors, and timestamps.
+
+**Features:**
+
+- Support browser
+- Colored output for different log levels
+- Customizable timestamp formats
+- Configurable message formatting
+- Support for logger and plugin names
+- Prefix and metadata display
+
+**Quick Setup:**
 
 ```typescript
 import { createConsolePlugin } from '@hyperse/logger-plugin-console';
 
-const consolePlugin = createConsolePlugin({
-  showTimestamp: true, // Show timestamp
-  showLevelName: true, // Show log level name
-  noColor: false, // Enable color output
-});
+const consolePlugin = createConsolePlugin();
 ```
+
+📖 **[View detailed documentation →](./packages/logger-plugin-console/README.md)**
+
+#### Std Plugin (`@hyperse/logger-plugin-std`)
+
+A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich terminal output with customizable formatting, colors, and timestamps. This plugin is designed specifically for Node.js environments and outputs to
+
+**Features:**
+
+- Support node
+- Consistent output format
+- JSON-compatible formatting
+- Production-ready configuration
+- Structured logging support
+- Minimal overhead
+
+**Quick Setup:**
+
+```typescript
+import { createStdPlugin } from '@hyperse/logger-plugin-std';
+
+const stdPlugin = createStdPlugin();
+```
+
+📖 **[View detailed documentation →](./packages/logger-plugin-std/README.md)**
 
 ### Creating Custom Plugins
 
@@ -127,22 +165,38 @@ const filePlugin = definePlugin({
   execute: async ({ ctx, level, message, pipe }) => {
     await pipe(
       // Transform message format
-      (msg) => ({
+      () => ({
         timestamp: new Date().toISOString(),
         level: LogLevel[level],
-        message: msg,
+        message: message,
         context: ctx,
       }),
       // Write to file
       (logEntry) => {
         fs.appendFileSync('app.log', JSON.stringify(logEntry) + '\n');
       }
-    )(message);
+    )();
   },
 });
 
 // Use the custom plugin
 const logger = createLogger().use(filePlugin).build();
+```
+
+### Plugin Composition
+
+Combine multiple plugins for sophisticated logging setups:
+
+```typescript
+import { createLogger } from '@hyperse/logger';
+import { createConsolePlugin } from '@hyperse/logger-plugin-console';
+import { createStdPlugin } from '@hyperse/logger-plugin-std';
+
+const logger = createLogger()
+  .use(createConsolePlugin()) // Development output
+  .use(createStdPlugin()) // Production output
+  .use(customFilePlugin) // Custom file logging
+  .build();
 ```
 
 ## 📊 Log Levels
@@ -171,7 +225,7 @@ const logger = createLogger({
 
 ## 🎯 Message Types
 
-The logger supports both string and object messages:
+The logger supports both string and object messages with rich metadata:
 
 ### String Messages
 
@@ -186,12 +240,22 @@ logger.error('Error occurred');
 logger.info({
   name: 'user-login',
   message: 'User logged in successfully',
-  prefix: '[AUTH]',
-  metadata: {
-    userId: '12345',
-    method: 'email',
-  },
+  prefix: 'AUTH',
 });
+```
+
+### Error Objects
+
+```typescript
+try {
+  // Some operation
+} catch (error) {
+  logger.error({
+    name: error.name,
+    message: error.message,
+    stack: error.stack,
+  });
+}
 ```
 
 ## 🔧 Configuration Options
@@ -205,52 +269,11 @@ const logger = createLogger({
   setup: async () => ({
     // Dynamic context setup
     userId: getCurrentUserId(),
+    requestId: generateRequestId(),
   }),
   errorHandling: (error) => {
     // Error handling function
     console.error('Logger error:', error);
-  },
-});
-```
-
-### Console Plugin Options
-
-```typescript
-const consolePlugin = createConsolePlugin({
-  // ===== Basic Settings =====
-  disable: false, // Whether to disable the plugin
-  noColor: false, // Whether to remove all color output
-
-  // ===== Logger Name Display =====
-  showLoggerName: false, // Whether to show logger name
-  capitalizeLoggerName: false, // Whether to capitalize logger name
-  loggerNameColor: ['bold', 'magenta'], // Color for logger name
-
-  // ===== Plugin Name Display =====
-  showPluginName: false, // Whether to show plugin name
-  capitalizePluginName: false, // Whether to capitalize plugin name
-  pluginNameColor: ['bold', 'magenta'], // Color for plugin name
-
-  // ===== Message Formatting =====
-  showPrefix: true, // Whether to show message prefix
-  showLevelName: false, // Whether to show log level name, e.g., [ERROR]
-  capitalizeLevelName: false, // Whether to capitalize level name
-  showArrow: false, // Whether to show arrow symbol before message (>>)
-  prefixColor: ['bold', 'magenta'], // Color for prefix
-
-  // ===== Timestamp Options =====
-  showDate: false, // Whether to show date, format like [12d/5m/2011y]
-  showTimestamp: false, // Whether to show timestamp, format like [13:43:10.23]
-  use24HourClock: false, // Whether to use 24-hour clock format
-
-  // ===== Level Color Configuration =====
-  levelColor: {
-    // Custom colors for each log level
-    [LogLevel.Error]: ['red'], // Error level - red
-    [LogLevel.Warn]: ['yellow'], // Warn level - yellow
-    [LogLevel.Info]: ['green'], // Info level - green
-    [LogLevel.Debug]: ['blue'], // Debug level - blue
-    [LogLevel.Verbose]: ['magenta'], // Verbose level - magenta
   },
 });
 ```
@@ -263,6 +286,7 @@ Hyperse Logger is built on top of the Hyperse Pipeline system, providing:
 - **Plugin Isolation**: Plugins are isolated and can be composed independently
 - **Context Sharing**: Context is shared across the entire pipeline
 - **Error Handling**: Built-in error handling for pipeline failures
+- **Type Safety**: Full TypeScript support throughout the pipeline
 
 ### Pipeline Flow
 
@@ -272,15 +296,29 @@ Log Message → Plugin 1 → Plugin 2 → ... → Plugin N → Output
    Context    Context   Context       Context
 ```
 
-## 🤝 Contributing
+### Core Components
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+- **Logger**: Main entry point for logging operations
+- **Pipeline**: Message processing engine
+- **Plugins**: Extensible output and processing modules
+- **Context**: Shared state across the pipeline
+- **Message**: Structured log data with metadata
 
-## 📄 License
+## 🚀 Performance
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Hyperse Logger is designed for high-performance applications:
+
+- **Minimal Overhead**: Optimized for production use
+- **Async Processing**: Non-blocking log operations
+- **Memory Efficient**: Efficient memory usage patterns
+- **Configurable Buffering**: Optional message buffering for high-throughput scenarios
 
 ## 🔗 Related Projects
 
 - [@hyperse/pipeline](https://github.com/hyperse-io/pipeline) - The pipeline system that powers Hyperse Logger
 - [@hyperse/logger-plugin-console](https://www.npmjs.com/package/@hyperse/logger-plugin-console) - Console output plugin
+- [@hyperse/logger-plugin-std](https://www.npmjs.com/package/@hyperse/logger-plugin-std) - Standard output plugin
+
+## License
+
+This project is licensed under the [MIT LICENSE](./LICENSE).

@@ -13,6 +13,10 @@
       "path": "packages/logger-plugin-std",
     },
     {
+      "name": "logger-plugin-console",
+      "path": "packages/logger-plugin-console",
+    },
+    {
       "name": "logger-plugin-sentry",
       "path": "packages/logger-plugin-sentry",
     },
@@ -69,6 +73,7 @@
       "./website",
       "./packages/logger",
       "./packages/logger-plugin-std",
+      "./packages/logger-plugin-console",
       "./packages/logger-plugin-sentry",
     ],
     "typescript.tsdk": "root/node_modules/typescript/lib"

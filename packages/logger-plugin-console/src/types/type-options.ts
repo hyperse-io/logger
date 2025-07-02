@@ -1,7 +1,6 @@
 import type { LogLevel } from '@hyperse/logger';
-import type { Color } from './type-color.js';
 
-export type StdOptions = {
+export type ConsoleOptions = {
   /**
    * If true, the plugin will be disabled
    * @default false
@@ -70,7 +69,7 @@ export type StdOptions = {
   showTimestamp?: boolean;
 
   /**
-   * If true, the timestamp on each message logged to the std will be displayed using the 24 hour clock instead of the 12 hour clock. Keep in mind that the timestamp of when a log was logged to the std is only displayed when `showTimestamp` is also true.
+   * If true, the timestamp on each message logged to the console will be displayed using the 24 hour clock instead of the 12 hour clock. Keep in mind that the timestamp of when a log was logged to the console is only displayed when `showTimestamp` is also true.
    *
    * ### **24 hour clock:**
    *
@@ -92,7 +91,7 @@ export type StdOptions = {
   showArrow?: boolean;
 
   /**
-   * Removes colors from the std output
+   * Removes colors from the console output
    * @default false
    */
   noColor?: boolean;
@@ -100,30 +99,30 @@ export type StdOptions = {
   /**
    * The color of the level of the message
    * @default {
-   *   [LogLevel.Error]: 'red',
-   *   [LogLevel.Warn]: 'yellow',
-   *   [LogLevel.Info]: 'green',
-   *   [LogLevel.Debug]: 'blue',
-   *   [LogLevel.Verbose]: 'magenta',
+   *   [LogLevel.Error]: 'color:red;',
+   *   [LogLevel.Warn]: 'color:yellow;',
+   *   [LogLevel.Info]: 'color:blue;',
+   *   [LogLevel.Debug]: 'color:magenta;',
+   *   [LogLevel.Verbose]: 'color:magenta;',
    * }
    */
-  levelColor?: { [key in LogLevel]?: Color[] };
+  levelColor?: { [key in LogLevel]?: string };
 
   /**
    * The color of the context
-   * @default ['bold', 'magenta']
+   * @default 'color: magenta; font-weight: bold;'
    */
-  prefixColor?: Color[];
+  prefixColor?: string;
 
   /**
    * The color of the context
-   * @default ['bold', 'magenta']
+   * @default 'color: cyan; font-weight: bold;'
    */
-  loggerNameColor?: Color[];
+  loggerNameColor?: string;
 
   /**
    * The color of the context
-   * @default ['bold', 'magenta']
+   * @default 'color: cyan; font-weight: bold;'
    */
-  pluginNameColor?: Color[];
+  pluginNameColor?: string;
 };
