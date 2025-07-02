@@ -193,9 +193,8 @@ import { createConsolePlugin } from '@hyperse/logger-plugin-console';
 import { createStdPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger()
-  .use(createConsolePlugin()) // Development output
-  .use(createStdPlugin()) // Production output
-  .use(customFilePlugin) // Custom file logging
+  .use(createConsolePlugin(), createStdPlugin())
+  .use(customPlugin)
   .build();
 ```
 

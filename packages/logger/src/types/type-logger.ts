@@ -17,7 +17,7 @@ export interface BaseLogger<
   Message extends LoggerMessage,
 > {
   use: (
-    plugin: LoggerPlugin<Context, Message>
+    ...plugins: LoggerPlugin<Context, Message>[]
   ) => Pick<BaseLogger<Context, Message>, 'use' | 'build'>;
   build: () => Pick<
     BaseLogger<Context, Message>,
