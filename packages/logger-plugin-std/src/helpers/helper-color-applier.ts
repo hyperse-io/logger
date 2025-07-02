@@ -3,8 +3,8 @@ import type { Color } from '../types/type-color.js';
 
 /**
  * Terminal output formatting with ANSI colors
- * @param colors The colors for the console output
- * @param noColor Removes colors from the console output
+ * @param colors The colors for the std output
+ * @param noColor Removes colors from the std output
  * @returns
  */
 export function terminalColor(colors: readonly Color[], noColor?: boolean) {

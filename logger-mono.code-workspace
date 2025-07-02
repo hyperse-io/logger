@@ -9,8 +9,8 @@
       "path": "packages/logger",
     },
     {
-      "name": "logger-plugin-console",
-      "path": "packages/logger-plugin-console",
+      "name": "logger-plugin-std",
+      "path": "packages/logger-plugin-std",
     },
     {
       "name": "logger-plugin-sentry",
@@ -68,7 +68,7 @@
     "eslint.workingDirectories": [
       "./website",
       "./packages/logger",
-      "./packages/logger-plugin-console",
+      "./packages/logger-plugin-std",
       "./packages/logger-plugin-sentry",
     ],
     "typescript.tsdk": "root/node_modules/typescript/lib"

@@ -1,0 +1,1 @@
+# @hyperse/logger-plugin-std

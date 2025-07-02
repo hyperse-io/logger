@@ -1,16 +1,18 @@
 import { createLogger, LogLevel } from '@hyperse/logger';
-import { createConsolePlugin } from '../src/create-console-plugin.js';
+import { createStdPlugin } from '../src/create-std-plugin.js';
 import { sleep } from './test-utils.js';
 
-describe('createConsolePlugin', () => {
-  let mockConsoleLog: ReturnType<typeof vi.spyOn>;
+describe('createStdPlugin', () => {
+  let mockStdLog: ReturnType<typeof vi.spyOn<any, 'write'>>;
 
   beforeEach(() => {
-    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+    mockStdLog = vi
+      .spyOn(process.stdout, 'write')
+      .mockImplementation(() => true);
   });
 
   afterEach(() => {
-    mockConsoleLog.mockRestore();
+    mockStdLog.mockRestore();
   });
 
   it('logs string message when disable is true', async () => {
@@ -18,14 +20,14 @@ describe('createConsolePlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createConsolePlugin({ disable: true }))
+      .use(createStdPlugin({ disable: true }))
       .build();
 
     logger.info('info message');
 
     await sleep(100);
 
-    expect(mockConsoleLog).not.toHaveBeenCalled();
+    expect(mockStdLog).not.toHaveBeenCalled();
   });
 
   it('logs string message (info)', async () => {
@@ -33,15 +35,15 @@ describe('createConsolePlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createConsolePlugin({ noColor: true }))
+      .use(createStdPlugin({ noColor: true }))
       .build();
 
     logger.info('info message');
 
     await sleep(100);
 
-    expect(mockConsoleLog).toHaveBeenCalledTimes(1);
-    const output = mockConsoleLog.mock.calls[0][0];
+    expect(mockStdLog).toHaveBeenCalledTimes(1);
+    const output = mockStdLog.mock.calls[0][0];
     expect(output).toMatch(/\[ INFO \]/);
     expect(output).toMatch(/info message/);
   });
@@ -51,7 +53,7 @@ describe('createConsolePlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createConsolePlugin({ noColor: true }))
+      .use(createStdPlugin({ noColor: true }))
       .build();
 
     logger.warn({
@@ -62,8 +64,8 @@ describe('createConsolePlugin', () => {
 
     await sleep(100);
 
-    expect(mockConsoleLog).toHaveBeenCalledTimes(1);
-    const output = mockConsoleLog.mock.calls[0][0];
+    expect(mockStdLog).toHaveBeenCalledTimes(1);
+    const output = mockStdLog.mock.calls[0][0];
     expect(output).toMatch(/\[ WARN \]/);
     expect(output).toMatch(/WARN PREFIX/);
     expect(output).toMatch(/warn name/);
@@ -75,7 +77,7 @@ describe('createConsolePlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createConsolePlugin({ noColor: true }))
+      .use(createStdPlugin({ noColor: true }))
       .build();
 
     logger.debug({
@@ -86,8 +88,8 @@ describe('createConsolePlugin', () => {
 
     await sleep(100);
 
-    expect(mockConsoleLog).toHaveBeenCalledTimes(1);
-    const output = mockConsoleLog.mock.calls[0][0];
+    expect(mockStdLog).toHaveBeenCalledTimes(1);
+    const output = mockStdLog.mock.calls[0][0];
     expect(output).toMatch(/\[ DEBUG \]/);
     expect(output).toMatch(/DEBUG PREFIX/);
     expect(output).toMatch(/debug name/);
@@ -99,7 +101,7 @@ describe('createConsolePlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createConsolePlugin({ noColor: true }))
+      .use(createStdPlugin({ noColor: true }))
       .build();
 
     logger.verbose({
@@ -110,8 +112,8 @@ describe('createConsolePlugin', () => {
 
     await sleep(100);
 
-    expect(mockConsoleLog).toHaveBeenCalledTimes(1);
-    const output = mockConsoleLog.mock.calls[0][0];
+    expect(mockStdLog).toHaveBeenCalledTimes(1);
+    const output = mockStdLog.mock.calls[0][0];
     expect(output).toMatch(/\[ VERBOSE \]/);
     expect(output).toMatch(/VERBOSE PREFIX/);
     expect(output).toMatch(/verbose name/);
@@ -123,7 +125,7 @@ describe('createConsolePlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createConsolePlugin({ noColor: true }))
+      .use(createStdPlugin({ noColor: true }))
       .build();
 
     let error: Error;
@@ -140,8 +142,8 @@ describe('createConsolePlugin', () => {
 
     await sleep(100);
 
-    expect(mockConsoleLog).toHaveBeenCalledTimes(1);
-    const output = mockConsoleLog.mock.calls[0][0];
+    expect(mockStdLog).toHaveBeenCalledTimes(1);
+    const output = mockStdLog.mock.calls[0][0];
     expect(output).toMatch(/\[ ERROR \]/);
     expect(output).toMatch(/error name/);
     expect(output).toMatch(/error message/);

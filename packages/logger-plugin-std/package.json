@@ -1,11 +1,11 @@
 {
-  "name": "@hyperse/logger-plugin-console",
+  "name": "@hyperse/logger-plugin-std",
   "version": "0.0.1",
   "homepage": "https://github.com/hyperse-io/logger",
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperse-io/logger",
-    "directory": "packages/logger-plugin-console"
+    "directory": "packages/logger-plugin-std"
   },
   "author": {
     "name": "Hyperse",
@@ -30,7 +30,7 @@
     "package.json"
   ],
   "scripts": {
-    "console": "yarn node --import=@hyperse/ts-node/register ./tests/console.ts",
+    "std": "yarn node --import=@hyperse/ts-node/register ./tests/std.ts",
     "build:client": "tsup --config ./tsup.config.ts",
     "build": "rimraf dist && tsc -p ./tsconfig.build.json && yarn build:client",
     "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",

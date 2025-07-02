@@ -1,12 +1,12 @@
 import { createLogger } from '@hyperse/logger';
 import { LogLevel } from '@hyperse/logger';
-import { createConsolePlugin } from '../src/create-console-plugin.js';
+import { createStdPlugin } from '../src/create-std-plugin.js';
 
 const logger = createLogger({
   name: 'hps-logger',
   thresholdLevel: LogLevel.Verbose,
 })
-  .use(createConsolePlugin({}))
+  .use(createStdPlugin({}))
   .build();
 
 logger.info('info message');

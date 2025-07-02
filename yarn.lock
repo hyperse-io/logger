@@ -2709,26 +2709,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/logger-plugin-console@workspace:packages/logger-plugin-console":
-  version: 0.0.0-use.local
-  resolution: "@hyperse/logger-plugin-console@workspace:packages/logger-plugin-console"
-  dependencies:
-    "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
-    "@hyperse/logger": "workspace:*"
-    "@types/node": "npm:^24.0.4"
-    "@vitest/coverage-istanbul": "npm:^3.2.4"
-    "@vitest/ui": "npm:^3.2.4"
-    eslint: "npm:^9.29.0"
-    jsdom: "npm:26.1.0"
-    npm-run-all: "npm:4.1.5"
-    picocolors: "npm:^1.1.1"
-    rimraf: "npm:^6.0.1"
-    tsup: "npm:^8.5.0"
-    typescript: "npm:^5.8.3"
-    vitest: "npm:^3.2.4"
-  languageName: unknown
-  linkType: soft
-
 "@hyperse/logger-plugin-sentry@workspace:packages/logger-plugin-sentry":
   version: 0.0.0-use.local
   resolution: "@hyperse/logger-plugin-sentry@workspace:packages/logger-plugin-sentry"
@@ -2741,6 +2721,26 @@ __metadata:
     eslint: "npm:^9.29.0"
     jsdom: "npm:26.1.0"
     npm-run-all: "npm:4.1.5"
+    rimraf: "npm:^6.0.1"
+    tsup: "npm:^8.5.0"
+    typescript: "npm:^5.8.3"
+    vitest: "npm:^3.2.4"
+  languageName: unknown
+  linkType: soft
+
+"@hyperse/logger-plugin-std@workspace:packages/logger-plugin-std":
+  version: 0.0.0-use.local
+  resolution: "@hyperse/logger-plugin-std@workspace:packages/logger-plugin-std"
+  dependencies:
+    "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
+    "@hyperse/logger": "workspace:*"
+    "@types/node": "npm:^24.0.4"
+    "@vitest/coverage-istanbul": "npm:^3.2.4"
+    "@vitest/ui": "npm:^3.2.4"
+    eslint: "npm:^9.29.0"
+    jsdom: "npm:26.1.0"
+    npm-run-all: "npm:4.1.5"
+    picocolors: "npm:^1.1.1"
     rimraf: "npm:^6.0.1"
     tsup: "npm:^8.5.0"
     typescript: "npm:^5.8.3"

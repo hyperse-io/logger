@@ -1,9 +1,9 @@
 import type { LoggerMessageObject, LogLevel } from '@hyperse/logger';
 import type { Color } from './type-color.js';
 
-export type ConsolePluginContext = object;
+export type StdPluginContext = object;
 
-export type ConsolePluginMessage = LoggerMessageObject & {
+export type StdPluginMessage = LoggerMessageObject & {
   timestamp?: string;
 };
 
