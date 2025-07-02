@@ -2748,9 +2748,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@hyperse/logger-plugin-std@workspace:packages/logger-plugin-std":
+"@hyperse/logger-plugin-stdout@workspace:packages/logger-plugin-stdout":
   version: 0.0.0-use.local
-  resolution: "@hyperse/logger-plugin-std@workspace:packages/logger-plugin-std"
+  resolution: "@hyperse/logger-plugin-stdout@workspace:packages/logger-plugin-stdout"
   dependencies:
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
     "@hyperse/logger": "workspace:*"

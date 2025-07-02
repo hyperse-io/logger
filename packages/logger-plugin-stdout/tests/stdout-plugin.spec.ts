@@ -1,8 +1,8 @@
 import { createLogger, LogLevel } from '@hyperse/logger';
-import { createStdPlugin } from '../src/create-std-plugin.js';
+import { createStdoutPlugin } from '../src/create-stdout-plugin.js';
 import { sleep } from './test-utils.js';
 
-describe('createStdPlugin', () => {
+describe('createStdoutPlugin', () => {
   // @ts-ignore
   let mockStdLog: ReturnType<typeof vi.spyOn<typeof process.stdout, 'write'>>;
 
@@ -21,7 +21,7 @@ describe('createStdPlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createStdPlugin({ disable: true }))
+      .use(createStdoutPlugin({ disable: true }))
       .build();
 
     logger.info('info message');
@@ -36,7 +36,7 @@ describe('createStdPlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createStdPlugin({ noColor: true }))
+      .use(createStdoutPlugin({ noColor: true }))
       .build();
 
     logger.info('info message');
@@ -54,7 +54,7 @@ describe('createStdPlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createStdPlugin({ noColor: true }))
+      .use(createStdoutPlugin({ noColor: true }))
       .build();
 
     logger.warn({
@@ -78,7 +78,7 @@ describe('createStdPlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createStdPlugin({ noColor: true }))
+      .use(createStdoutPlugin({ noColor: true }))
       .build();
 
     logger.debug({
@@ -102,7 +102,7 @@ describe('createStdPlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createStdPlugin({ noColor: true }))
+      .use(createStdoutPlugin({ noColor: true }))
       .build();
 
     logger.verbose({
@@ -126,7 +126,7 @@ describe('createStdPlugin', () => {
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,
     })
-      .use(createStdPlugin({ noColor: true }))
+      .use(createStdoutPlugin({ noColor: true }))
       .build();
 
     let error: Error;

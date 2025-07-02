@@ -42,7 +42,7 @@ npm install @hyperse/logger
 
 # Install plugins for different output formats
 npm install @hyperse/logger-plugin-console  # Console output with colors
-npm install @hyperse/logger-plugin-std      # Standard output formatting
+npm install @hyperse/logger-plugin-stdout     # Standard output formatting
 ```
 
 ## 🚀 Quick Start
@@ -130,7 +130,7 @@ const consolePlugin = createConsolePlugin();
 
 📖 **[View detailed documentation →](./packages/logger-plugin-console/README.md)**
 
-#### Std Plugin (`@hyperse/logger-plugin-std`)
+#### Std Plugin (`@hyperse/logger-plugin-stdout`)
 
 A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich terminal output with customizable formatting, colors, and timestamps. This plugin is designed specifically for Node.js environments and outputs to stdout/stderr.
 
@@ -146,12 +146,12 @@ A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/log
 **Quick Setup:**
 
 ```typescript
-import { createStdPlugin } from '@hyperse/logger-plugin-std';
+import { createStdPlugin } from '@hyperse/logger-plugin-stdout';
 
 const stdPlugin = createStdPlugin();
 ```
 
-📖 **[View detailed documentation →](./packages/logger-plugin-std/README.md)**
+📖 **[View detailed documentation →](./packages/logger-plugin-stdout/README.md)**
 
 ### Creating Custom Plugins
 
@@ -190,7 +190,7 @@ Combine multiple plugins for sophisticated logging setups:
 ```typescript
 import { createLogger } from '@hyperse/logger';
 import { createConsolePlugin } from '@hyperse/logger-plugin-console';
-import { createStdPlugin } from '@hyperse/logger-plugin-std';
+import { createStdPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger()
   .use(createConsolePlugin()) // Development output
@@ -317,7 +317,7 @@ Hyperse Logger is designed for high-performance applications:
 
 - [@hyperse/pipeline](https://github.com/hyperse-io/pipeline) - The pipeline system that powers Hyperse Logger
 - [@hyperse/logger-plugin-console](https://www.npmjs.com/package/@hyperse/logger-plugin-console) - Console output plugin
-- [@hyperse/logger-plugin-std](https://www.npmjs.com/package/@hyperse/logger-plugin-std) - Standard output plugin
+- [@hyperse/logger-plugin-stdout](https://www.npmjs.com/package/@hyperse/logger-plugin-stdout) - Standard output plugin
 
 ## License
 

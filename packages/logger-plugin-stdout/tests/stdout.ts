@@ -1,12 +1,12 @@
 import { createLogger } from '@hyperse/logger';
 import { LogLevel } from '@hyperse/logger';
-import { createStdPlugin } from '../src/create-std-plugin.js';
+import { createStdoutPlugin } from '../src/create-stdout-plugin.js';
 
 const logger = createLogger({
   name: 'hps-logger',
   thresholdLevel: LogLevel.Verbose,
 })
-  .use(createStdPlugin())
+  .use(createStdoutPlugin())
   .build();
 
 logger.info('info message');

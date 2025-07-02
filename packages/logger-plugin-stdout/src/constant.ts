@@ -1,6 +1,6 @@
 import { LogLevel } from '@hyperse/logger';
 import type { Color } from './types/type-color.js';
-import type { StdOptions } from './types/type-options.js';
+import type { StdoutOptions } from './types/type-options.js';
 
 export const defaultLevelColor: Record<LogLevel, Color[]> = {
   [LogLevel.Error]: ['red'],
@@ -14,7 +14,7 @@ export const defaultPrefixColor: Color[] = ['bold', 'magenta'];
 export const defaultLoggerNameColor: Color[] = ['bold', 'cyan'];
 export const defaultPluginNameColor: Color[] = ['bold', 'cyan'];
 
-export const defaultConfig: Required<StdOptions> = {
+export const defaultConfig: Required<StdoutOptions> = {
   disable: false,
   showTimestamp: true,
   showLoggerName: false,

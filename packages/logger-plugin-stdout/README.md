@@ -1,28 +1,28 @@
-# @hyperse/logger-plugin-std
+# @hyperse/logger-plugin-stdout
 
 A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/logger) that provides rich terminal output with customizable formatting, colors, and timestamps. This plugin is designed specifically for Node.js environments and outputs to `process.stdout`.
 
 ## Installation
 
 ```bash
-npm install @hyperse/logger-plugin-std
+npm install @hyperse/logger-plugin-stdout
 # or
-yarn add @hyperse/logger-plugin-std
+yarn add @hyperse/logger-plugin-stdout
 # or
-pnpm add @hyperse/logger-plugin-std
+pnpm add @hyperse/logger-plugin-stdout
 ```
 
 ## Quick Start
 
 ```typescript
 import { createLogger, LogLevel } from '@hyperse/logger';
-import { createStdPlugin } from '@hyperse/logger-plugin-std';
+import { createStdoutPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger({
   name: 'my-app',
   thresholdLevel: LogLevel.Info,
 })
-  .use(createStdPlugin())
+  .use(createStdoutPlugin())
   .build();
 
 logger.info('Hello, World!');
@@ -34,13 +34,13 @@ logger.error('Something went wrong');
 
 ```typescript
 import { createLogger, LogLevel } from '@hyperse/logger';
-import { createStdPlugin } from '@hyperse/logger-plugin-std';
+import { createStdoutPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger({
   name: 'my-app',
   thresholdLevel: LogLevel.Debug,
 })
-  .use(createStdPlugin())
+  .use(createStdoutPlugin())
   .build();
 
 // Simple messages
@@ -65,7 +65,7 @@ logger.error({
 
 ## API Reference
 
-### `createStdPlugin(options?: StdOptions)`
+### `createStdoutPlugin(options?: StdOptions)`
 
 Creates a standard output plugin instance with the specified options.
 
@@ -250,7 +250,7 @@ const logger = createLogger({
   name: 'app',
   thresholdLevel: LogLevel.Info,
 })
-  .use(createStdPlugin())
+  .use(createStdoutPlugin())
   .build();
 ```
 
@@ -262,7 +262,7 @@ const logger = createLogger({
   thresholdLevel: LogLevel.Verbose,
 })
   .use(
-    createStdPlugin({
+    createStdoutPlugin({
       disable: false,
       showTimestamp: true,
       showLoggerName: true,

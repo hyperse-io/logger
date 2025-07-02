@@ -3,16 +3,16 @@ import { assertMessage } from './helpers/helper-assert-message.js';
 import { formatMessage } from './helpers/helper-format-message.js';
 import { isLoggable } from './helpers/helper-is-loggable.js';
 import { mergeStdOptions } from './helpers/helper-merge-options.js';
-import type { StdOptions } from './types/type-options.js';
+import type { StdoutOptions } from './types/type-options.js';
 import type {
-  StdPluginContext,
-  StdPluginMessage,
+  StdoutPluginContext,
+  StdoutPluginMessage,
 } from './types/type-plugin.js';
 
-export const createStdPlugin = (options?: StdOptions) => {
+export const createStdoutPlugin = (options?: StdoutOptions) => {
   const newOptions = mergeStdOptions(options);
-  return definePlugin<StdPluginContext, StdPluginMessage | string>({
-    pluginName: 'hps-logger-plugin-std',
+  return definePlugin<StdoutPluginContext, StdoutPluginMessage | string>({
+    pluginName: 'hps-logger-plugin-stdout',
     execute: async ({ ctx, level, message, pipe, exitPipe }) => {
       await pipe(
         () => {

@@ -1,7 +1,7 @@
 import type { LogLevel } from '@hyperse/logger';
 import type { Color } from './type-color.js';
 
-export type StdOptions = {
+export type StdoutOptions = {
   /**
    * If true, the plugin will be disabled
    * @default false
@@ -70,7 +70,7 @@ export type StdOptions = {
   showTimestamp?: boolean;
 
   /**
-   * If true, the timestamp on each message logged to the std will be displayed using the 24 hour clock instead of the 12 hour clock. Keep in mind that the timestamp of when a log was logged to the std is only displayed when `showTimestamp` is also true.
+   * If true, the timestamp on each message logged to the stdout will be displayed using the 24 hour clock instead of the 12 hour clock. Keep in mind that the timestamp of when a log was logged to the stdout is only displayed when `showTimestamp` is also true.
    *
    * ### **24 hour clock:**
    *
@@ -92,7 +92,7 @@ export type StdOptions = {
   showArrow?: boolean;
 
   /**
-   * Removes colors from the std output
+   * Removes colors from the stdout writing
    * @default false
    */
   noColor?: boolean;
