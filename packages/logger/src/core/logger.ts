@@ -72,24 +72,28 @@ export class Logger<
 
   /**
    * Registers a Logger plugin into the logging pipeline.
-   * @param plugin LoggerPlugin instance to be used in the pipeline
+   * @param plugins LoggerPlugin instances to be used in the pipeline
    * @returns this, for chaining
    */
-  public use(plugin: LoggerPlugin<LoggerContext<Context>, Message>) {
-    this.pipeline.use(async (ctx, next) => {
-      const { level, message, ctx: pluginCtx } = ctx;
-      const options = {
-        ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.pluginName },
-        level: level,
-        message: message,
-        pipe: pipe,
-        exitPipe: exitPipe,
-        pipeContext: pipeContext,
-        isExitPipeValue: isExitPipeValue,
-      };
-      await plugin.execute(options);
-      await next();
-    });
+  public use(
+    ...plugins: LoggerPlugin<LoggerContext<Context>, Message>[]
+  ): Pick<BaseLogger<LoggerContext<Context>, Message>, 'use' | 'build'> {
+    for (const plugin of plugins) {
+      this.pipeline.use(async (ctx, next) => {
+        const { level, message, ctx: pluginCtx } = ctx;
+        const options = {
+          ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.pluginName },
+          level: level,
+          message: message,
+          pipe: pipe,
+          exitPipe: exitPipe,
+          pipeContext: pipeContext,
+          isExitPipeValue: isExitPipeValue,
+        };
+        await plugin.execute(options);
+        await next();
+      });
+    }
     return this;
   }
 
