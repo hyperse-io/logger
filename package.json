@@ -49,7 +49,7 @@
     "clean:global-cache": "rimraf --no-glob ./dist ./coverage ./__data__ ./config/__data__ ./_release ./tsconfig.tsbuildinfo",
     "g:cz": "cz",
     "g:publish-local": "yarn changeset version && cd scripts && ./publish-to-verdaccio.sh",
-    "postinstall": "husky"
+    "prepare": "husky"
   },
   "config": {
     "commitizen": {
