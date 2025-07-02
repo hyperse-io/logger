@@ -3,7 +3,8 @@ import { createConsolePlugin } from '../src/create-console-plugin.js';
 import { sleep } from './test-utils.js';
 
 describe('createConsolePlugin', () => {
-  let mockConsoleLog: ReturnType<typeof vi.spyOn<any, 'log'>>;
+  // @ts-ignore
+  let mockConsoleLog: ReturnType<typeof vi.spyOn<typeof console, 'log'>>;
 
   beforeEach(() => {
     mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});

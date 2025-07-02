@@ -110,19 +110,19 @@ export type StdOptions = {
   levelColor?: { [key in LogLevel]?: Color[] };
 
   /**
-   * The color of the context
+   * The color of the prefix
    * @default ['bold', 'magenta']
    */
   prefixColor?: Color[];
 
   /**
-   * The color of the context
+   * The color of the logger name
    * @default ['bold', 'magenta']
    */
   loggerNameColor?: Color[];
 
   /**
-   * The color of the context
+   * The color of the plugin name
    * @default ['bold', 'magenta']
    */
   pluginNameColor?: Color[];

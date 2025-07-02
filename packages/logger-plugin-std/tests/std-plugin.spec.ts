@@ -3,7 +3,8 @@ import { createStdPlugin } from '../src/create-std-plugin.js';
 import { sleep } from './test-utils.js';
 
 describe('createStdPlugin', () => {
-  let mockStdLog: ReturnType<typeof vi.spyOn<any, 'write'>>;
+  // @ts-ignore
+  let mockStdLog: ReturnType<typeof vi.spyOn<typeof process.stdout, 'write'>>;
 
   beforeEach(() => {
     mockStdLog = vi
@@ -15,7 +16,7 @@ describe('createStdPlugin', () => {
     mockStdLog.mockRestore();
   });
 
-  it('logs string message when disable is true', async () => {
+  it('does not log when plugin is disabled', async () => {
     const logger = createLogger({
       name: 'hps-logger',
       thresholdLevel: LogLevel.Verbose,

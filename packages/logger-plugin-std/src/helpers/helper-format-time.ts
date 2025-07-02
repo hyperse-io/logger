@@ -1,3 +1,16 @@
+// Note: Time calculations use approximations:
+// - Year = 365 days (ignoring leap years)
+// - Month = 30 days (actual months vary 28-31 days)
+const TIME_UNITS = {
+  YEAR: 365 * 24 * 60 * 60 * 1000, // 31536000000
+  MONTH: 30 * 24 * 60 * 60 * 1000, // 2592000000
+  DAY: 24 * 60 * 60 * 1000, // 86400000
+  HOUR: 60 * 60 * 1000, // 3600000
+  MINUTE: 60 * 1000, // 60000
+  SECOND: 1000, // 1000
+  MILLISECOND: 1, // 1
+} as const;
+
 const addUnitOfTime = (
   prefix: string,
   time: Date,
@@ -31,7 +44,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    31536000000,
+    TIME_UNITS.YEAR,
     'y'
   );
   // MONTHS
@@ -40,7 +53,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    2592000000,
+    TIME_UNITS.MONTH,
     'm'
   );
   // DAYS
@@ -49,7 +62,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    86400000,
+    TIME_UNITS.DAY,
     'd'
   );
   // HOURS
@@ -58,7 +71,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    3600000,
+    TIME_UNITS.HOUR,
     'h'
   );
   // MINUTES
@@ -67,7 +80,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    60000,
+    TIME_UNITS.MINUTE,
     'min'
   );
   // SECONDS
@@ -76,7 +89,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    1000,
+    TIME_UNITS.SECOND,
     's'
   );
   // MILLISECONDS
@@ -85,7 +98,7 @@ export const formatTime = (
     time,
     lastTime,
     decorateColorFn,
-    1,
+    TIME_UNITS.MILLISECOND,
     'ms'
   );
   return color(formattedChangeInTime);
