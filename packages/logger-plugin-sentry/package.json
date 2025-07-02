@@ -1,6 +1,6 @@
 {
   "name": "@hyperse/logger-plugin-sentry",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "homepage": "https://github.com/hyperse-io/logger",
   "repository": {
     "type": "git",
