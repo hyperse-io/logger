@@ -1,7 +1,6 @@
 import type { LoggerMessageObject } from '@hyperse/logger';
-
-export const assertMessage = <T extends LoggerMessageObject>(
-  message: T | string
+export const assertMessage = (
+  message: LoggerMessageObject | string
 ): LoggerMessageObject => {
   if (typeof message === 'string') {
     return {

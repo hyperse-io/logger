@@ -76,7 +76,7 @@ export const formatMessage = (formatOptions: {
               : Math.abs(hours - 12)
           )}:${strTimePad(time.getMinutes())}:${strTimePad(time.getSeconds())}` +
             ' ' +
-            (use24HourClock ? '' : hours >= 13 ? 'PM' : 'AM' + ' ')
+            (use24HourClock ? '' : (hours >= 13 ? 'PM' : 'AM') + ' ')
         );
       colors.push(levelColor, 'color:inherit;');
     }
