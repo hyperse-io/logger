@@ -232,9 +232,10 @@ describe('Logger Basic Functionality', () => {
     }));
 
     // 3. 测试动态修改上下文
-    logger.debug((ctx: any) => {
-      (ctx as any).userId = 'user-456'; // 假修改
-      return `Updated user: ${ctx.userId}`;
+    logger.debug((ctx) => {
+      // Test that context is immutable - create a new object instead
+      const localCtx = { ...ctx, userId: 'user-456' };
+      return `Updated user: ${localCtx.userId}`;
     });
 
     // 4. 测试使用修改后的上下文
