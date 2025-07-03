@@ -1,11 +1,11 @@
-import type { DeepPartial, LoggerMessage } from '../types/index.js';
+import type { DeepPartial, RawLoggerMessage } from '../types/index.js';
 import type { LoggerContext } from '../types/type-logger.js';
 import type { Logger as BaseLogger } from '../types/type-logger.js';
 import { Logger } from './logger.js';
 
 export const createLogger = <
   Context extends object = object,
-  Message extends LoggerMessage = LoggerMessage,
+  Message extends RawLoggerMessage<Context> = RawLoggerMessage<Context>,
 >(
   options?: LoggerContext<Context> & {
     setup?: () =>
