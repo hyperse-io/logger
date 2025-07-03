@@ -97,10 +97,14 @@ export class Logger<
     for (const plugin of plugins) {
       this.pipeline.use(async (ctx, next) => {
         const { level, message, ctx: pluginCtx } = ctx;
+        if (!message) {
+          await next();
+          return;
+        }
         const options = {
           ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.pluginName },
           level: level,
-          message: message!,
+          message: message,
           pipe: pipe,
           exitPipe: exitPipe,
           pipeContext: pipeContext,
