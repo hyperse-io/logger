@@ -1,8 +1,6 @@
-import type { LoggerMessageObject, LogLevel } from '@hyperse/logger';
+import type { LogLevel } from '@hyperse/logger';
 
 export type ConsolePluginContext = object;
-
-export type ConsolePluginMessage = LoggerMessageObject;
 
 export type LevelData = {
   /**
