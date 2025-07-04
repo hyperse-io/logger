@@ -12,11 +12,11 @@ describe('Logger Basic Functionality', () => {
   let mockConsoleInfo: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
-    mockConsoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-    mockConsoleDebug = vi.spyOn(console, 'debug').mockImplementation(() => {});
-    mockConsoleInfo = vi.spyOn(console, 'info').mockImplementation(() => {});
+    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => { });
+    mockConsoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => { });
+    mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => { });
+    mockConsoleDebug = vi.spyOn(console, 'debug').mockImplementation(() => { });
+    mockConsoleInfo = vi.spyOn(console, 'info').mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -136,6 +136,11 @@ describe('Logger Basic Functionality', () => {
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
+      setup() {
+        return {
+          env: 'browser',
+        };
+      },
     })
       .use(consolePlugin)
       .build();
@@ -170,19 +175,152 @@ describe('Logger Basic Functionality', () => {
 
     expect(executeMock).toHaveBeenCalledTimes(5);
     expect(executeMock.mock.calls[0][0]).toEqual(
-      '[error] ctx: sampleLogger node 0 error error message'
+      '[error] ctx: sampleLogger browser 0 error error message'
     );
     expect(executeMock.mock.calls[1][0]).toEqual(
-      '[warn] ctx: sampleLogger node 1 warn warn message'
+      '[warn] ctx: sampleLogger browser 1 warn warn message'
     );
     expect(executeMock.mock.calls[2][0]).toEqual(
-      '[info] ctx: sampleLogger node 2 info info message'
+      '[info] ctx: sampleLogger browser 2 info info message'
     );
     expect(executeMock.mock.calls[3][0]).toEqual(
-      '[debug] ctx: sampleLogger node 3 debug debug message'
+      '[debug] ctx: sampleLogger browser 3 debug debug message'
     );
     expect(executeMock.mock.calls[4][0]).toEqual(
-      '[verbose] ctx: sampleLogger node 4 verbose verbose message'
+      '[verbose] ctx: sampleLogger browser 4 verbose verbose message'
+    );
+  });
+
+  // Test case for function messages
+  it('should handle function messages correctly', async () => {
+    const executeMock = vi.fn();
+
+    const consolePlugin = definePlugin({
+      pluginName: 'consolePlugin',
+      execute({ message }) {
+        if (typeof message === 'string') {
+          executeMock(message);
+        } else if (typeof message === 'object') {
+          executeMock(`${message.prefix} ${message.message}`);
+        }
+      },
+    });
+
+    type AppContext = {
+      userId: string;
+      environment: string;
+    };
+
+    const logger = createLogger<AppContext>({
+      thresholdLevel: LogLevel.Verbose,
+      name: 'functionLogger',
+      environment: 'production',
+      userId: '',
+      setup: async () => Promise.resolve({ userId: 'user-123' }),
+    })
+      .use(consolePlugin)
+      .build();
+    // 1. Test string-returning function message
+    logger.info(
+      (ctx) => `User ${ctx.userId} logged in from ${ctx.environment}`
+    );
+
+    // 2. Test object-returning function message
+    logger.warn((ctx) => ({
+      message: `Warning for ${ctx.userId}`,
+      prefix: '[WARNING]',
+    }));
+
+    // 3. Test dynamic context modification
+    logger.debug((ctx) => {
+      // Test that context is immutable - create a new object instead
+      const localCtx = { ...ctx, userId: 'user-456' };
+      return `Updated user: ${localCtx.userId}`;
+    });
+
+    // 4. Test using modified context
+    logger.info((ctx) => `Now user is ${ctx.userId}`);
+
+    // 5. Test error handling
+    logger.error(() => {
+      throw new Error('Test error in message function');
+    });
+
+    await sleep(100);
+
+    // Verify results
+    expect(executeMock).toHaveBeenCalledTimes(5);
+    expect(executeMock.mock.calls[0][0]).toBe(
+      'User user-123 logged in from production'
+    );
+    expect(executeMock.mock.calls[1][0]).toBe('[WARNING] Warning for user-123');
+    expect(executeMock.mock.calls[2][0]).toBe('Updated user: user-456');
+    expect(executeMock.mock.calls[3][0]).toBe('Now user is user-123');
+
+    // Verify error message handling
+    expect(executeMock.mock.calls[4][0]).toContain(
+      'Message function execution failed'
+    );
+  });
+
+  // New test case: Handling function messages in pipeline plugins
+  it('should handle function messages in pipeline plugins', async () => {
+    type AppContext = {
+      env: string;
+      version: string;
+    };
+
+    const executeMock = vi.fn();
+
+    const consolePlugin = definePlugin<AppContext>({
+      pluginName: 'consolePlugin',
+      execute({ ctx, level, message, pipe }) {
+        pipe(
+          (ctx: AppContext) => ctx,
+          // Resolve function message
+          () => message,
+          (msg) => {
+            if (typeof msg === 'string') {
+              executeMock(`[${LogLevel[level]}] ${msg}`);
+            } else {
+              executeMock(`[${LogLevel[level]}] ${msg.message}`);
+            }
+          }
+        )(ctx);
+      },
+    });
+
+    const logger = createLogger<AppContext>({
+      thresholdLevel: LogLevel.Verbose,
+      name: 'pipelineLogger',
+      env: 'production',
+      version: '1.0.0',
+    })
+      .use(consolePlugin)
+      .build();
+
+    // Function message - string
+    logger.info((ctx) => `App v${ctx.version} running in ${ctx.env}`);
+
+    // Function message - object
+    logger.warn((ctx) => ({
+      message: `Deprecated feature in ${ctx.env} v${ctx.version}`,
+    }));
+
+    // Regular string message
+    logger.error('Critical error occurred');
+
+    await sleep(100);
+
+    expect(executeMock).toHaveBeenCalledTimes(3);
+    expect(executeMock.mock.calls[0][0]).toBe(
+      '[Info] App v1.0.0 running in production'
+    );
+    expect(executeMock.mock.calls[1][0]).toBe(
+      '[Warn] Deprecated feature in production v1.0.0'
+    );
+    expect(executeMock.mock.calls[2][0]).toBe(
+      '[Error] Critical error occurred'
     );
   });
 });

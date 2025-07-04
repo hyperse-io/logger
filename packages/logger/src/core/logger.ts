@@ -15,7 +15,7 @@ import type {
   LoggerContext,
 } from '../types/type-logger.js';
 import type { LoggerPlugin } from '../types/type-logger-plugin.js';
-import type { LoggerMessage } from '../types/type-message.js';
+import type { LoggerMessage, RawLoggerMessage } from '../types/type-message.js';
 import type { DeepPartial } from '../types/type-partial-deep.js';
 
 /**
@@ -26,18 +26,18 @@ import type { DeepPartial } from '../types/type-partial-deep.js';
  * is created with the build() method.
  *
  * @template Context The logger context type, including log level, name, etc.
- * @template Message The log message type
+ * @template RawMessage The log message type
  */
 export class Logger<
   Context extends object = object,
-  Message extends LoggerMessage = LoggerMessage,
-> implements BaseLogger<LoggerContext<Context>, Message>
-{
+  Message extends RawLoggerMessage<Context> = RawLoggerMessage<Context>,
+> implements BaseLogger<LoggerContext<Context>, Message> {
   private ctx: LoggerContext<Context>;
   private errorHandling: ((error: Error) => void) | undefined;
   private pipeline: Pipeline<{
     ctx: LoggerContext<Context>;
-    message: Message;
+    rawMessage: Message;
+    message?: LoggerMessage;
     level: LogLevel;
   }> = new Pipeline();
 
@@ -59,6 +59,7 @@ export class Logger<
     });
     this.errorHandling = errorHandling;
     this.useSetupCtx(setup);
+    this.useMessageParser();
   }
 
   private useSetupCtx = async (
@@ -74,16 +75,31 @@ export class Logger<
   };
 
   /**
+   * Registers message parser pipeline
+   */
+  private useMessageParser() {
+    this.pipeline.use(async (ctx, next) => {
+      const rawMessage = ctx.rawMessage as Message;
+      ctx.message = this.parseMessage(rawMessage, ctx.ctx);
+      await next();
+    });
+  }
+
+  /**
    * Registers a Logger plugin into the logging pipeline.
    * @param plugins LoggerPlugin instances to be used in the pipeline
    * @returns this, for chaining
    */
   public use(
-    ...plugins: LoggerPlugin<LoggerContext<Context>, Message>[]
+    ...plugins: LoggerPlugin<LoggerContext<Context>, LoggerMessage>[]
   ): Pick<BaseLogger<LoggerContext<Context>, Message>, 'use' | 'build'> {
     for (const plugin of plugins) {
       this.pipeline.use(async (ctx, next) => {
         const { level, message, ctx: pluginCtx } = ctx;
+        if (!message) {
+          await next();
+          return;
+        }
         const options = {
           ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.pluginName },
           level: level,
@@ -126,7 +142,7 @@ export class Logger<
   public debug(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      message: message,
+      rawMessage: message,
       level: LogLevel.Debug,
     });
   }
@@ -138,7 +154,7 @@ export class Logger<
   public info(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      message: message,
+      rawMessage: message,
       level: LogLevel.Info,
     });
   }
@@ -150,7 +166,7 @@ export class Logger<
   public warn(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      message: message,
+      rawMessage: message,
       level: LogLevel.Warn,
     });
   }
@@ -162,7 +178,7 @@ export class Logger<
   public error(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      message: message,
+      rawMessage: message,
       level: LogLevel.Error,
     });
   }
@@ -174,8 +190,31 @@ export class Logger<
   public verbose(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      message: message,
+      rawMessage: message,
       level: LogLevel.Verbose,
     });
+  }
+
+  /**
+   * The log message, which can be a function or a static message.
+   * If it's a function, it will be executed with the current context.
+   * @param message The log message to be parsed.
+   * @returns message The parsed log message.
+   */
+  private parseMessage(
+    message: Message,
+    ctx: LoggerContext<Context>
+  ): LoggerMessage {
+    try {
+      if (typeof message === 'function') {
+        return message(ctx);
+      }
+      return message;
+    } catch (err: any) {
+      return {
+        message: 'Failed to execute message function',
+        stack: err?.stack,
+      };
+    }
   }
 }

@@ -1,6 +1,6 @@
 import type { LogLevel } from '../constant/log-level.js';
 import type { LoggerPlugin } from './type-logger-plugin.js';
-import type { LoggerMessage } from './type-message.js';
+import type { LoggerMessage, RawLoggerMessage } from './type-message.js';
 
 export type LoggerContext<Context extends object = object> = Context & {
   name: string;
@@ -14,10 +14,10 @@ export type LoggerPluginList<
 
 export interface Logger<
   Context extends LoggerContext = LoggerContext,
-  Message extends LoggerMessage = LoggerMessage,
+  Message extends RawLoggerMessage<Context> = RawLoggerMessage<Context>,
 > {
   use: (
-    ...plugins: LoggerPlugin<Context, Message>[]
+    ...plugins: LoggerPlugin<Context, LoggerMessage>[]
   ) => Pick<Logger<Context, Message>, 'use' | 'build'>;
   build: () => Pick<
     Logger<Context, Message>,
