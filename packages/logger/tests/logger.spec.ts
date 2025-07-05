@@ -136,14 +136,11 @@ describe('Logger Basic Functionality', () => {
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
-      setup() {
-        return {
-          env: 'browser',
-        };
-      },
     })
       .use(consolePlugin)
-      .build();
+      .build({
+        env: 'browser',
+      });
 
     logger.error({
       name: 'error',
@@ -193,6 +190,7 @@ describe('Logger Basic Functionality', () => {
 
   // Test case for function messages
   it('should handle function messages correctly', async () => {
+    const errorHandlingMock = vi.fn();
     const executeMock = vi.fn();
 
     const consolePlugin = definePlugin({
@@ -220,10 +218,10 @@ describe('Logger Basic Functionality', () => {
       name: 'functionLogger',
       environment: 'production',
       userId: '',
-      setup: async () => Promise.resolve({ userId: 'user-123' }),
+      errorHandling: errorHandlingMock,
     })
       .use(consolePlugin)
-      .build();
+      .build(async () => Promise.resolve({ userId: 'user-123' }));
     // 1. Test string-returning function message
     logger.info(
       (ctx) => `User ${ctx.userId} logged in from ${ctx.environment}`
@@ -253,7 +251,7 @@ describe('Logger Basic Functionality', () => {
     await sleep(100);
 
     // Verify results
-    expect(executeMock).toHaveBeenCalledTimes(5);
+    expect(executeMock).toHaveBeenCalledTimes(4);
     expect(executeMock.mock.calls[0][0]).toBe(
       'User user-123 logged in from production'
     );
@@ -262,8 +260,9 @@ describe('Logger Basic Functionality', () => {
     expect(executeMock.mock.calls[3][0]).toBe('Now user is user-123');
 
     // Verify error message handling
-    expect(executeMock.mock.calls[4][0]).toContain(
-      'Failed to execute message function'
+    expect(errorHandlingMock).toHaveBeenCalledTimes(1);
+    expect(errorHandlingMock.mock.calls[0][0].message).toBe(
+      'Test error in message function'
     );
   });
 

@@ -8,11 +8,19 @@ import type { LogLevel } from '../constant/log-level.js';
 import type { LoggerContext } from './type-logger.js';
 import type { LoggerMessage } from './type-message.js';
 
+/**
+ * LoggerPluginContext is a type that defines the context for a logger plugin.
+ * @template Context The context type for the plugin
+ */
 export type LoggerPluginContext<Context extends object> =
   LoggerContext<Context> & {
     pluginName: string;
   };
 
+/**
+ * LoggerPlugin is a type that defines the interface for a logger plugin.
+ * @template Context The context type for the plugin
+ */
 export interface LoggerPlugin<Context extends object> {
   pluginName: string;
   execute(options: {

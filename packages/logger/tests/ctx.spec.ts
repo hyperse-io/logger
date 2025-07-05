@@ -13,23 +13,22 @@ describe('Logger Context Setup', () => {
     });
 
     type NewLoggerContext = {
-      env: 'node' | 'browser';
+      env: string;
     };
 
     const logger = createLogger<NewLoggerContext>({
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
-      setup: () => {
+    })
+      .use(consolePlugin)
+      .build(() => {
         return {
           platform: 'android',
           agent: 'chrome 123',
           env: 'node',
         };
-      },
-    })
-      .use(consolePlugin)
-      .build();
+      });
 
     logger.info('info message');
     await sleep(100);
@@ -62,8 +61,10 @@ describe('Logger Context Setup', () => {
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
-      setup: async () => {
-        return new Promise((resolve) => {
+    })
+      .use(consolePlugin)
+      .build(async () => {
+        return new Promise<NewLoggerContext>((resolve) => {
           setTimeout(() => {
             resolve({
               platform: 'ios',
@@ -72,10 +73,7 @@ describe('Logger Context Setup', () => {
             });
           }, 100);
         });
-      },
-    })
-      .use(consolePlugin)
-      .build();
+      });
 
     logger.info('info message');
 

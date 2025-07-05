@@ -33,6 +33,7 @@
 - **🛠️ Error Handling**: Comprehensive error handling and recovery mechanisms
 - **🎭 Multiple Output Formats**: Console, file, and custom output formats
 - **🔍 Debugging Tools**: Enhanced debugging capabilities with stack traces
+- **🔄 Plugin Context Merging**: Automatic merging and type inference of plugin contexts
 
 ## 📦 Installation
 
@@ -241,6 +242,19 @@ logger.info({
   message: 'User logged in successfully',
   prefix: 'AUTH',
 });
+```
+
+### Message with Function Style
+
+The logger supports function-style messages that provide access to context:
+
+```typescript
+logger.verbose((ctx) => ({
+  message: 'Verbose message',
+  connectionPool: ctx.connectionPool, // ✅ 应该能推导出类型
+  permissions: ctx.permissions, // ✅ 应该能推导出类型
+  name: ctx.name, // ✅ 应该能推导出类型
+}));
 ```
 
 ### Error Objects
