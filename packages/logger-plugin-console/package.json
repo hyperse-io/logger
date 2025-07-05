@@ -31,8 +31,7 @@
   ],
   "scripts": {
     "console": "yarn node --import=@hyperse/ts-node/register ./tests/console.ts",
-    "build:client": "tsup --config ./tsup.config.ts",
-    "build": "rimraf dist && tsc -p ./tsconfig.build.json && yarn build:client",
+    "build": "tsup --config ./tsup.config.ts",
     "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
     "build-release": "yarn build && rimraf ./_release && yarn pack && mkdir ./_release && tar zxvf ./package.tgz --directory ./_release && rm ./package.tgz",
     "clean": "rimraf --no-glob ./dist ./_release ./coverage ./tsconfig.tsbuildinfo",
