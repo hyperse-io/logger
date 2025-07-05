@@ -1,4 +1,4 @@
-import { definePlugin } from '@hyperse/logger';
+import { definePlugin, type LoggerPlugin } from '@hyperse/logger';
 import { assertMessage } from './helpers/helper-assert-message.js';
 import { formatMessage } from './helpers/helper-format-message.js';
 import { isLoggable } from './helpers/helper-is-loggable.js';
@@ -6,7 +6,9 @@ import { mergeConsoleOptions } from './helpers/helper-merge-options.js';
 import type { ConsoleOptions } from './types/type-options.js';
 import type { ConsolePluginContext } from './types/type-plugin.js';
 
-export const createConsolePlugin = (options?: ConsoleOptions) => {
+export const createConsolePlugin = (
+  options?: ConsoleOptions
+): LoggerPlugin<ConsolePluginContext> => {
   const newOptions = mergeConsoleOptions(options);
   return definePlugin<ConsolePluginContext>({
     pluginName: 'hps-logger-plugin-console',

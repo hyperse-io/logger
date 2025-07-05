@@ -5,22 +5,22 @@ import { sleep } from './test-utils.js';
 
 describe('Logger Error Handling', () => {
   it('should handle errors thrown by plugins during log execution', async () => {
-    const consolePlugin = definePlugin({
+    type NewLoggerContext = {
+      env: 'node' | 'browser';
+    };
+
+    const consolePlugin = definePlugin<NewLoggerContext>({
       pluginName: 'consolePlugin',
       execute(options) {
         throw new Error('console plugin error ' + options.message);
       },
     });
 
-    type NewLoggerContext = {
-      env: 'node' | 'browser';
-    };
-
     const errorHandlingMock = vi.fn((error: Error) => {
       console.log('errorHandling: ', error.message);
     });
 
-    const logger = createLogger<NewLoggerContext>({
+    const logger = createLogger({
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
