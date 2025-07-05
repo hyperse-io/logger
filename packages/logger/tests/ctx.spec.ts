@@ -7,19 +7,18 @@ describe('Logger Context Setup', () => {
   it('should merge context with setup function result', async () => {
     const executeMock = vi.fn(({ _ctx, _priority, _message }) => {});
 
-    const consolePlugin = definePlugin({
+    type NewLoggerContext = {
+      env?: string;
+    };
+
+    const consolePlugin = definePlugin<NewLoggerContext>({
       pluginName: 'consolePlugin',
       execute: executeMock,
     });
 
-    type NewLoggerContext = {
-      env: string;
-    };
-
-    const logger = createLogger<NewLoggerContext>({
+    const logger = createLogger({
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
-      env: 'node',
     })
       .use(consolePlugin)
       .build(() => {

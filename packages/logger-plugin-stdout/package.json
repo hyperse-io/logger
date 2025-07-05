@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "stdout": "yarn node --import=@hyperse/ts-node/register ./tests/stdout.ts",
-    "build": "tsup --config ./tsup.config.ts",
+    "build": "rimraf dist && tsc -p ./tsconfig.build.json",
     "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
     "build-release": "yarn build && rimraf ./_release && yarn pack && mkdir ./_release && tar zxvf ./package.tgz --directory ./_release && rm ./package.tgz",
     "clean": "rimraf --no-glob ./dist ./_release ./coverage ./tsconfig.tsbuildinfo",
@@ -56,7 +56,6 @@
     "jsdom": "26.1.0",
     "npm-run-all": "4.1.5",
     "rimraf": "^6.0.1",
-    "tsup": "^8.5.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },

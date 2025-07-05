@@ -1,4 +1,4 @@
-import { definePlugin } from '@hyperse/logger';
+import { definePlugin, type LoggerPlugin } from '@hyperse/logger';
 import { assertMessage } from './helpers/helper-assert-message.js';
 import { formatMessage } from './helpers/helper-format-message.js';
 import { isLoggable } from './helpers/helper-is-loggable.js';
@@ -6,7 +6,9 @@ import { mergeStdOptions } from './helpers/helper-merge-options.js';
 import type { StdoutOptions } from './types/type-options.js';
 import type { StdoutPluginContext } from './types/type-plugin.js';
 
-export const createStdoutPlugin = (options?: StdoutOptions) => {
+export const createStdoutPlugin = (
+  options?: StdoutOptions
+): LoggerPlugin<StdoutPluginContext> => {
   const newOptions = mergeStdOptions(options);
   return definePlugin<StdoutPluginContext>({
     pluginName: 'hps-logger-plugin-stdout',

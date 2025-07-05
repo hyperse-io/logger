@@ -132,7 +132,7 @@ describe('Logger Basic Functionality', () => {
       },
     });
 
-    const logger = createLogger<NewLoggerContext>({
+    const logger = createLogger({
       thresholdLevel: LogLevel.Verbose,
       name: 'sampleLogger',
       env: 'node',
@@ -193,7 +193,12 @@ describe('Logger Basic Functionality', () => {
     const errorHandlingMock = vi.fn();
     const executeMock = vi.fn();
 
-    const consolePlugin = definePlugin({
+    type AppContext = {
+      userId: string;
+      environment: string;
+    };
+
+    const consolePlugin = definePlugin<AppContext>({
       pluginName: 'consolePlugin',
       execute({ message }) {
         if (typeof message === 'string') {
@@ -208,12 +213,7 @@ describe('Logger Basic Functionality', () => {
       },
     });
 
-    type AppContext = {
-      userId: string;
-      environment: string;
-    };
-
-    const logger = createLogger<AppContext>({
+    const logger = createLogger({
       thresholdLevel: LogLevel.Verbose,
       name: 'functionLogger',
       environment: 'production',
@@ -293,7 +293,7 @@ describe('Logger Basic Functionality', () => {
       },
     });
 
-    const logger = createLogger<AppContext>({
+    const logger = createLogger({
       thresholdLevel: LogLevel.Verbose,
       name: 'pipelineLogger',
       env: 'production',
