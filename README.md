@@ -251,9 +251,9 @@ The logger supports function-style messages that provide access to context:
 ```typescript
 logger.verbose((ctx) => ({
   message: 'Verbose message',
-  connectionPool: ctx.connectionPool, // ✅ 应该能推导出类型
-  permissions: ctx.permissions, // ✅ 应该能推导出类型
-  name: ctx.name, // ✅ 应该能推导出类型
+  connectionPool: ctx.connectionPool, // ✅ Correctly infers types from plugin context
+  permissions: ctx.permissions, // ✅ Correctly infers types from plugin context
+  name: ctx.name, // ✅ Correctly infers types from plugin context
 }));
 ```
 
