@@ -13,10 +13,7 @@ export type LoggerPluginContext<Context extends object> =
     pluginName: string;
   };
 
-export interface LoggerPlugin<
-  Context extends object,
-  Message extends LoggerMessage,
-> {
+export interface LoggerPlugin<Context extends object> {
   pluginName: string;
   execute(options: {
     ctx: LoggerPluginContext<Context>;
@@ -25,6 +22,6 @@ export interface LoggerPlugin<
     pipeContext: typeof pipeContext;
     isExitPipeValue: typeof isExitPipeValue;
     level: LogLevel;
-    message: Message;
+    message: LoggerMessage;
   }): void | Promise<void>;
 }

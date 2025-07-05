@@ -1,9 +1,7 @@
-import type { LoggerMessageObject, LogLevel } from '@hyperse/logger';
+import type { LogLevel } from '@hyperse/logger';
 import type { Color } from './type-color.js';
 
 export type StdoutPluginContext = object;
-
-export type StdoutPluginMessage = LoggerMessageObject;
 
 export type LevelData = {
   /**

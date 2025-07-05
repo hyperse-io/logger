@@ -12,11 +12,11 @@ describe('Logger Basic Functionality', () => {
   let mockConsoleInfo: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => { });
-    mockConsoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => { });
-    mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => { });
-    mockConsoleDebug = vi.spyOn(console, 'debug').mockImplementation(() => { });
-    mockConsoleInfo = vi.spyOn(console, 'info').mockImplementation(() => { });
+    mockConsoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
+    mockConsoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mockConsoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    mockConsoleDebug = vi.spyOn(console, 'debug').mockImplementation(() => {});
+    mockConsoleInfo = vi.spyOn(console, 'info').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -201,7 +201,11 @@ describe('Logger Basic Functionality', () => {
         if (typeof message === 'string') {
           executeMock(message);
         } else if (typeof message === 'object') {
-          executeMock(`${message.prefix} ${message.message}`);
+          if (message.prefix) {
+            executeMock(`${message.prefix} ${message.message}`);
+          } else {
+            executeMock(message.message);
+          }
         }
       },
     });
@@ -259,7 +263,7 @@ describe('Logger Basic Functionality', () => {
 
     // Verify error message handling
     expect(executeMock.mock.calls[4][0]).toContain(
-      'Message function execution failed'
+      'Failed to execute message function'
     );
   });
 

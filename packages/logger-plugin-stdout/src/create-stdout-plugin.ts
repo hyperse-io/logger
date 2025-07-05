@@ -4,14 +4,11 @@ import { formatMessage } from './helpers/helper-format-message.js';
 import { isLoggable } from './helpers/helper-is-loggable.js';
 import { mergeStdOptions } from './helpers/helper-merge-options.js';
 import type { StdoutOptions } from './types/type-options.js';
-import type {
-  StdoutPluginContext,
-  StdoutPluginMessage,
-} from './types/type-plugin.js';
+import type { StdoutPluginContext } from './types/type-plugin.js';
 
 export const createStdoutPlugin = (options?: StdoutOptions) => {
   const newOptions = mergeStdOptions(options);
-  return definePlugin<StdoutPluginContext, StdoutPluginMessage | string>({
+  return definePlugin<StdoutPluginContext>({
     pluginName: 'hps-logger-plugin-stdout',
     execute: async ({ ctx, level, message, pipe, exitPipe }) => {
       await pipe(

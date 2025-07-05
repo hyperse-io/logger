@@ -1,9 +1,10 @@
-import type { LoggerPluginContext, LogLevel } from '@hyperse/logger';
-import type { StdoutOptions } from '../types/type-options.js';
 import type {
-  StdoutPluginContext,
-  StdoutPluginMessage,
-} from '../types/type-plugin.js';
+  LoggerMessageObject,
+  LoggerPluginContext,
+  LogLevel,
+} from '@hyperse/logger';
+import type { StdoutOptions } from '../types/type-options.js';
+import type { StdoutPluginContext } from '../types/type-plugin.js';
 import { getColorApplier, terminalColor } from './helper-color-applier.js';
 import { formatStack } from './helper-format-stack.js';
 import { normalizeLevelData } from './helper-normalize-level.js';
@@ -12,7 +13,7 @@ import { strTimePad } from './helper-str-pad.js';
 export const formatMessage = (formatOptions: {
   ctx: LoggerPluginContext<StdoutPluginContext>;
   level: LogLevel;
-  inputMessage: StdoutPluginMessage;
+  inputMessage: LoggerMessageObject;
   options: Required<StdoutOptions>;
 }) => {
   const { ctx, level, inputMessage, options } = formatOptions;

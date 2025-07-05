@@ -8,6 +8,7 @@ import {
 import { defaultLoggerName, defaultLogLevel } from '../constant/constant.js';
 import { LogLevel } from '../constant/log-level.js';
 import { executeFunction } from '../helpers/helper-execute-fun.js';
+import { isFunction } from '../helpers/helper-is-function.js';
 import { mergeOptions } from '../helpers/helper-merge-options.js';
 import { simpleDeepClone } from '../helpers/helper-simple-deep-clone.js';
 import type {
@@ -31,13 +32,13 @@ import type { DeepPartial } from '../types/type-partial-deep.js';
 export class Logger<
   Context extends object = object,
   Message extends RawLoggerMessage<Context> = RawLoggerMessage<Context>,
-> implements BaseLogger<LoggerContext<Context>, Message> {
+> implements BaseLogger<LoggerContext<Context>, Message>
+{
   private ctx: LoggerContext<Context>;
   private errorHandling: ((error: Error) => void) | undefined;
   private pipeline: Pipeline<{
     ctx: LoggerContext<Context>;
-    rawMessage: Message;
-    message?: LoggerMessage;
+    message: Message;
     level: LogLevel;
   }> = new Pipeline();
 
@@ -59,7 +60,6 @@ export class Logger<
     });
     this.errorHandling = errorHandling;
     this.useSetupCtx(setup);
-    this.useMessageParser();
   }
 
   private useSetupCtx = async (
@@ -75,14 +75,27 @@ export class Logger<
   };
 
   /**
-   * Registers message parser pipeline
+   * The log message, which can be a function or a static message.
+   * If it's a function, it will be executed with the current context.
+   * @param ctx.message The log message to be parsed.
+   * @param ctx.ctx The logger context.
+   * @returns message The parsed log message.
    */
-  private useMessageParser() {
-    this.pipeline.use(async (ctx, next) => {
-      const rawMessage = ctx.rawMessage as Message;
-      ctx.message = this.parseMessage(rawMessage, ctx.ctx);
-      await next();
-    });
+  private async parseMessage(
+    ctx: Parameters<typeof this.pipeline.execute>[0]
+  ): Promise<LoggerMessage> {
+    const { message: pluginMessage, ctx: pluginCtx } = ctx;
+    try {
+      if (isFunction(pluginMessage)) {
+        return pluginMessage(pluginCtx);
+      }
+      return pluginMessage;
+    } catch (err: any) {
+      return {
+        message: 'Failed to execute message function',
+        stack: err?.stack,
+      };
+    }
   }
 
   /**
@@ -91,15 +104,16 @@ export class Logger<
    * @returns this, for chaining
    */
   public use(
-    ...plugins: LoggerPlugin<LoggerContext<Context>, LoggerMessage>[]
+    ...plugins: LoggerPlugin<LoggerContext<Context>>[]
   ): Pick<BaseLogger<LoggerContext<Context>, Message>, 'use' | 'build'> {
     for (const plugin of plugins) {
       this.pipeline.use(async (ctx, next) => {
-        const { level, message, ctx: pluginCtx } = ctx;
-        if (!message) {
+        const { level, message: rawMessage, ctx: pluginCtx } = ctx;
+        if (!rawMessage) {
           await next();
           return;
         }
+        const message = await this.parseMessage(ctx);
         const options = {
           ctx: { ...simpleDeepClone(pluginCtx), pluginName: plugin.pluginName },
           level: level,
@@ -142,7 +156,7 @@ export class Logger<
   public debug(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      rawMessage: message,
+      message: message,
       level: LogLevel.Debug,
     });
   }
@@ -154,7 +168,7 @@ export class Logger<
   public info(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      rawMessage: message,
+      message: message,
       level: LogLevel.Info,
     });
   }
@@ -166,7 +180,7 @@ export class Logger<
   public warn(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      rawMessage: message,
+      message: message,
       level: LogLevel.Warn,
     });
   }
@@ -178,7 +192,7 @@ export class Logger<
   public error(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      rawMessage: message,
+      message: message,
       level: LogLevel.Error,
     });
   }
@@ -190,31 +204,8 @@ export class Logger<
   public verbose(message: Message) {
     this.pipeline.execute({
       ctx: this.ctx,
-      rawMessage: message,
+      message: message,
       level: LogLevel.Verbose,
     });
-  }
-
-  /**
-   * The log message, which can be a function or a static message.
-   * If it's a function, it will be executed with the current context.
-   * @param message The log message to be parsed.
-   * @returns message The parsed log message.
-   */
-  private parseMessage(
-    message: Message,
-    ctx: LoggerContext<Context>
-  ): LoggerMessage {
-    try {
-      if (typeof message === 'function') {
-        return message(ctx);
-      }
-      return message;
-    } catch (err: any) {
-      return {
-        message: 'Failed to execute message function',
-        stack: err?.stack,
-      };
-    }
   }
 }

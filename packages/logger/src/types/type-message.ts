@@ -1,4 +1,4 @@
-import type { LoggerContext } from "./type-logger.js";
+import type { LoggerContext } from './type-logger.js';
 
 export type LoggerMessageObject = {
   message: string | object;
@@ -7,6 +7,8 @@ export type LoggerMessageObject = {
   stack?: string | undefined | null;
 };
 
-export type LoggerMessage = string | LoggerMessageObject
+export type LoggerMessage = string | LoggerMessageObject;
 
-export type RawLoggerMessage<Context extends object = object> = LoggerMessage | ((ctx: LoggerContext<Context>) => LoggerMessage)
+export type RawLoggerMessage<Context extends object = object> =
+  | LoggerMessage
+  | ((ctx: LoggerContext<Context>) => LoggerMessage);
