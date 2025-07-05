@@ -88,14 +88,13 @@ const logger = createLogger<AppContext>({
   name: 'api-server',
   thresholdLevel: LogLevel.Debug,
   environment: 'development',
-  setup: async () => ({
+})
+  .use(createConsolePlugin())
+  .build(async () => ({
     // Dynamic context that can be set per request
     userId: getCurrentUserId(),
     requestId: generateRequestId(),
-  }),
-})
-  .use(createConsolePlugin())
-  .build();
+  }));
 
 // Log with context
 logger.info('User login successful');
@@ -279,16 +278,15 @@ try {
 const logger = createLogger({
   name: 'my-app', // Logger name
   thresholdLevel: LogLevel.Info, // Minimum log level
-  setup: async () => ({
-    // Dynamic context setup
-    userId: getCurrentUserId(),
-    requestId: generateRequestId(),
-  }),
   errorHandling: (error) => {
     // Error handling function
     console.error('Logger error:', error);
   },
-});
+}).build(async () => ({
+  // Dynamic context setup
+  userId: getCurrentUserId(),
+  requestId: generateRequestId(),
+}));
 ```
 
 ## 🏗️ Architecture
