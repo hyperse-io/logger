@@ -2,16 +2,28 @@ import type { LogLevel } from '../constant/log-level.js';
 import type { LoggerPlugin } from './type-logger-plugin.js';
 import type { RawLoggerMessage } from './type-message.js';
 
+/**
+ * The context type for the logger.
+ * @template Context The context type for the logger.
+ */
 export type LoggerContext<Context extends object = object> = Context & {
   name: string;
   thresholdLevel: LogLevel;
 };
 
-// 从 LoggerPlugin 中提取 Context 类型
+/**
+ * Extract the context type from a LoggerPlugin.
+ * @template T The type of the LoggerPlugin.
+ * @returns The context type of the LoggerPlugin.
+ */
 export type ExtractPluginContext<T> =
   T extends LoggerPlugin<infer Context> ? Context : never;
 
-// 从多个 Plugin 中提取并合并 Context 类型
+/**
+ * Extract and merge the context type from multiple plugins.
+ * @template T The type of the LoggerPlugin.
+ * @returns The context type of the LoggerPlugin.
+ */
 export type ExtractPluginsContext<T extends readonly LoggerPlugin<any>[]> =
   T extends readonly [infer First, ...infer Rest]
     ? First extends LoggerPlugin<any>
@@ -23,21 +35,40 @@ export type ExtractPluginsContext<T extends readonly LoggerPlugin<any>[]> =
         : object
     : object;
 
-// 完整的 Context 类型 - 基于现有的 LoggerContext
+/**
+ * The complete Context type - based on the existing LoggerContext.
+ * @template InitialContext The initial context type.
+ * @template PluginContext The plugin context type.
+ * @returns The complete context type.
+ */
 export type MergedLoggerContext<
   InitialContext extends object,
   PluginContext extends object = object,
 > = LoggerContext<InitialContext & PluginContext>;
 
-// 严格的部分类型 - 只允许已知的属性，不允许额外属性
+/**
+ * Strict partial type - only allows known properties, no extra properties.
+ * @template T The type to make strict partial.
+ * @returns The strict partial type.
+ */
 export type StrictPartial<T> = {
   [K in keyof T]?: T[K];
 };
 
-// 确保对象只包含指定的属性，不允许额外属性
+/**
+ * Ensure the object only contains the specified properties, no extra properties.
+ * @template T The type to make exact.
+ * @template U The type to make exact.
+ * @returns The exact type.
+ */
 export type Exact<T, U> = T extends U ? (U extends T ? T : never) : never;
 
-// 更严格的类型 - 确保只接受已知的属性
+/**
+ * More strict type - only accepts known properties.
+ * @template InitialContext The initial context type.
+ * @template PluginContext The plugin context type.
+ * @returns The valid setup context type.
+ */
 export type ValidSetupContext<
   InitialContext extends object,
   PluginContext extends object,
@@ -46,7 +77,12 @@ export type ValidSetupContext<
   Partial<MergedLoggerContext<InitialContext, PluginContext>>
 >;
 
-// 严格限制函数返回值的类型
+/**
+ * Strictly limit the return type of the function.
+ * @template InitialContext The initial context type.
+ * @template PluginContext The plugin context type.
+ * @returns The strict setup function type.
+ */
 export type StrictSetupFunction<
   InitialContext extends object,
   PluginContext extends object,
@@ -54,12 +90,21 @@ export type StrictSetupFunction<
   | ValidSetupContext<InitialContext, PluginContext>
   | Promise<ValidSetupContext<InitialContext, PluginContext>>;
 
-// Logger Builder 接口
+/**
+ * Logger Builder interface.
+ * @template InitialContext The initial context type.
+ * @template PluginContext The plugin context type.
+ * @returns The LoggerBuilder type.
+ */
 export interface LoggerBuilder<
   InitialContext extends object = object,
   PluginContext extends object = object,
 > {
-  // 支持单个 plugin
+  /**
+   * Use a single plugin.
+   * @param plugin The plugin to use.
+   * @returns The LoggerBuilder type.
+   */
   use<Plugin extends LoggerPlugin<any>>(
     plugin: Plugin
   ): LoggerBuilder<
@@ -67,7 +112,11 @@ export interface LoggerBuilder<
     PluginContext & ExtractPluginContext<Plugin>
   >;
 
-  // 支持多个 plugin
+  /**
+   * Use multiple plugins.
+   * @param plugins The plugins to use.
+   * @returns The LoggerBuilder type.
+   */
   use<Plugins extends readonly LoggerPlugin<any>[]>(
     ...plugins: Plugins
   ): LoggerBuilder<
@@ -75,20 +124,35 @@ export interface LoggerBuilder<
     PluginContext & ExtractPluginsContext<Plugins>
   >;
 
-  // build 方法重载 - 无参数
+  /**
+   * Build the logger.
+   * @returns The Logger type.
+   */
   build(): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
-  // build 方法重载 - 对象参数
+  /**
+   * Build the logger with a setup function.
+   * @param setup The setup function.
+   * @returns The Logger type.
+   */
   build(
     setup: Partial<MergedLoggerContext<InitialContext, PluginContext>>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
-  // build 方法重载 - Promise 参数
+  /**
+   * Build the logger with a Promise parameters.
+   * @param setup The setup function.
+   * @returns The Logger type.
+   */
   build(
     setup: Promise<Partial<MergedLoggerContext<InitialContext, PluginContext>>>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
-  // build 方法重载 - 函数参数
+  /**
+   * Build the logger with a function parameters.
+   * @param setup The setup function.
+   * @returns The Logger type.
+   */
   build(
     setup: () =>
       | Partial<MergedLoggerContext<InitialContext, PluginContext>>
@@ -96,16 +160,48 @@ export interface LoggerBuilder<
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 }
 
-// 最终的 Logger 类型 - 确保 Context 包含完整的 plugin context
+/**
+ * The final Logger type - ensure Context contains the complete plugin context.
+ * @template Context The context type for the logger.
+ * @returns The Logger type.
+ */
 export interface Logger<Context extends LoggerContext = LoggerContext> {
+  /**
+   * Debug log method.
+   * @param message The message to log.
+   * @returns void.
+   */
   debug: (message: RawLoggerMessage<Context>) => void;
+  /**
+   * Info log method.
+   * @param message The message to log.
+   * @returns void.
+   */
   info: (message: RawLoggerMessage<Context>) => void;
+  /**
+   * Warn log method.
+   * @param message The message to log.
+   * @returns void.
+   */
   warn: (message: RawLoggerMessage<Context>) => void;
+  /**
+   * Error log method.
+   * @param message The message to log.
+   * @returns void.
+   */
   error: (message: RawLoggerMessage<Context>) => void;
+  /**
+   * Verbose log method.
+   * @param message The message to log.
+   * @returns void.
+   */
   verbose: (message: RawLoggerMessage<Context>) => void;
 }
 
-// 创建 Logger 的工厂函数类型
+/**
+ * The factory function type for creating Logger.
+ * @returns The CreateLoggerFactory type.
+ */
 export interface CreateLoggerFactory {
   <InitialContext extends object = object>(
     options?: LoggerContext<InitialContext> & {

@@ -8,4 +8,9 @@ export type _DeepPartial<T> = T extends (...args: any[]) => any
         ? DeepPartial<T>
         : T | undefined;
 
+/**
+ * Deep partial type.
+ * @template T The type to make deep partial.
+ * @returns The deep partial type.
+ */
 export type DeepPartial<T> = { [P in keyof T]?: _DeepPartial<T[P]> };
