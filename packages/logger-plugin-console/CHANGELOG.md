@@ -1,5 +1,14 @@
 # @hyperse/logger-plugin-console
 
+## 1.0.6
+
+### Patch Changes
+
+- [#16](https://github.com/hyperse-io/logger/pull/16) [`7561946`](https://github.com/hyperse-io/logger/commit/7561946d54726dca734cd958ca85d40d3fce3954) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - refactor(logger): enhance plugin type definitions for console and stdout plugins
+
+- Updated dependencies [[`7561946`](https://github.com/hyperse-io/logger/commit/7561946d54726dca734cd958ca85d40d3fce3954)]:
+  - @hyperse/logger@1.1.2
+
 ## 1.0.5
 
 ### Patch Changes
