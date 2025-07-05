@@ -1,6 +1,6 @@
 {
   "name": "@hyperse/logger-website",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Hyperse logger Website",
   "private": true,
   "homepage": "https://github.com/hyperse-io/logger#readme",

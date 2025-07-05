@@ -1,5 +1,12 @@
 # @hyperse/logger-plugin-sentry
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`e01c077`](https://github.com/hyperse-io/logger/commit/e01c0774872797469d1598833de89ac200adce36), [`68faac1`](https://github.com/hyperse-io/logger/commit/68faac1bc3912e4fafb4090049b6cf605fea204d)]:
+  - @hyperse/logger@1.1.0
+
 ## 1.0.3
 
 ### Patch Changes
