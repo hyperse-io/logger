@@ -1,5 +1,14 @@
 # @hyperse/logger-plugin-console
 
+## 1.0.5
+
+### Patch Changes
+
+- [`75e4bd1`](https://github.com/hyperse-io/logger/commit/75e4bd1f50e46abab0efd776f430c3957cb43b72) Thanks [@tianyingchun](https://github.com/tianyingchun)! - refactor build scripts & typings comments
+
+- Updated dependencies [[`75e4bd1`](https://github.com/hyperse-io/logger/commit/75e4bd1f50e46abab0efd776f430c3957cb43b72)]:
+  - @hyperse/logger@1.1.1
+
 ## 1.0.4
 
 ### Patch Changes
