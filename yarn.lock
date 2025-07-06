@@ -2656,6 +2656,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hyperse/deep-merge@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@hyperse/deep-merge@npm:1.0.1"
+  checksum: 10c0/591caf8477b0ff36681c8f0caee6cac471273ef495dc09c9238f86aab414e283da8adef0b37817c6c84288ec148e77323244989de38c8fc9b7b828821ce71a1a
+  languageName: node
+  linkType: hard
+
 "@hyperse/eslint-config-hyperse@npm:^1.4.5":
   version: 1.4.5
   resolution: "@hyperse/eslint-config-hyperse@npm:1.4.5"
@@ -2713,6 +2720,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperse/logger-plugin-console@workspace:packages/logger-plugin-console"
   dependencies:
+    "@hyperse/deep-merge": "npm:^1.0.1"
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
     "@hyperse/logger": "workspace:*"
     "@hyperse/ts-node": "npm:^1.0.3"
@@ -2732,6 +2740,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperse/logger-plugin-sentry@workspace:packages/logger-plugin-sentry"
   dependencies:
+    "@hyperse/deep-merge": "npm:^1.0.1"
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
     "@hyperse/logger": "workspace:*"
     "@types/node": "npm:^24.0.10"
@@ -2750,6 +2759,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperse/logger-plugin-stdout@workspace:packages/logger-plugin-stdout"
   dependencies:
+    "@hyperse/deep-merge": "npm:^1.0.1"
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
     "@hyperse/logger": "workspace:*"
     "@hyperse/ts-node": "npm:^1.0.3"
@@ -2807,6 +2817,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@hyperse/logger@workspace:packages/logger"
   dependencies:
+    "@hyperse/deep-merge": "npm:^1.0.1"
     "@hyperse/eslint-config-hyperse": "npm:^1.4.5"
     "@hyperse/pipeline": "npm:^1.0.6"
     "@types/node": "npm:^24.0.10"

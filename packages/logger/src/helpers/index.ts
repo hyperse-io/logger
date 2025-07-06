@@ -1,2 +1,2 @@
-export * from './helper-merge-options.js';
-export * from './helper-simple-deep-clone.js';
+export * from './helper-execute-fun.js';
+export * from './helper-is-function.js';
