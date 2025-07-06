@@ -1,5 +1,11 @@
 # @hyperse/logger
 
+## 1.1.3
+
+### Patch Changes
+
+- [`e734460`](https://github.com/hyperse-io/logger/commit/e734460362e76fd3f4f69de5c4a33a6645c71939) Thanks [@tianyingchun](https://github.com/tianyingchun)! - migrate `mergeOptions` from `@hyperse/deep-merge`
+
 ## 1.1.2
 
 ### Patch Changes
