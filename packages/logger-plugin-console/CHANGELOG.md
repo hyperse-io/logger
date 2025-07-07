@@ -1,5 +1,12 @@
 # @hyperse/logger-plugin-console
 
+## 1.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`5cb04db`](https://github.com/hyperse-io/logger/commit/5cb04db7223a61bcb36d3360949dc3c0acd5e803)]:
+  - @hyperse/logger@1.1.6
+
 ## 1.0.9
 
 ### Patch Changes

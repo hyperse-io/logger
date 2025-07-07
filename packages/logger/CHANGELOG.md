@@ -1,5 +1,11 @@
 # @hyperse/logger
 
+## 1.1.6
+
+### Patch Changes
+
+- [#21](https://github.com/hyperse-io/logger/pull/21) [`5cb04db`](https://github.com/hyperse-io/logger/commit/5cb04db7223a61bcb36d3360949dc3c0acd5e803) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - refactor: update logger interface and tests for improved setup function handling
+
 ## 1.1.5
 
 ### Patch Changes
