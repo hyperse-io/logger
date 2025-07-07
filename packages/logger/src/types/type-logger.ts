@@ -64,18 +64,15 @@ export type StrictPartial<T> = {
 export type Exact<T, U> = T extends U ? (U extends T ? T : never) : never;
 
 /**
- * More strict type - only accepts known properties.
+ * Setup context type that makes InitialContext optional while keeping PluginContext unchanged.
  * @template InitialContext The initial context type.
  * @template PluginContext The plugin context type.
- * @returns The valid setup context type.
+ * @returns The setup context type with optional InitialContext.
  */
-export type ValidSetupContext<
+export type SetupContext<
   InitialContext extends object,
   PluginContext extends object,
-> = Exact<
-  Partial<MergedLoggerContext<InitialContext, PluginContext>>,
-  Partial<MergedLoggerContext<InitialContext, PluginContext>>
->;
+> = Partial<InitialContext> & PluginContext;
 
 /**
  * Strictly limit the return type of the function.
@@ -87,8 +84,8 @@ export type StrictSetupFunction<
   InitialContext extends object,
   PluginContext extends object,
 > = () =>
-  | ValidSetupContext<InitialContext, PluginContext>
-  | Promise<ValidSetupContext<InitialContext, PluginContext>>;
+  | SetupContext<InitialContext, PluginContext>
+  | Promise<SetupContext<InitialContext, PluginContext>>;
 
 /**
  * Logger Builder interface.
@@ -136,7 +133,7 @@ export interface LoggerBuilder<
    * @returns The Logger type.
    */
   build(
-    setup: Partial<MergedLoggerContext<InitialContext, PluginContext>>
+    setup: SetupContext<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
@@ -145,7 +142,7 @@ export interface LoggerBuilder<
    * @returns The Logger type.
    */
   build(
-    setup: Promise<Partial<MergedLoggerContext<InitialContext, PluginContext>>>
+    setup: Promise<SetupContext<InitialContext, PluginContext>>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
@@ -154,9 +151,7 @@ export interface LoggerBuilder<
    * @returns The Logger type.
    */
   build(
-    setup: () =>
-      | Partial<MergedLoggerContext<InitialContext, PluginContext>>
-      | Promise<Partial<MergedLoggerContext<InitialContext, PluginContext>>>
+    setup: StrictSetupFunction<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 }
 

@@ -1,5 +1,5 @@
 import type { LoggerPlugin } from '../types/index.js';
-import type { LoggerContext } from '../types/type-logger.js';
+import type { LoggerContext, SetupContext } from '../types/type-logger.js';
 import type {
   CreateLoggerFactory,
   ExtractPluginContext,
@@ -8,7 +8,6 @@ import type {
   LoggerBuilder,
   MergedLoggerContext,
   StrictSetupFunction,
-  ValidSetupContext,
 } from '../types/type-logger.js';
 import { Logger as LoggerImpl } from './logger.js';
 
@@ -83,7 +82,7 @@ class LoggerBuilderImpl<
    * @returns A new logger instance
    */
   build(
-    setup: ValidSetupContext<InitialContext, PluginContext>
+    setup: SetupContext<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
@@ -92,7 +91,7 @@ class LoggerBuilderImpl<
    * @returns A new logger instance
    */
   build(
-    setup: Promise<ValidSetupContext<InitialContext, PluginContext>>
+    setup: Promise<SetupContext<InitialContext, PluginContext>>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
@@ -111,8 +110,8 @@ class LoggerBuilderImpl<
    */
   build(
     setup?:
-      | ValidSetupContext<InitialContext, PluginContext>
-      | Promise<ValidSetupContext<InitialContext, PluginContext>>
+      | SetupContext<InitialContext, PluginContext>
+      | Promise<SetupContext<InitialContext, PluginContext>>
       | StrictSetupFunction<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>> {
     if (setup) {

@@ -11,7 +11,10 @@ import { defaultLoggerName, defaultLogLevel } from '../constant/constant.js';
 import { LogLevel } from '../constant/log-level.js';
 import { executeFunction } from '../helpers/helper-execute-fun.js';
 import { isFunction } from '../helpers/helper-is-function.js';
-import type { LoggerContext } from '../types/type-logger.js';
+import type {
+  Logger as LogggerType,
+  LoggerContext,
+} from '../types/type-logger.js';
 import type { LoggerPlugin } from '../types/type-logger-plugin.js';
 import type { LoggerMessage, RawLoggerMessage } from '../types/type-message.js';
 
@@ -24,7 +27,7 @@ import type { LoggerMessage, RawLoggerMessage } from '../types/type-message.js';
  * @template Context The logger context type, including log level, name, etc.
  */
 export class Logger<Context extends LoggerContext = LoggerContext>
-  implements Logger<Context>
+  implements LogggerType<Context>
 {
   private ctx: Context;
   private errorHandling: ((error: Error) => void) | undefined;
