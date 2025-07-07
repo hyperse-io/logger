@@ -1,5 +1,11 @@
 # @hyperse/logger
 
+## 1.1.4
+
+### Patch Changes
+
+- [`7459534`](https://github.com/hyperse-io/logger/commit/745953464bb02cc416521c5e12a43fda57a94391) Thanks [@tianyingchun](https://github.com/tianyingchun)! - fix typings issue
+
 ## 1.1.3
 
 ### Patch Changes
