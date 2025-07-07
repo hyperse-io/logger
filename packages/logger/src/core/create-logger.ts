@@ -1,5 +1,9 @@
 import type { LoggerPlugin } from '../types/index.js';
-import type { LoggerContext, SetupContext } from '../types/type-logger.js';
+import type {
+  LoggerBuilderNoRequired,
+  LoggerContext,
+  SetupContext,
+} from '../types/type-logger.js';
 import type {
   CreateLoggerFactory,
   ExtractPluginContext,
@@ -20,7 +24,7 @@ import { Logger as LoggerImpl } from './logger.js';
 class LoggerBuilderImpl<
   InitialContext extends object = object,
   PluginContext extends object = object,
-> implements LoggerBuilder<InitialContext, PluginContext>
+> implements LoggerBuilderNoRequired<InitialContext, PluginContext>
 {
   private logger: LoggerImpl<
     MergedLoggerContext<InitialContext, PluginContext>

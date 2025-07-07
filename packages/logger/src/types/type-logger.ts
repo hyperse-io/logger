@@ -64,6 +64,19 @@ export type StrictPartial<T> = {
 export type Exact<T, U> = T extends U ? (U extends T ? T : never) : never;
 
 /**
+ * Check if a type has any required properties.
+ * @template T The type to check.
+ * @returns true if the type has required properties, false otherwise.
+ */
+export type HasRequiredProperties<T> = T extends object
+  ? {
+      [K in keyof T]-?: object extends Pick<T, K> ? never : K;
+    }[keyof T] extends never
+    ? false
+    : true
+  : false;
+
+/**
  * Setup context type that makes InitialContext optional while keeping PluginContext unchanged.
  * @template InitialContext The initial context type.
  * @template PluginContext The plugin context type.
@@ -88,12 +101,12 @@ export type StrictSetupFunction<
   | Promise<SetupContext<InitialContext, PluginContext>>;
 
 /**
- * Logger Builder interface.
+ * Logger Builder interface for when PluginContext has required properties.
  * @template InitialContext The initial context type.
  * @template PluginContext The plugin context type.
  * @returns The LoggerBuilder type.
  */
-export interface LoggerBuilder<
+export interface LoggerBuilderWithRequired<
   InitialContext extends object = object,
   PluginContext extends object = object,
 > {
@@ -122,12 +135,6 @@ export interface LoggerBuilder<
   >;
 
   /**
-   * Build the logger.
-   * @returns The Logger type.
-   */
-  build(): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
-
-  /**
    * Build the logger with a setup function.
    * @param setup The setup function.
    * @returns The Logger type.
@@ -154,6 +161,37 @@ export interface LoggerBuilder<
     setup: StrictSetupFunction<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 }
+
+/**
+ * Logger Builder interface for when PluginContext has no required properties.
+ * @template InitialContext The initial context type.
+ * @template PluginContext The plugin context type.
+ * @returns The LoggerBuilder type.
+ */
+export interface LoggerBuilderNoRequired<
+  InitialContext extends object = object,
+  PluginContext extends object = object,
+> extends LoggerBuilderWithRequired<InitialContext, PluginContext> {
+  /**
+   * Build the logger without parameters.
+   * @returns The Logger type.
+   */
+  build(): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
+}
+
+/**
+ * Logger Builder interface - conditional based on PluginContext requirements.
+ * @template InitialContext The initial context type.
+ * @template PluginContext The plugin context type.
+ * @returns The LoggerBuilder type.
+ */
+export type LoggerBuilder<
+  InitialContext extends object = object,
+  PluginContext extends object = object,
+> =
+  HasRequiredProperties<PluginContext> extends false
+    ? LoggerBuilderNoRequired<InitialContext, PluginContext>
+    : LoggerBuilderWithRequired<InitialContext, PluginContext>;
 
 /**
  * The final Logger type - ensure Context contains the complete plugin context.

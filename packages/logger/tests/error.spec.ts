@@ -27,10 +27,10 @@ describe('Logger Error Handling', () => {
       errorHandling: errorHandlingMock,
     })
       .use(consolePlugin)
-      .build(async () => {
-        return Promise.resolve({
+      .build(() => {
+        return {
           env: 'browser' as 'node' | 'browser',
-        });
+        };
       });
 
     logger.info('info message');
