@@ -1,5 +1,11 @@
 # @hyperse/logger
 
+## 1.1.5
+
+### Patch Changes
+
+- [`4dc0c60`](https://github.com/hyperse-io/logger/commit/4dc0c60be8542e1d75abf2a10ba79bead1dda1d6) Thanks [@tianyingchun](https://github.com/tianyingchun)! - fix auto infer pluginContext typings issue
+
 ## 1.1.4
 
 ### Patch Changes

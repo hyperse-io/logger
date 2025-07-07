@@ -1,5 +1,12 @@
 # @hyperse/logger-plugin-stdout
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`4dc0c60`](https://github.com/hyperse-io/logger/commit/4dc0c60be8542e1d75abf2a10ba79bead1dda1d6)]:
+  - @hyperse/logger@1.1.5
+
 ## 1.0.8
 
 ### Patch Changes
