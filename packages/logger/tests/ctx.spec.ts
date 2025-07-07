@@ -9,6 +9,8 @@ describe('Logger Context Setup', () => {
 
     type NewLoggerContext = {
       env?: string;
+      platform?: 'android' | 'ios';
+      agent?: string;
     };
 
     const consolePlugin = definePlugin<NewLoggerContext>({
@@ -21,12 +23,10 @@ describe('Logger Context Setup', () => {
       name: 'sampleLogger',
     })
       .use(consolePlugin)
-      .build(() => {
-        return {
-          platform: 'android',
-          agent: 'chrome 123',
-          env: 'node',
-        };
+      .build({
+        env: 'node',
+        platform: 'android',
+        agent: 'chrome 123',
       });
 
     logger.info('info message');

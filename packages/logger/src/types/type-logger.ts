@@ -135,12 +135,12 @@ export interface LoggerBuilderWithRequired<
   >;
 
   /**
-   * Build the logger with a setup function.
+   * Build the logger with a function parameters.
    * @param setup The setup function.
    * @returns The Logger type.
    */
   build(
-    setup: SetupContext<InitialContext, PluginContext>
+    setup: StrictSetupFunction<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
@@ -153,12 +153,12 @@ export interface LoggerBuilderWithRequired<
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
-   * Build the logger with a function parameters.
+   * Build the logger with a setup function.
    * @param setup The setup function.
    * @returns The Logger type.
    */
   build(
-    setup: StrictSetupFunction<InitialContext, PluginContext>
+    setup: SetupContext<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 }
 
@@ -171,7 +171,7 @@ export interface LoggerBuilderWithRequired<
 export interface LoggerBuilderNoRequired<
   InitialContext extends object = object,
   PluginContext extends object = object,
-> extends LoggerBuilderWithRequired<InitialContext, PluginContext> {
+> {
   /**
    * Build the logger without parameters.
    * @returns The Logger type.
@@ -190,7 +190,8 @@ export type LoggerBuilder<
   PluginContext extends object = object,
 > =
   HasRequiredProperties<PluginContext> extends false
-    ? LoggerBuilderNoRequired<InitialContext, PluginContext>
+    ? LoggerBuilderNoRequired<InitialContext, PluginContext> &
+        LoggerBuilderWithRequired<InitialContext, PluginContext>
     : LoggerBuilderWithRequired<InitialContext, PluginContext>;
 
 /**
