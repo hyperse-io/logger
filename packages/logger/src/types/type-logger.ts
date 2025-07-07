@@ -135,7 +135,7 @@ export interface LoggerBuilderWithRequired<
   >;
 
   /**
-   * Build the logger with a function parameters.
+   * Build the logger with a setup function.
    * @param setup The setup function.
    * @returns The Logger type.
    */
@@ -153,8 +153,8 @@ export interface LoggerBuilderWithRequired<
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
-   * Build the logger with a setup function.
-   * @param setup The setup function.
+   *  Build the logger with a context object.
+   * @param setup The setup context object.
    * @returns The Logger type.
    */
   build(
