@@ -195,7 +195,7 @@ describe('Logger Basic Functionality', () => {
 
     type AppContext = {
       userId: string;
-      environment: string;
+      environment?: string;
     };
 
     const consolePlugin = definePlugin<AppContext>({
@@ -300,7 +300,10 @@ describe('Logger Basic Functionality', () => {
       version: '1.0.0',
     })
       .use(consolePlugin)
-      .build();
+      .build({
+        env: 'production',
+        version: '1.0.0',
+      });
 
     // Function message - string
     logger.info((ctx) => `App v${ctx.version} running in ${ctx.env}`);
