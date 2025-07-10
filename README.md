@@ -146,9 +146,9 @@ A standard output plugin for [@hyperse/logger](https://github.com/hyperse-io/log
 **Quick Setup:**
 
 ```typescript
-import { createStdPlugin } from '@hyperse/logger-plugin-stdout';
+import { createStdoutPlugin } from '@hyperse/logger-plugin-stdout';
 
-const stdPlugin = createStdPlugin();
+const stdPlugin = createStdoutPlugin();
 ```
 
 📖 **[View detailed documentation →](./packages/logger-plugin-stdout/README.md)**
@@ -190,10 +190,10 @@ Combine multiple plugins for sophisticated logging setups:
 ```typescript
 import { createLogger } from '@hyperse/logger';
 import { createConsolePlugin } from '@hyperse/logger-plugin-console';
-import { createStdPlugin } from '@hyperse/logger-plugin-stdout';
+import { createStdoutPlugin } from '@hyperse/logger-plugin-stdout';
 
 const logger = createLogger()
-  .use(createConsolePlugin(), createStdPlugin())
+  .use(createConsolePlugin(), createStdoutPlugin())
   .use(customPlugin)
   .build();
 ```
