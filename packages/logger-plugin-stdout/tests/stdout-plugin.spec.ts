@@ -1,6 +1,5 @@
 import { createLogger, LogLevel } from '@hyperse/logger';
 import { createStdoutPlugin } from '../src/create-stdout-plugin.js';
-import { sleep } from './test-utils.js';
 
 describe('createStdoutPlugin', () => {
   // @ts-ignore
@@ -24,9 +23,7 @@ describe('createStdoutPlugin', () => {
       .use(createStdoutPlugin({ disable: true }))
       .build();
 
-    logger.info('info message');
-
-    await sleep(100);
+    await logger.info('info message');
 
     expect(mockStdLog).not.toHaveBeenCalled();
   });
@@ -39,9 +36,7 @@ describe('createStdoutPlugin', () => {
       .use(createStdoutPlugin({ noColor: true }))
       .build();
 
-    logger.info('info message');
-
-    await sleep(100);
+    await logger.info('info message');
 
     expect(mockStdLog).toHaveBeenCalledTimes(1);
     const output = mockStdLog.mock.calls[0][0];
@@ -57,13 +52,11 @@ describe('createStdoutPlugin', () => {
       .use(createStdoutPlugin({ noColor: true }))
       .build();
 
-    logger.warn({
+    await logger.warn({
       prefix: 'warn prefix',
       name: 'warn name',
       message: 'warn message',
     });
-
-    await sleep(100);
 
     expect(mockStdLog).toHaveBeenCalledTimes(1);
     const output = mockStdLog.mock.calls[0][0];
@@ -81,13 +74,11 @@ describe('createStdoutPlugin', () => {
       .use(createStdoutPlugin({ noColor: true }))
       .build();
 
-    logger.debug({
+    await logger.debug({
       prefix: 'debug prefix',
       name: 'debug name',
       message: 'debug message',
     });
-
-    await sleep(100);
 
     expect(mockStdLog).toHaveBeenCalledTimes(1);
     const output = mockStdLog.mock.calls[0][0];
@@ -105,13 +96,11 @@ describe('createStdoutPlugin', () => {
       .use(createStdoutPlugin({ noColor: true }))
       .build();
 
-    logger.verbose({
+    await logger.verbose({
       prefix: 'verbose prefix',
       name: 'verbose name',
       message: 'verbose message',
     });
-
-    await sleep(100);
 
     expect(mockStdLog).toHaveBeenCalledTimes(1);
     const output = mockStdLog.mock.calls[0][0];
@@ -135,13 +124,11 @@ describe('createStdoutPlugin', () => {
     } catch (e) {
       error = e as Error;
     }
-    logger.error({
+    await logger.error({
       name: 'error name',
       message: error!.message,
       stack: error!.stack,
     });
-
-    await sleep(100);
 
     expect(mockStdLog).toHaveBeenCalledTimes(1);
     const output = mockStdLog.mock.calls[0][0];

@@ -1,7 +1,6 @@
 import { createLogger } from '../src/core/create-logger.js';
 import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
-import { sleep } from './test-utils.js';
 
 describe('Logger Context Setup', () => {
   it('should merge context with setup function result', async () => {
@@ -29,8 +28,7 @@ describe('Logger Context Setup', () => {
         agent: 'chrome 123',
       });
 
-    logger.info('info message');
-    await sleep(100);
+    await logger.info('info message');
 
     expect(executeMock).toHaveBeenCalledTimes(1);
     expect(executeMock.mock.calls[0][0].ctx).toMatchObject({
@@ -74,9 +72,7 @@ describe('Logger Context Setup', () => {
         });
       });
 
-    logger.info('info message');
-
-    await sleep(100);
+    await logger.info('info message');
 
     expect(executeMock).toHaveBeenCalledTimes(1);
     expect(executeMock.mock.calls[0][0].ctx).toMatchObject({

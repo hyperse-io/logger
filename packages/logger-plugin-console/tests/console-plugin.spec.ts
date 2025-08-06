@@ -1,6 +1,5 @@
 import { createLogger, LogLevel } from '@hyperse/logger';
 import { createConsolePlugin } from '../src/create-console-plugin.js';
-import { sleep } from './test-utils.js';
 
 describe('createConsolePlugin', () => {
   // @ts-ignore
@@ -22,9 +21,7 @@ describe('createConsolePlugin', () => {
       .use(createConsolePlugin({ disable: true }))
       .build();
 
-    logger.info('info message');
-
-    await sleep(100);
+    await logger.info('info message');
 
     expect(mockConsoleLog).not.toHaveBeenCalled();
   });
@@ -37,9 +34,7 @@ describe('createConsolePlugin', () => {
       .use(createConsolePlugin({ noColor: true }))
       .build();
 
-    logger.info('info message');
-
-    await sleep(100);
+    await logger.info('info message');
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(1);
     const output = mockConsoleLog.mock.calls[0][0];
@@ -55,13 +50,11 @@ describe('createConsolePlugin', () => {
       .use(createConsolePlugin({ noColor: true }))
       .build();
 
-    logger.warn({
+    await logger.warn({
       prefix: 'warn prefix',
       name: 'warn name',
       message: 'warn message',
     });
-
-    await sleep(100);
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(1);
     const output = mockConsoleLog.mock.calls[0][0];
@@ -79,13 +72,11 @@ describe('createConsolePlugin', () => {
       .use(createConsolePlugin({ noColor: true }))
       .build();
 
-    logger.debug({
+    await logger.debug({
       prefix: 'debug prefix',
       name: 'debug name',
       message: 'debug message',
     });
-
-    await sleep(100);
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(1);
     const output = mockConsoleLog.mock.calls[0][0];
@@ -103,13 +94,11 @@ describe('createConsolePlugin', () => {
       .use(createConsolePlugin({ noColor: true }))
       .build();
 
-    logger.verbose({
+    await logger.verbose({
       prefix: 'verbose prefix',
       name: 'verbose name',
       message: 'verbose message',
     });
-
-    await sleep(100);
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(1);
     const output = mockConsoleLog.mock.calls[0][0];
@@ -133,13 +122,11 @@ describe('createConsolePlugin', () => {
     } catch (e) {
       error = e as Error;
     }
-    logger.error({
+    await logger.error({
       name: 'error name',
       message: error!.message,
       stack: error!.stack,
     });
-
-    await sleep(100);
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(1);
     const output = mockConsoleLog.mock.calls[0][0];

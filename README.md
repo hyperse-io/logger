@@ -34,6 +34,7 @@
 - **🎭 Multiple Output Formats**: Console, file, and custom output formats
 - **🔍 Debugging Tools**: Enhanced debugging capabilities with stack traces
 - **🔄 Plugin Context Merging**: Automatic merging and type inference of plugin contexts
+- **🔄 Async Support**: Built-in support for asynchronous operations
 
 ## 📦 Installation
 
