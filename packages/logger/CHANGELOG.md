@@ -1,5 +1,11 @@
 # @hyperse/logger
 
+## 1.1.7
+
+### Patch Changes
+
+- [#24](https://github.com/hyperse-io/logger/pull/24) [`4f17fef`](https://github.com/hyperse-io/logger/commit/4f17fef6d843bc6605abf5dd22cef3ee044b3e7e) Thanks [@tclxshunquan-wang](https://github.com/tclxshunquan-wang)! - feat: add async support to logger methods
+
 ## 1.1.6
 
 ### Patch Changes
