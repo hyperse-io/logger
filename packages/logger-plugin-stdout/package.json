@@ -1,6 +1,6 @@
 {
   "name": "@hyperse/logger-plugin-stdout",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "homepage": "https://github.com/hyperse-io/logger",
   "repository": {
     "type": "git",
