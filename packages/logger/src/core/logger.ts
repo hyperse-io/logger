@@ -12,7 +12,7 @@ import { LogLevel } from '../constant/log-level.js';
 import { executeFunction } from '../helpers/helper-execute-fun.js';
 import { isFunction } from '../helpers/helper-is-function.js';
 import type {
-  Logger as LogggerType,
+  Logger as LoggerType,
   LoggerContext,
 } from '../types/type-logger.js';
 import type { LoggerPlugin } from '../types/type-logger-plugin.js';
@@ -27,7 +27,7 @@ import type { LoggerMessage, RawLoggerMessage } from '../types/type-message.js';
  * @template Context The logger context type, including log level, name, etc.
  */
 export class Logger<Context extends LoggerContext = LoggerContext>
-  implements LogggerType<Context>
+  implements LoggerType<Context>
 {
   private ctx: Context;
   private errorHandling: ((error: Error) => void) | undefined;
@@ -154,8 +154,8 @@ export class Logger<Context extends LoggerContext = LoggerContext>
    * Logs a message at debug level.
    * @param message The log message
    */
-  public debug(message: RawLoggerMessage<Context>) {
-    this.pipeline.execute({
+  public async debug(message: RawLoggerMessage<Context>) {
+    await this.pipeline.execute({
       ctx: this.ctx,
       message: message,
       level: LogLevel.Debug,
@@ -166,8 +166,8 @@ export class Logger<Context extends LoggerContext = LoggerContext>
    * Logs a message at info level.
    * @param message The log message
    */
-  public info(message: RawLoggerMessage<Context>) {
-    this.pipeline.execute({
+  public async info(message: RawLoggerMessage<Context>) {
+    await this.pipeline.execute({
       ctx: this.ctx,
       message: message,
       level: LogLevel.Info,
@@ -178,8 +178,8 @@ export class Logger<Context extends LoggerContext = LoggerContext>
    * Logs a message at warn level.
    * @param message The log message
    */
-  public warn(message: RawLoggerMessage<Context>) {
-    this.pipeline.execute({
+  public async warn(message: RawLoggerMessage<Context>) {
+    await this.pipeline.execute({
       ctx: this.ctx,
       message: message,
       level: LogLevel.Warn,
@@ -190,8 +190,8 @@ export class Logger<Context extends LoggerContext = LoggerContext>
    * Logs a message at error level.
    * @param message The log message
    */
-  public error(message: RawLoggerMessage<Context>) {
-    this.pipeline.execute({
+  public async error(message: RawLoggerMessage<Context>) {
+    await this.pipeline.execute({
       ctx: this.ctx,
       message: message,
       level: LogLevel.Error,
@@ -202,8 +202,8 @@ export class Logger<Context extends LoggerContext = LoggerContext>
    * Logs a message at verbose level.
    * @param message The log message
    */
-  public verbose(message: RawLoggerMessage<Context>) {
-    this.pipeline.execute({
+  public async verbose(message: RawLoggerMessage<Context>) {
+    await this.pipeline.execute({
       ctx: this.ctx,
       message: message,
       level: LogLevel.Verbose,

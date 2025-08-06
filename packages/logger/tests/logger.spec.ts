@@ -2,7 +2,7 @@ import { createLogger } from '../src/core/create-logger.js';
 import type { LoggerContext } from '../src/index.js';
 import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
-import { setUpForTest, sleep } from './test-utils.js';
+import { setUpForTest } from './test-utils.js';
 
 describe('Logger Basic Functionality', () => {
   let mockConsoleLog: ReturnType<typeof vi.spyOn>;
@@ -47,13 +47,11 @@ describe('Logger Basic Functionality', () => {
       .use(consolePlugin)
       .build();
 
-    logger.info('info message');
-    logger.debug('debug message');
-    logger.verbose('verbose message');
-    logger.warn('warn message');
-    logger.error('error message');
-
-    await sleep(100);
+    await logger.info('info message');
+    await logger.debug('debug message');
+    await logger.verbose('verbose message');
+    await logger.warn('warn message');
+    await logger.error('error message');
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(1);
     expect(mockConsoleWarn).toHaveBeenCalledTimes(1);
@@ -90,13 +88,11 @@ describe('Logger Basic Functionality', () => {
       .use(terminalPlugin)
       .build();
 
-    logger.info('info message');
-    logger.debug('debug message');
-    logger.verbose('verbose message');
-    logger.warn('warn message');
-    logger.error('error message');
-
-    await sleep(100);
+    await logger.info('info message');
+    await logger.debug('debug message');
+    await logger.verbose('verbose message');
+    await logger.warn('warn message');
+    await logger.error('error message');
 
     expect(mockConsoleLog).toHaveBeenCalledTimes(2);
     expect(mockConsoleWarn).toHaveBeenCalledTimes(2);
@@ -142,33 +138,31 @@ describe('Logger Basic Functionality', () => {
         env: 'browser',
       });
 
-    logger.error({
+    await logger.error({
       name: 'error',
       message: 'error message',
       prefix: '[error]',
     });
-    logger.warn({
+    await logger.warn({
       name: 'warn',
       message: 'warn message',
       prefix: '[warn]',
     });
-    logger.info({
+    await logger.info({
       name: 'info',
       message: 'info message',
       prefix: '[info]',
     });
-    logger.debug({
+    await logger.debug({
       name: 'debug',
       message: 'debug message',
       prefix: '[debug]',
     });
-    logger.verbose({
+    await logger.verbose({
       name: 'verbose',
       message: 'verbose message',
       prefix: '[verbose]',
     });
-
-    await sleep(100);
 
     expect(executeMock).toHaveBeenCalledTimes(5);
     expect(executeMock.mock.calls[0][0]).toEqual(
@@ -223,32 +217,30 @@ describe('Logger Basic Functionality', () => {
       .use(consolePlugin)
       .build(async () => Promise.resolve({ userId: 'user-123' }));
     // 1. Test string-returning function message
-    logger.info(
+    await logger.info(
       (ctx) => `User ${ctx.userId} logged in from ${ctx.environment}`
     );
 
     // 2. Test object-returning function message
-    logger.warn((ctx) => ({
+    await logger.warn((ctx) => ({
       message: `Warning for ${ctx.userId}`,
       prefix: '[WARNING]',
     }));
 
     // 3. Test dynamic context modification
-    logger.debug((ctx) => {
+    await logger.debug((ctx) => {
       // Test that context is immutable - create a new object instead
       const localCtx = { ...ctx, userId: 'user-456' };
       return `Updated user: ${localCtx.userId}`;
     });
 
     // 4. Test using modified context
-    logger.info((ctx) => `Now user is ${ctx.userId}`);
+    await logger.info((ctx) => `Now user is ${ctx.userId}`);
 
     // 5. Test error handling
-    logger.error(() => {
+    await logger.error(() => {
       throw new Error('Test error in message function');
     });
-
-    await sleep(100);
 
     // Verify results
     expect(executeMock).toHaveBeenCalledTimes(4);
@@ -306,17 +298,15 @@ describe('Logger Basic Functionality', () => {
       });
 
     // Function message - string
-    logger.info((ctx) => `App v${ctx.version} running in ${ctx.env}`);
+    await logger.info((ctx) => `App v${ctx.version} running in ${ctx.env}`);
 
     // Function message - object
-    logger.warn((ctx) => ({
+    await logger.warn((ctx) => ({
       message: `Deprecated feature in ${ctx.env} v${ctx.version}`,
     }));
 
     // Regular string message
-    logger.error('Critical error occurred');
-
-    await sleep(100);
+    await logger.error('Critical error occurred');
 
     expect(executeMock).toHaveBeenCalledTimes(3);
     expect(executeMock.mock.calls[0][0]).toBe(

@@ -205,31 +205,31 @@ export interface Logger<Context extends LoggerContext = LoggerContext> {
    * @param message The message to log.
    * @returns void.
    */
-  debug: (message: RawLoggerMessage<Context>) => void;
+  debug: (message: RawLoggerMessage<Context>) => Promise<void>;
   /**
    * Info log method.
    * @param message The message to log.
    * @returns void.
    */
-  info: (message: RawLoggerMessage<Context>) => void;
+  info: (message: RawLoggerMessage<Context>) => Promise<void>;
   /**
    * Warn log method.
    * @param message The message to log.
    * @returns void.
    */
-  warn: (message: RawLoggerMessage<Context>) => void;
+  warn: (message: RawLoggerMessage<Context>) => Promise<void>;
   /**
    * Error log method.
    * @param message The message to log.
    * @returns void.
    */
-  error: (message: RawLoggerMessage<Context>) => void;
+  error: (message: RawLoggerMessage<Context>) => Promise<void>;
   /**
    * Verbose log method.
    * @param message The message to log.
    * @returns void.
    */
-  verbose: (message: RawLoggerMessage<Context>) => void;
+  verbose: (message: RawLoggerMessage<Context>) => Promise<void>;
 }
 
 /**

@@ -1,7 +1,6 @@
 import { createLogger } from '../src/core/create-logger.js';
 import { LogLevel } from '../src/index.js';
 import { definePlugin } from '../src/plugin/define-plugin.js';
-import { sleep } from './test-utils.js';
 
 describe('Logger Error Handling', () => {
   it('should handle errors thrown by plugins during log execution', async () => {
@@ -33,13 +32,11 @@ describe('Logger Error Handling', () => {
         };
       });
 
-    logger.info('info message');
-    logger.debug('debug message');
-    logger.verbose('verbose message');
-    logger.warn('warn message');
-    logger.error('error message');
-
-    await sleep(100);
+    await logger.info('info message');
+    await logger.debug('debug message');
+    await logger.verbose('verbose message');
+    await logger.warn('warn message');
+    await logger.error('error message');
 
     expect(errorHandlingMock).toHaveBeenCalledTimes(5);
     expect(errorHandlingMock.mock.calls[0][0].message).toEqual(
