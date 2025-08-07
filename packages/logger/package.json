@@ -12,7 +12,7 @@
     "url": "https://github.com/hyperse-io"
   },
   "type": "module",
-  "license": "SEE LICENSE IN FILE 'LICENSE'",
+  "license": "SEE LICENSE IN FILE 'LICENSE.md'",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

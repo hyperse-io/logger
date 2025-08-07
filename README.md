@@ -11,7 +11,7 @@
   <a aria-label="Top language" href="https://github.com/hyperse-io/logger/search?l=typescript">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/hyperse-io/logger?style=flat-square&labelColor=000&color=blue">
   </a>
-  <a aria-label="Licence" href="https://github.com/hyperse-io/logger/blob/main/LICENSE">
+  <a aria-label="Licence" href="https://github.com/hyperse-io/logger/blob/main/LICENSE.md">
     <img alt="Licence" src="https://img.shields.io/github/license/hyperse-io/logger?style=flat-square&labelColor=000000" />
   </a>
 
@@ -332,4 +332,4 @@ Hyperse Logger is designed for high-performance applications:
 
 ## License
 
-This project is licensed under the [MIT LICENSE](./LICENSE).
+This project is licensed under the [MIT LICENSE](./LICENSE.md).
