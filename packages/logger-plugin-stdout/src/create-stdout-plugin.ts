@@ -6,6 +6,12 @@ import { mergeStdOptions } from './helpers/helper-merge-options.js';
 import type { StdoutOptions } from './types/type-options.js';
 import type { StdoutPluginContext } from './types/type-plugin.js';
 
+/**
+ * Creates a new logger plugin that outputs formatted log messages to Node.js stdout.
+ *
+ * @param options - Optional configuration options for the plugin.
+ * @returns A new logger plugin that outputs formatted log messages to Node.js stdout.
+ */
 export const createStdoutPlugin = (
   options?: StdoutOptions
 ): LoggerPlugin<StdoutPluginContext> => {

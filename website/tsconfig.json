@@ -20,7 +20,14 @@
     "baseUrl": "./",
     "types": ["vitest/globals"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@hyperse/logger": ["../packages/logger/dist/index.d.ts"],
+      "@hyperse/logger-plugin-console": [
+        "../packages/logger-plugin-console/dist/index.d.ts"
+      ],
+      "@hyperse/logger-plugin-stdout": [
+        "../packages/logger-plugin-stdout/dist/index.d.ts"
+      ]
     },
     "plugins": [
       {

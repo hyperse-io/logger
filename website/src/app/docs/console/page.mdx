@@ -1,0 +1,60 @@
+---
+title: logger-plugin-console
+description: The console plugin for Hyperse Logger.
+---
+
+import { generateDefinition, TSDoc } from 'nextra/tsdoc';
+
+# Logger Console Plugin
+
+This plugin is the official console output plugin for [Hyperse Logger](https://github.com/hyperse-io/logger), designed to provide rich, customizable log output in both browser and Node.js environments. It supports colored output, timestamps, log levels, plugin and logger names, prefixes, arrow symbols, and more. With a wide range of configuration options, you can tailor the appearance and content of your console logs to fit your workflow, making it easier to debug and monitor your applications in real time.
+
+## Installation
+
+```sh npm2yarn
+npm install @hyperse/logger-plugin-console
+```
+
+## Usage
+
+```ts twoslash
+// @filename: @hyperse/logger-plugin-console/dist/index.d.ts
+import {
+  createConsolePlugin,
+  ConsoleOptions,
+} from '@hyperse/logger-plugin-console';
+import { createLogger, LogLevel } from '@hyperse/logger';
+
+const logger = createLogger({
+  name: 'hps-logger',
+  thresholdLevel: LogLevel.Verbose,
+})
+  .use(createConsolePlugin())
+  .build();
+
+logger.info('info message');
+```
+
+## Output
+
+![console output](/assets/docs/console.png)
+
+## API
+
+### createStdoutPlugin
+
+<TSDoc
+  definition={generateDefinition({
+    code: `
+export { createConsolePlugin as default } from '@hyperse/logger-plugin-console'`,
+  })}
+/>
+
+### StdoutOptions
+
+<TSDoc
+  definition={generateDefinition({
+    code: `
+export { ConsoleOptions as default } from '@hyperse/logger-plugin-console'`,
+  })}
+/>

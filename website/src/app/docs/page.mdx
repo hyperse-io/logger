@@ -1,73 +1,121 @@
 ---
+title: Introduction
 description:
-  Nextra is a framework built on top of Next.js that enables the creation of
-  content-focused websites. It combines the robust features of Next.js with
-  enhanced capabilities for crafting Markdown-based content.
+  Hyperse Logger is a powerful, pluggable, and flexible type-safe logger for
+  modern applications. It is built on Hyperse Pipeline for efficient message
+  processing.
 ---
 
-import { cloneElement } from 'react';
-import { Cards, Image } from 'nextra/components';
+# Hyperse Logger
 
-export default function MdxLayout(props) {
-  return cloneElement(props.children, {
-    components: {
-      img: Image,
-    },
-  });
-}
+A powerful, pluggable, and flexible type-safe logger for modern applications. Built with TypeScript and designed for extensibility through a plugin system, Hyperse Logger provides a robust foundation for application logging with enterprise-grade features.
 
-# Introduction
+## 🚀 Why Hyperse Logger?
 
-**Nextra** is a framework on top of Next.js, that lets you build content focused
-websites. It has all the great features from Next.js, plus extra power to create
-Markdown-based content with ease.
+Modern applications require sophisticated logging capabilities that go beyond simple console output. Hyperse Logger addresses these needs with a design philosophy centered around **type safety**, **extensibility**, and **performance**.
 
-## Quick start
+```mermaid
+sequenceDiagram
+    participant User
+    participant Logger
+    participant Plugin (Console/Stdout)
+    participant Formatter
+    participant Output (Console/Stdout)
 
-To start using Nextra, you need to select a theme first:
+    User->>Logger: log(level, message)
+    Logger->>Plugin (Console/Stdout): execute(level, message, context)
+    Plugin (Console/Stdout)->>Formatter: formatMessage(options)
+    Formatter-->>Plugin (Console/Stdout): formattedMessage
+    Plugin (Console/Stdout)->>Output (Console/Stdout): write(formattedMessage)
 
-<Cards num={2}>
-  <Cards.Card arrow title="Documentation theme" href="/docs/docs-theme/start">
-    <>![Documentation theme screenshot](/assets/docs-theme.png)</>
-  </Cards.Card>
-  <Cards.Card arrow title="Blog theme" href="/docs/blog-theme/start">
-    <>![Blog theme screenshot](/assets/blog-theme.png)</>
-  </Cards.Card>
-</Cards>
+```
 
-If you want to use Nextra without using these built-in themes, you can follow
-the [Custom Theme](/docs/custom-theme) docs.
+### Core Philosophy
 
-## FAQ
+- **Type Safety First**: Full TypeScript support with advanced type inference ensures your logging code is as reliable as your application code
+- **Plugin-Driven Architecture**: Extend functionality through a flexible plugin system without modifying core behavior
+- **Performance Optimized**: Lightweight core with efficient message processing through Hyperse Pipeline
+- **Developer Experience**: Intuitive API design that feels natural and productive
 
-The Nextra FAQ is a collection of useful questions and answers about the
-project. If you have a question that isn't answered here, please
-[open a discussion](https://github.com/shuding/nextra/discussions).
+## ✨ Key Features
 
-<details>
-  {/* prettier-ignore */}
-  <summary>Can I use Nextra with Next.js `pages` router?</summary>
-Nextra 4 only works with the `app` router. Only Nextra 1/2/3 supports the
-`pages` router.
+### 🔌 Pluggable Architecture
 
-</details>
+Extend functionality through a flexible plugin system. Each plugin can handle different aspects of logging - from output formatting to external service integration. The core logger remains lightweight while plugins provide specialized functionality.
 
-<details>
-  <summary>Can I use X with Nextra?</summary>
-The answer is "yes" for most things. Since Nextra is just a Next.js plugin, almost all the things
-that can be done with React can be done with Nextra. Here are some examples and guides:
+### 🛡️ Type Safety
 
-- [Use Tailwind CSS](/docs/guide/tailwind-css)
-- [Use custom CSS and Sass](/docs/guide/custom-css)
-- [Use custom fonts](https://nextjs.org/docs/basic-features/font-optimization)
+Built with TypeScript from the ground up, providing compile-time guarantees for your logging operations. Context-aware logging with full type inference ensures you never lose track of your application state.
 
-</details>
+### ⚡ High Performance
 
-<details>
-  {/* prettier-ignore */}
-  <summary>How can I add a live coding component in Nextra?</summary>
-There are libraries like [Sandpack](https://sandpack.codesandbox.io) and
-[react-live](https://github.com/FormidableLabs/react-live) that can help you
-add live coding components to your MDX.
+Lightweight core with efficient message processing through Hyperse Pipeline. Minimal overhead ensures logging doesn't impact your application's performance.
 
-</details>
+### 🎯 Multiple Log Levels
+
+Comprehensive log level support including Error, Warn, Info, Debug, and Verbose levels. Each level is designed for specific use cases and can be filtered independently.
+
+### 🔄 Pipeline Support
+
+Built-in pipeline for message transformation and processing. Chain multiple operations to format, filter, or enhance your log messages before output.
+
+### 🎨 Flexible Messages
+
+Support for both string and structured message objects. Context-aware logging allows you to include relevant application state in your log messages.
+
+### 🔧 Context-Aware
+
+Rich context system with type-safe plugin integration. Share application state across your logging pipeline while maintaining type safety.
+
+### 🚀 Modern ES Modules
+
+Native ES module support for modern JavaScript environments. Compatible with Node.js, browsers, and bundlers.
+
+### 📦 Zero Dependencies
+
+Minimal core with optional plugin ecosystem. Only includes essential functionality, keeping your bundle size small.
+
+## 🏗️ Architecture Overview
+
+### Core Components
+
+**Logger Builder**: A fluent API for configuring and building logger instances with plugins and context.
+
+**Plugin System**: Extensible architecture that allows plugins to handle different aspects of logging - from output formatting to external service integration.
+
+**Pipeline Engine**: Built on Hyperse Pipeline for efficient message processing and transformation.
+
+**Context Management**: Type-safe context system that allows sharing application state across the logging pipeline.
+
+### Plugin Ecosystem
+
+Hyperse Logger comes with a growing ecosystem of official plugins:
+
+- **[Console Plugin](/docs/console)**: Rich console output with colors, timestamps, and formatting
+- **[Stdout Plugin](/docs/stdout)**: Standard output plugin optimized for server environments
+
+### Message Flow
+
+1. **Log Call**: Application calls logger method with message and optional context
+2. **Level Filtering**: Messages are filtered based on configured threshold level
+3. **Plugin Processing**: Each plugin processes the message through its execute function
+4. **Pipeline Transformation**: Messages can be transformed through the pipeline system
+5. **Output**: Final formatted message is output through configured plugins
+
+## 🎯 Use Cases
+
+### Web Applications
+
+Perfect for modern web applications requiring structured logging with context awareness. Track user actions, API requests, and application state with full type safety.
+
+### Microservices
+
+Ideal for microservice architectures where consistent logging across services is crucial. Plugin system allows for service-specific logging requirements.
+
+### Server-Side Applications
+
+Robust logging for Node.js applications with support for multiple output formats and external service integration.
+
+### Development Tools
+
+Extensible logging for development tools and CLI applications with rich console output and debugging capabilities.

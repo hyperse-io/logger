@@ -111,9 +111,9 @@ export interface LoggerBuilderWithRequired<
   PluginContext extends object = object,
 > {
   /**
-   * Use a single plugin.
-   * @param plugin The plugin to use.
-   * @returns The LoggerBuilder type.
+   * Add a single plugin to the logger builder.
+   * @param plugin The logger plugin to add.
+   * @returns A new LoggerBuilder instance with the updated PluginContext type reflecting the merged plugin context.
    */
   use<Plugin extends LoggerPlugin<any>>(
     plugin: Plugin
@@ -123,9 +123,9 @@ export interface LoggerBuilderWithRequired<
   >;
 
   /**
-   * Use multiple plugins.
-   * @param plugins The plugins to use.
-   * @returns The LoggerBuilder type.
+   * Add multiple plugins to the logger builder at once.
+   * @param plugins A tuple of logger plugins to add.
+   * @returns A new LoggerBuilder instance with the updated PluginContext type reflecting the merged contexts of all provided plugins.
    */
   use<Plugins extends readonly LoggerPlugin<any>[]>(
     ...plugins: Plugins
@@ -135,27 +135,31 @@ export interface LoggerBuilderWithRequired<
   >;
 
   /**
-   * Build the logger with a setup function.
-   * @param setup The setup function.
-   * @returns The Logger type.
+   * Build the logger instance using a setup function.
+   * The setup function can return the setup context synchronously or as a Promise.
+   * This allows for dynamic or asynchronous initialization of the logger context.
+   * @param setup A function that returns the setup context or a Promise resolving to it.
+   * @returns A Logger instance with the merged context.
    */
   build(
     setup: StrictSetupFunction<InitialContext, PluginContext>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
-   * Build the logger with a Promise parameters.
-   * @param setup The setup function.
-   * @returns The Logger type.
+   * Build the logger instance using a Promise that resolves to the setup context.
+   * This is useful for asynchronous initialization scenarios.
+   * @param setup A Promise resolving to the setup context.
+   * @returns A Logger instance with the merged context.
    */
   build(
     setup: Promise<SetupContext<InitialContext, PluginContext>>
   ): Logger<MergedLoggerContext<InitialContext, PluginContext>>;
 
   /**
-   *  Build the logger with a context object.
-   * @param setup The setup context object.
-   * @returns The Logger type.
+   * Build the logger instance using a setup context object.
+   * This allows you to directly provide the initial and plugin context values.
+   * @param setup The setup context object containing initial and plugin context properties.
+   * @returns A Logger instance with the merged context.
    */
   build(
     setup: SetupContext<InitialContext, PluginContext>
