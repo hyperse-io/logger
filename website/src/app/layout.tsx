@@ -75,7 +75,7 @@ const footer = (
       target="_blank"
       rel="noreferrer"
       title="vercel.com homepage"
-      href="https://vercel.com?utm_source=nextra.site"
+      href="https://github.com/hyperse-io"
     >
       Powered by Hyperse
     </a>
