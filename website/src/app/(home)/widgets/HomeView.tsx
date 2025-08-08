@@ -46,7 +46,7 @@ const features = [
   },
   {
     title: 'Async Support',
-    icon: 'carbon:async',
+    icon: 'logos:async-api-icon',
     description: 'Built-in support for asynchronous operations',
   },
 ];
@@ -72,9 +72,9 @@ export const HomeView: FC = () => {
         <div
           className={`${styles.right_layout} order-first hidden md:order-none md:col-span-2 md:block`}
         >
-          <div className={styles.image_bg} />
+          <div className={`${styles.image_bg} hidden dark:block`} />
           <DotLottieReact
-            src="/logger/assets/lottie/niu1.lottie"
+            src="/logger/assets/lottie/niu.lottie"
             loop
             autoplay
           />
@@ -89,7 +89,7 @@ export const HomeView: FC = () => {
               id="highlighting-card"
               className="space-y-4"
             >
-              <div className="flex size-10 items-center justify-center rounded-sm bg-slate-500/40">
+              <div className="flex size-10 items-center justify-center rounded-sm bg-transparent dark:bg-slate-500/10">
                 <Icon icon={feature.icon} className="size-6 text-white" />
               </div>
               <h4 className="flex items-center gap-2 text-xl font-bold">
