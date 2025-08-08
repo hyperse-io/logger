@@ -1,0 +1,200 @@
+---
+title: Logger
+description:
+  Hyperse Logger is a powerful, pluggable, and flexible type-safe logger for
+  modern applications. It is built on Hyperse Pipeline for efficient message
+  processing.
+---
+
+import { generateDefinition, TSDoc } from 'nextra/tsdoc';
+
+# Logger
+
+## Installation
+
+```sh npm2yarn
+npm install @hyperse/logger
+```
+
+## Usage
+
+- sync setup context
+
+```ts twoslash
+// @filename: @hyperse/logger/dist/index.d.ts
+import { createLogger, LogLevel, definePlugin } from '@hyperse/logger';
+
+type LoggerContext = {
+  env: 'node' | 'browser';
+};
+
+const consolePlugin = definePlugin<LoggerContext>({
+  pluginName: 'consolePlugin',
+  execute({ ctx, level, message }) {
+    console.log(`[${level}] ${ctx.env} ${message}`);
+    //                            ^?
+  },
+});
+
+const logger = createLogger({
+  thresholdLevel: LogLevel.Verbose,
+  name: 'exampleLogger',
+  env: 'node',
+})
+  .use(consolePlugin)
+  .build();
+```
+
+- async setup context
+
+```ts twoslash
+// @filename: @hyperse/logger/dist/index.d.ts
+import { createLogger, LogLevel, definePlugin } from '@hyperse/logger';
+
+type LoggerContext = {
+  env: 'node' | 'browser';
+  platform: 'android' | 'ios';
+};
+
+const consolePlugin = definePlugin<LoggerContext>({
+  pluginName: 'consolePlugin',
+  execute({ ctx, level, message }) {
+    console.log(`[${level}] ${ctx.platform} ${ctx.env} ${message}`);
+    //                                            ^?
+  },
+});
+
+const logger = createLogger({
+  thresholdLevel: LogLevel.Verbose,
+  name: 'exampleLogger',
+  env: 'node',
+})
+  .use(consolePlugin)
+  .build(async () => {
+    //you can use async setup function to set context
+    return {
+      env: 'browser',
+      platform: 'ios',
+    };
+  });
+
+logger.info('info message');
+logger.info((ctx) => {
+  return `info message ${ctx.platform} ${ctx.env}`;
+  //                         ^?
+});
+```
+
+## Context Merging
+
+The logger automatically merges the context types and values from all loaded plugins.
+This means that if you have multiple plugins, each defining their own context,
+the logger will combine them into a single context type and merge their values at runtime.
+
+Example:
+
+```ts twoslash
+// @filename: @hyperse/logger/dist/index.d.ts
+import { createLogger, LogLevel, definePlugin } from '@hyperse/logger';
+
+type LoggerContext = {
+  env: 'node' | 'browser';
+  platform: 'android' | 'ios';
+};
+
+const consolePlugin = definePlugin<LoggerContext>({
+  pluginName: 'consolePlugin',
+  execute({ ctx, level, message }) {
+    ctx.pl;
+    //    ^|
+  },
+});
+
+type StdoutContext = {
+  type: 'stdout' | 'stderr';
+};
+
+const stdoutPlugin = definePlugin<StdoutContext>({
+  pluginName: 'stdoutPlugin',
+  execute({ ctx, level, message }) {
+    console[ctx.type](`[${level}] ${message}`);
+    //          ^?
+  },
+});
+
+const logger = createLogger({
+  thresholdLevel: LogLevel.Verbose,
+  name: 'exampleLogger',
+  env: 'node',
+})
+  .use(consolePlugin)
+  .use(stdoutPlugin)
+  .build(async () => {
+    //you can use async setup function to set context
+    return {
+      env: 'browser',
+      platform: 'ios',
+      type: 'stdout',
+    };
+  });
+
+logger.info((ctx) => {
+  //ctx.type is defined in stdoutPlugin, ctx.env is defined in consolePlugin
+  return `info message ${ctx.type} ${ctx.env}`;
+  //                         ^?
+});
+```
+
+## API
+
+### createLogger
+
+createLogger is a factory function that creates a new logger instance.
+
+<TSDoc
+  definition={generateDefinition({
+    code: `
+export { createLogger as default } from '@hyperse/logger'`,
+  })}
+/>
+
+### LoggerBuilder
+
+#### build
+
+<TSDoc
+  definition={generateDefinition({
+    code: `
+import { LoggerBuilder } from '@hyperse/logger'
+type BuildType = LoggerBuilder['build']
+export default BuildType
+`,
+  })}
+/>
+
+#### use
+
+<TSDoc
+  definition={generateDefinition({
+    code: `
+import { LoggerBuilder } from '@hyperse/logger'
+type UseType = LoggerBuilder['use']
+export default UseType
+`,
+  })}
+/>
+
+### logger
+
+- Logger is a class for constructing customizable loggers.
+- It supports a plugin mechanism, allowing flexible extension of the logging process,
+- including custom log levels, formatting, and output handling.
+- Plugins can be added via the chainable use() method, and the final logger instance
+- is created with the build() method.
+
+<TSDoc
+  definition={generateDefinition({
+    code: `
+export { Logger as default } from '@hyperse/logger'`,
+  })}
+/>

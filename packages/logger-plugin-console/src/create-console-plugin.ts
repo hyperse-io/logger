@@ -6,6 +6,12 @@ import { mergeConsoleOptions } from './helpers/helper-merge-options.js';
 import type { ConsoleOptions } from './types/type-options.js';
 import type { ConsolePluginContext } from './types/type-plugin.js';
 
+/**
+ * Creates a new logger plugin that outputs formatted log messages to the console.
+ *
+ * @param options - Optional configuration options for the plugin.
+ * @returns A new logger plugin that outputs formatted log messages to the console.
+ */
 export const createConsolePlugin = (
   options?: ConsoleOptions
 ): LoggerPlugin<ConsolePluginContext> => {

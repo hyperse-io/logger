@@ -3,7 +3,7 @@
 % reference for other constraints: https://github.com/babel/babel/blob/main/constraints.pro
 
 % Enforces the license in all public workspaces while removing it from private workspaces
-gen_enforced_field(WorkspaceCwd, 'license', 'SEE LICENSE IN FILE \'LICENSE\'') :-
+gen_enforced_field(WorkspaceCwd, 'license', 'SEE LICENSE IN FILE \'LICENSE.md\'') :-
   \+ workspace_field(WorkspaceCwd, 'private', true).
 
 % Enforces that a dependency doesn't appear in both `dependencies` and `devDependencies`

@@ -23,7 +23,7 @@
     "url": "https://github.com/hyperse-io"
   },
   "type": "module",
-  "license": "SEE LICENSE IN FILE 'LICENSE'",
+  "license": "SEE LICENSE IN FILE 'LICENSE.md'",
   "workspaces": [
     "website",
     "packages/*",
@@ -36,6 +36,7 @@
     "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
     "g:build-release": "yarn workspaces foreach -At run build-release",
     "g:build-local": "yarn workspaces foreach -At run build",
+    "g:build-website": "yarn workspace @hyperse/logger-website run build:ghpage",
     "g:test": "yarn workspaces foreach -At run test",
     "g:test-unit": "yarn workspaces foreach --all -ptv run test-unit",
     "g:test-e2e": "yarn workspaces foreach -At run test-e2e",
@@ -65,7 +66,7 @@
     "@hyperse/ts-node": "^1.0.3",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.30.1",
+    "eslint": "^9.32.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "npm-run-all": "^4.1.5",

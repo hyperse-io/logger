@@ -10,7 +10,7 @@
   <a aria-label="Top language" href="https://github.com/hyperse-io/logger/search?l=typescript">
     <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/hyperse-io/logger?style=flat-square&labelColor=000&color=blue">
   </a>
-  <a aria-label="License" href="https://github.com/hyperse-io/logger/blob/main/LICENSE">
+  <a aria-label="License" href="https://github.com/hyperse-io/logger/blob/main/LICENSE.md">
     <img alt="License" src="https://img.shields.io/npm/l/%40hyperse%2Flogger?style=flat-square&labelColor=000">
   </a>
   <a aria-label="Node.js version" href="https://nodejs.org/">
@@ -418,7 +418,7 @@ npm run build
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
 ## Related Projects
 

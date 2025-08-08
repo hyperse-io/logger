@@ -71,11 +71,11 @@ export type ConsoleOptions = {
   /**
    * If true, the timestamp on each message logged to the console will be displayed using the 24 hour clock instead of the 12 hour clock. Keep in mind that the timestamp of when a log was logged to the console is only displayed when `showTimestamp` is also true.
    *
-   * ### **24 hour clock:**
+   * **24 hour clock:**
    *
    * `[ 13:27:55.33 ] pow`
    *
-   * ### **12 hour clock:**
+   * **12 hour clock:**
    *
    * `[ 1:27:55.33 PM ] pow`
    * @default true

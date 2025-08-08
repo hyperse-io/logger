@@ -4,7 +4,7 @@
   color: #000;
   background-color: white;
   overflow: hidden;
-  border-radius: 1.78em;
+  border-radius: 1em;
 }
 .feature.large {
   grid-column: span 2;
@@ -83,7 +83,7 @@
 
 .features {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 2em;
   font-feature-settings: initial;
 }
