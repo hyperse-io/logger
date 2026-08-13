@@ -32,9 +32,7 @@
   ],
   "scripts": {
     "g:clean": "yarn clean:global-cache && yarn workspaces foreach -At run clean",
-    "g:build": "yarn g:build-release",
-    "?build-release": "When https://github.com/atlassian/changesets/issues/432 has a solution we can remove this trick",
-    "g:build-release": "yarn workspaces foreach -At run build-release",
+    "g:build": "yarn g:build",
     "g:build-local": "yarn workspaces foreach -At run build",
     "g:build-website": "yarn workspace @hyperse/logger-website run build:ghpage",
     "g:test": "yarn workspaces foreach -At run test",
@@ -46,8 +44,8 @@
     "g:fix-all-files": "yarn workspaces foreach -At run fix-all-files",
     "g:changeset": "changeset",
     "g:version": "changeset version",
-    "g:release": "yarn g:build-release && changeset publish",
-    "clean:global-cache": "rimraf --no-glob ./dist ./coverage ./__data__ ./config/__data__ ./_release ./tsconfig.tsbuildinfo",
+    "g:release": "yarn g:build && changeset publish",
+    "clean:global-cache": "rimraf --no-glob ./dist ./coverage ./__data__ ./config/__data__ ./tsconfig.tsbuildinfo",
     "g:cz": "cz",
     "g:publish-local": "yarn changeset version && cd scripts && ./publish-to-verdaccio.sh",
     "prepare": "husky"
@@ -58,8 +56,8 @@
     }
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.1",
-    "@changesets/cli": "^2.29.5",
+    "@changesets/changelog-github": "^1.0.0",
+    "@changesets/cli": "^3.0.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@hyperse/eslint-config-hyperse": "^1.4.5",
@@ -74,7 +72,7 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=22.11.0",
     "npm": "please-use-yarn",
     "yarn": ">=1.22.0"
   },
