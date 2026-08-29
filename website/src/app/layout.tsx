@@ -74,8 +74,8 @@ const footer = (
       className="x:focus-visible:nextra-focus flex items-center gap-1"
       target="_blank"
       rel="noreferrer"
-      title="vercel.com homepage"
-      href="https://vercel.com?utm_source=nextra.site"
+      title="Hyperse on GitHub"
+      href="https://github.com/hyperse-io"
     >
       Powered by Hyperse
     </a>
