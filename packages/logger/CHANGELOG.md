@@ -1,5 +1,14 @@
 # @hyperse/logger
 
+## 1.1.8
+
+### Patch Changes
+
+- [`58b59e3`](https://github.com/hyperse-io/logger/commit/58b59e324cd1e1e18bac6fe2610b9467caed528a) Thanks [@tianyingchun](https://github.com/tianyingchun)! - fix: support TypeScript 7 in the build toolchain
+
+  - remove `baseUrl` from `tsconfig` (removed in TypeScript 7) so packages compile again
+  - declare `vite` alongside `vitest` to satisfy Vitest's peer dependency
+
 ## 1.1.7
 
 ### Patch Changes
