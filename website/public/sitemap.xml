@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://hyperse-io.github.io/logger</loc><lastmod>2026-10-15T08:06:15.004Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hyperse-io.github.io/logger/api/search</loc><lastmod>2026-10-15T08:06:15.005Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hyperse-io.github.io/logger/docs</loc><lastmod>2026-10-15T08:06:15.005Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hyperse-io.github.io/logger/docs/about</loc><lastmod>2026-10-15T08:06:15.005Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hyperse-io.github.io/logger/docs/console</loc><lastmod>2026-10-15T08:06:15.005Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hyperse-io.github.io/logger/docs/logger</loc><lastmod>2026-10-15T08:06:15.005Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hyperse-io.github.io/logger/docs/stdout</loc><lastmod>2026-10-15T08:06:15.005Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger/api/search</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger/docs</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger/docs/about</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger/docs/console</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger/docs/logger</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hyperse-io.github.io/logger/docs/stdout</loc><lastmod>2026-10-15T09:03:52.971Z</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>

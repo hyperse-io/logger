@@ -32,7 +32,7 @@
   ],
   "scripts": {
     "g:clean": "yarn clean:global-cache && yarn workspaces foreach -At run clean",
-    "g:build": "yarn g:build",
+    "g:build": "yarn g:build-local",
     "g:build-local": "yarn workspaces foreach -At run build",
     "g:build-website": "yarn workspace @hyperse/logger-website run build:ghpage",
     "g:test": "yarn workspaces foreach -At run test",
