@@ -1,0 +1,29 @@
+1:"$Sreact.fragment"
+2:"/logger/_next/static/chunks/0ci634q8tunq8.js"
+3:"/logger/_next/static/chunks/0nr3fg_zdcqso.js"
+4:I[17751,["$2","$3"],"RootProvider"]
+5:I[339756,["$2","$3"],"default"]
+6:I[837457,["$2","$3"],"default"]
+7:I[522016,["$2","$3"],""]
+e:I[897367,["$2","$3"],"OutletBoundary"]
+f:"$Sreact.suspense"
+12:"ViewportBoundary"
+13:I[897367,["$2","$3"],"$12"]
+14:"MetadataBoundary"
+15:I[897367,["$2","$3"],"$14"]
+:HL["/logger/_next/static/chunks/2xk0xmy61kqy-.css","style"]
+9:X
+c:X
+c:C
+d:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[["$","div",null,{"className":"flex flex-1 flex-col items-center justify-center gap-4 py-32 text-center","children":[["$","h1",null,{"className":"text-4xl font-bold","children":"404"}],["$","p",null,{"className":"text-fd-muted-foreground","children":"This page could not be found."}],["$","$L7",null,{"href":"/","className":"text-fd-primary underline","children":"Back to home"}]]}],null,["$","$Le",null,{"children":["$","$f",null,{"name":"Next.MetadataOutlet","children":"$@10"}]}]]}],"p":"$@11","v":null,"s":"$9"}}]]
+a:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}]}]]}],"p":"$@b","v":"$c","s":"$9"},"c":"$Qd"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/logger/_next/static/chunks/2xk0xmy61kqy-.css","precedence":"next"}],["$","script","script-0",{"src":"/logger/_next/static/chunks/0ci634q8tunq8.js","async":true}],["$","script","script-1",{"src":"/logger/_next/static/chunks/0nr3fg_zdcqso.js","async":true}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":[["$","head",null,{"children":["$","link",null,{"rel":"icon","href":"/logger/favicon.svg","type":"image/png","sizes":"32x32"}]}],["$","body",null,{"className":"flex min-h-screen flex-col","children":["$","$L4",null,{"search":{"options":{"type":"static","api":"/logger/api/search"}},"children":["$","$L5",null,{"parallelRouterKey":"children","template":["$","$L6",null,{}],"notFound":[["$","div",null,{"className":"flex flex-1 flex-col items-center justify-center gap-4 py-32 text-center","children":[["$","h1",null,{"className":"text-4xl font-bold","children":"404"}],["$","p",null,{"className":"text-fd-muted-foreground","children":"This page could not be found."}],["$","$L7",null,{"href":"/","className":"text-fd-primary underline","children":"Back to home"}]]}],[]]}]}]}]]}]]}],"p":"$@8","v":null,"s":"$9"},"c":"$Qa"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L13",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","$L15",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$f",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Hyperse Logger – Hyperse Logger"}],["$","meta","1",{"name":"description","content":"Hyperse Logger is a powerful logging library for Node.js with a plugin architecture. It is built on Hyperse Pipeline for efficient message processing."}],["$","meta","2",{"name":"application-name","content":"Hyperse Logger"}],["$","meta","3",{"name":"generator","content":"Hyperse"}],["$","meta","4",{"name":"keywords","content":"Hyperse,Logger,Node.js,Plugin,TypeScript,JavaScript"}],["$","meta","5",{"name":"msapplication-TileColor","content":"#fff"}],["$","link","6",{"rel":"canonical","href":"https://www.hyperse.net/_not-found"}],["$","meta","7",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","8",{"name":"apple-mobile-web-app-title","content":"Hyperse Logger"}],["$","meta","9",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","10",{"property":"og:title","content":"Hyperse Logger – Hyperse Logger"}],["$","meta","11",{"property":"og:description","content":"Hyperse Logger is a powerful logging library for Node.js with a plugin architecture. It is built on Hyperse Pipeline for efficient message processing."}],["$","meta","12",{"property":"og:url","content":"https://www.hyperse.net/_not-found"}],["$","meta","13",{"property":"og:site_name","content":"Hyperse Logger"}],["$","meta","14",{"property":"og:locale","content":"en_US"}],["$","meta","15",{"property":"og:type","content":"website"}],["$","meta","16",{"name":"twitter:card","content":"summary"}],["$","meta","17",{"name":"twitter:site","content":"https://www.hyperse.net/"}],["$","meta","18",{"name":"twitter:title","content":"Hyperse Logger – Hyperse Logger"}],["$","meta","19",{"name":"twitter:description","content":"Hyperse Logger is a powerful logging library for Node.js with a plugin architecture. It is built on Hyperse Pipeline for efficient message processing."}]]}]}],null]}],null]}],"p":"$@16","v":null,"s":"$9"}},"a":"$@17","u":"$@18","b":"CFIklbTdU2_Qaru9m18A6"}
+10:null
+9:300
+18:true
+9:C
+17:0
+b:"$undefined"
+8:"$undefined"
+16:"$undefined"
+11:"$undefined"
