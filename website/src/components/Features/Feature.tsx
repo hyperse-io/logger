@@ -42,7 +42,10 @@ export const Feature: FC<
       {children}
       {href && (
         <Link
-          className={cn('x:focus-visible:nextra-focus', styles.link)}
+          className={cn(
+            'focus-visible:ring-fd-ring rounded-sm focus-visible:ring-2 focus-visible:outline-none',
+            styles.link
+          )}
           href={href}
           target="_blank"
           rel="noreferrer"

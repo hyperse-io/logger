@@ -1,24 +1,19 @@
 ---
 title: Logger
-description:
-  Hyperse Logger is a powerful, pluggable, and flexible type-safe logger for
-  modern applications. It is built on Hyperse Pipeline for efficient message
-  processing.
+description: Hyperse Logger is a powerful, pluggable, and flexible type-safe logger for modern applications. It is built on Hyperse Pipeline for efficient message processing.
 ---
-
-import { generateDefinition, TSDoc } from 'nextra/tsdoc';
 
 # Logger
 
 ## Installation
 
-```sh npm2yarn
-npm install @hyperse/logger
+```package-install
+@hyperse/logger
 ```
 
 ## Usage
 
-- sync setup context
+### Sync setup context
 
 ```ts twoslash
 // @filename: @hyperse/logger/dist/index.d.ts
@@ -45,7 +40,7 @@ const logger = createLogger({
   .build();
 ```
 
-- async setup context
+### Async setup context
 
 ```ts twoslash
 // @filename: @hyperse/logger/dist/index.d.ts
@@ -71,7 +66,7 @@ const logger = createLogger({
 })
   .use(consolePlugin)
   .build(async () => {
-    //you can use async setup function to set context
+    // you can use async setup function to set context
     return {
       env: 'browser',
       platform: 'ios',
@@ -130,7 +125,7 @@ const logger = createLogger({
   .use(consolePlugin)
   .use(stdoutPlugin)
   .build(async () => {
-    //you can use async setup function to set context
+    // you can use async setup function to set context
     return {
       env: 'browser',
       platform: 'ios',
@@ -139,7 +134,7 @@ const logger = createLogger({
   });
 
 logger.info((ctx) => {
-  //ctx.type is defined in stdoutPlugin, ctx.env is defined in consolePlugin
+  // ctx.type is defined in stdoutPlugin, ctx.env is defined in consolePlugin
   return `info message ${ctx.type} ${ctx.env}`;
   //                         ^?
 });
@@ -149,52 +144,34 @@ logger.info((ctx) => {
 
 ### createLogger
 
-createLogger is a factory function that creates a new logger instance.
+`createLogger` is a factory function that creates a new logger instance.
 
-<TSDoc
-  definition={generateDefinition({
-    code: `
-export { createLogger as default } from '@hyperse/logger'`,
-  })}
-/>
+<AutoTypeTable path="../packages/logger/dist/index.d.ts" name="createLogger" />
 
 ### LoggerBuilder
 
 #### build
 
-<TSDoc
-  definition={generateDefinition({
-    code: `
-import { LoggerBuilder } from '@hyperse/logger'
-type BuildType = LoggerBuilder['build']
-export default BuildType
-`,
-  })}
+<AutoTypeTable
+  path="../packages/logger/dist/index.d.ts"
+  name="LoggerBuilder"
+  type="build"
 />
 
 #### use
 
-<TSDoc
-  definition={generateDefinition({
-    code: `
-import { LoggerBuilder } from '@hyperse/logger'
-type UseType = LoggerBuilder['use']
-export default UseType
-`,
-  })}
+<AutoTypeTable
+  path="../packages/logger/dist/index.d.ts"
+  name="LoggerBuilder"
+  type="use"
 />
 
-### logger
+### Logger
 
 - Logger is a class for constructing customizable loggers.
 - It supports a plugin mechanism, allowing flexible extension of the logging process,
-- including custom log levels, formatting, and output handling.
-- Plugins can be added via the chainable use() method, and the final logger instance
-- is created with the build() method.
+  including custom log levels, formatting, and output handling.
+- Plugins can be added via the chainable `use()` method, and the final logger instance
+  is created with the `build()` method.
 
-<TSDoc
-  definition={generateDefinition({
-    code: `
-export { Logger as default } from '@hyperse/logger'`,
-  })}
-/>
+<AutoTypeTable path="../packages/logger/dist/index.d.ts" name="Logger" />

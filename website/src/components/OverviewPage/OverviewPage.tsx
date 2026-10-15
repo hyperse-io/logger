@@ -1,41 +1,89 @@
-import type { FC } from 'react';
-import type { PageMapItem } from 'nextra';
-import { Cards } from 'nextra/components';
-import { getIndexPageMap, getPageMap } from 'nextra/page-map';
+import type { FC, ReactNode } from 'react';
+import type { Folder, Item, Node } from 'fumadocs-core/page-tree';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { icons as lucideIcons } from 'lucide-react';
+import { source } from '@/lib/source';
+
+const collectItems = (nodes: Node[]): Item[] => {
+  const out: Item[] = [];
+  for (const node of nodes) {
+    if (node.type === 'page') {
+      out.push(node);
+    } else if (node.type === 'folder') {
+      if (node.index) out.push(node.index);
+      out.push(...collectItems(node.children));
+    }
+  }
+  return out;
+};
+
+const groupByFolder = (
+  nodes: Node[]
+): { title?: ReactNode; items: Item[] }[] => {
+  const groups: { title?: ReactNode; items: Item[] }[] = [];
+
+  const looseItems = nodes.filter((n) => n.type === 'page') as Item[];
+  if (looseItems.length > 0) {
+    groups.push({ items: looseItems });
+  }
+
+  for (const node of nodes) {
+    if (node.type !== 'folder') continue;
+    const folder = node as Folder;
+    const items = collectItems(folder.children);
+    if (folder.index) items.unshift(folder.index);
+    groups.push({ title: folder.name, items });
+  }
+
+  return groups;
+};
+
+/**
+ * Resolves a page's `icon` frontmatter value.
+ *
+ * The `lucideIconsPlugin` on the source loader turns these into elements for
+ * the sidebar, but `getPageTree()` output here is serialized, so we resolve the
+ * name to a Lucide component directly. Falls back to any icon passed via the
+ * legacy `icons` prop.
+ */
+const resolveIcon = (
+  iconKey: string | undefined,
+  fallback?: Record<string, FC<{ className?: string }>>
+) => {
+  if (!iconKey) return undefined;
+  const fromProp = fallback?.[iconKey];
+  if (fromProp) return fromProp;
+  return lucideIcons[iconKey as keyof typeof lucideIcons];
+};
 
 export const OverviewPage: FC<{
-  filePath: string;
-  icons?: Record<string, FC>;
-  pageMap?: PageMapItem[];
-}> = async ({ filePath, icons, pageMap: $pageMap }) => {
-  const currentRoute = filePath.replace('src/app', '').replace('/page.mdx', '');
-  const pageMap = $pageMap ?? (await getPageMap(currentRoute));
+  /** Legacy escape hatch: explicit icon components keyed by icon name. */
+  icons?: Record<string, FC<{ className?: string }>>;
+}> = ({ icons }) => {
+  const tree = source.getPageTree();
+  const groups = groupByFolder(tree.children);
 
-  return getIndexPageMap(pageMap).map((pageItem, index) => {
-    if (!Array.isArray(pageItem)) {
-      return <h2 key={index}>{pageItem.title}</h2>;
-    }
-    return (
-      <Cards key={index}>
-        {pageItem.map((item) => {
-          const icon = item.frontMatter?.icon;
-          const Icon = icons?.[icon];
-          if (icon && !Icon) {
-            throw new Error(
-              `Icon "${icon}" is defined in front matter but isn't provided`
-            );
-          }
-          const title = item.frontMatter?.title;
-          return (
-            <Cards.Card
-              key={item.name}
-              title={title}
-              href={item.route}
-              icon={Icon && <Icon />}
-            />
-          );
-        })}
-      </Cards>
-    );
-  });
+  return (
+    <>
+      {groups.map((group) => (
+        <section key={String(group.title) || group.items[0]?.url || 'group'}>
+          {group.title ? <h2>{group.title}</h2> : null}
+          <Cards>
+            {group.items.map((item) => {
+              const iconKey = (item as Item & { icon?: string }).icon;
+              const Icon = resolveIcon(iconKey, icons);
+              return (
+                <Card
+                  key={item.url}
+                  title={item.name}
+                  href={item.url}
+                  icon={Icon ? <Icon /> : undefined}
+                />
+              );
+            })}
+          </Cards>
+        </section>
+      ))}
+    </>
+  );
 };

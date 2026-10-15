@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import { Link } from 'nextra-theme-docs';
+import Link from 'next/link';
 import { Feature, Features } from '@/components/Features';
 import { Icon } from '@iconify/react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';

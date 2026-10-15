@@ -3,16 +3,14 @@ title: logger-plugin-stdout
 description: The stdout plugin for Hyperse Logger.
 ---
 
-import { generateDefinition, TSDoc } from 'nextra/tsdoc';
-
 # Logger Stdout Plugin
 
 This plugin is the official standard output plugin for [Hyperse Logger](https://github.com/hyperse-io/logger), designed specifically for Node.js environments. It outputs logs to the terminal (stdout/stderr) in a consistent, structured format, supporting JSON-compatible output for easy log collection and analysis. Ideal for server-side and containerized applications, it ensures your logs are well-formatted, easy to process, and ready for integration with log management systems.
 
 ## Installation
 
-```sh npm2yarn
-npm install @hyperse/logger-plugin-stdout
+```package-install
+@hyperse/logger-plugin-stdout
 ```
 
 ## Usage
@@ -43,18 +41,14 @@ logger.info('info message');
 
 ### createStdoutPlugin
 
-<TSDoc
-  definition={generateDefinition({
-    code: `
-export { createStdoutPlugin as default } from '@hyperse/logger-plugin-stdout'`,
-  })}
+<AutoTypeTable
+  path="../packages/logger-plugin-stdout/dist/index.d.ts"
+  name="createStdoutPlugin"
 />
 
 ### StdoutOptions
 
-<TSDoc
-  definition={generateDefinition({
-    code: `
-export { StdoutOptions as default } from '@hyperse/logger-plugin-stdout'`,
-  })}
+<AutoTypeTable
+  path="../packages/logger-plugin-stdout/dist/index.d.ts"
+  name="StdoutOptions"
 />

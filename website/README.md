@@ -1,6 +1,6 @@
 # @hyperse/logger-website
 
-This is the official documentation website for the Hyperse Logger project, built with [Nextra](https://nextra.site) and [Next.js](https://nextjs.org/).
+This is the official documentation website for the Hyperse Logger project, built with [Fumadocs](https://fumadocs.dev) and [Next.js](https://nextjs.org/).
 
 ## Overview
 

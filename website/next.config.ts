@@ -1,17 +1,8 @@
-import nextra from 'nextra';
+import { createMDX } from 'fumadocs-mdx/next';
 import { z } from 'zod/v4';
 import { createNextConfig, createNextConfigEnv } from '@hyperse/next-config';
 
-const withNextra = nextra({
-  latex: true,
-  defaultShowCopyCode: true,
-  search: {
-    codeblocks: false,
-  },
-  mdxOptions: {
-    remarkPlugins: [],
-  },
-});
+const withMDX = createMDX();
 
 // We use a custom env to validate the build env
 const buildEnv = createNextConfigEnv(
@@ -31,5 +22,5 @@ export default createNextConfig(
         buildEnv.NEXT_BUILD_ENV_OUTPUT === 'export' ? true : undefined,
     },
   },
-  [withNextra]
+  [withMDX]
 );

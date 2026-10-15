@@ -139,4 +139,6 @@ dist
 /out/
 /build
 .eslintcache
-_pagefind/
+
+# fumadocs generated
+/.source/

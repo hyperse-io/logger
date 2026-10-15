@@ -57,17 +57,16 @@
     "[typescript]": {
       "editor.formatOnSave": true,
     },
-    "[rust]": {
-      "editor.formatOnSave": true,
-      "editor.defaultFormatter": "rust-lang.rust-analyzer"
-    },
     "[json]": {
       "editor.formatOnSave": false,
     },
     "[jsonc]": {
       "editor.formatOnSave": false,
     },
-    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "js/ts.tsdk.path": "root/node_modules/typescript/lib",
+    "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+    "js/ts.tsserver.maxMemory": 8192,
+    "json.schemaDownload.enable": true,
     // https://github.com/Microsoft/vscode-eslint#mono-repository-setup
     "eslint.workingDirectories": [
       "./website",
@@ -76,6 +75,5 @@
       "./packages/logger-plugin-console",
       "./packages/logger-plugin-sentry",
     ],
-    "typescript.tsdk": "root/node_modules/typescript/lib"
   },
 }

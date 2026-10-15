@@ -1,9 +1,6 @@
 ---
 title: Introduction
-description:
-  Hyperse Logger is a powerful, pluggable, and flexible type-safe logger for
-  modern applications. It is built on Hyperse Pipeline for efficient message
-  processing.
+description: Hyperse Logger is a powerful, pluggable, and flexible type-safe logger for modern applications. It is built on Hyperse Pipeline for efficient message processing.
 ---
 
 # Hyperse Logger
@@ -18,16 +15,15 @@ Modern applications require sophisticated logging capabilities that go beyond si
 sequenceDiagram
     participant User
     participant Logger
-    participant Plugin (Console/Stdout)
+    participant Plugin as Plugin (Console/Stdout)
     participant Formatter
-    participant Output (Console/Stdout)
+    participant Output as Output (Console/Stdout)
 
     User->>Logger: log(level, message)
-    Logger->>Plugin (Console/Stdout): execute(level, message, context)
-    Plugin (Console/Stdout)->>Formatter: formatMessage(options)
-    Formatter-->>Plugin (Console/Stdout): formattedMessage
-    Plugin (Console/Stdout)->>Output (Console/Stdout): write(formattedMessage)
-
+    Logger->>Plugin: execute(level, message, context)
+    Plugin->>Formatter: formatMessage(options)
+    Formatter-->>Plugin: formattedMessage
+    Plugin->>Output: write(formattedMessage)
 ```
 
 ### Core Philosophy

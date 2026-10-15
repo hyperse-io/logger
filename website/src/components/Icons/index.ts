@@ -17,7 +17,6 @@ export { IdCardIcon } from './IdCard';
 export { LightningIcon } from './Lightning';
 export { Logo } from './Logo';
 export { NewsletterIcon } from './Newsletter';
-export { NextraIcon } from './Nextra';
 export { OneIcon } from './One';
 export { PictureIcon } from './Picture';
 export { RowsIcon } from './Rows';

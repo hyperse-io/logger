@@ -8,6 +8,7 @@ export default defineConfig(
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-empty-object-type': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/triple-slash-reference': 'off',
       },
     },
     {
@@ -17,5 +18,5 @@ export default defineConfig(
       },
     },
   ],
-  ['**/out']
+  ['**/out', '**/.source']
 );
