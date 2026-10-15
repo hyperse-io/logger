@@ -24,8 +24,7 @@ import { Logger as LoggerImpl } from './logger.js';
 class LoggerBuilderImpl<
   InitialContext extends object = object,
   PluginContext extends object = object,
-> implements LoggerBuilderNoRequired<InitialContext, PluginContext>
-{
+> implements LoggerBuilderNoRequired<InitialContext, PluginContext> {
   private logger: LoggerImpl<
     MergedLoggerContext<InitialContext, PluginContext>
   >;

@@ -35,5 +35,4 @@ export type LoggerMessage = string | LoggerMessageObject;
  * @returns The raw log message.
  */
 export type RawLoggerMessage<Context extends object = object> =
-  | LoggerMessage
-  | ((ctx: Context) => LoggerMessage);
+  LoggerMessage | ((ctx: Context) => LoggerMessage);

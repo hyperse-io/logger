@@ -26,9 +26,9 @@ import type { LoggerMessage, RawLoggerMessage } from '../types/type-message.js';
  * is created with the build() method.
  * @template Context The logger context type, including log level, name, etc.
  */
-export class Logger<Context extends LoggerContext = LoggerContext>
-  implements LoggerType<Context>
-{
+export class Logger<
+  Context extends LoggerContext = LoggerContext,
+> implements LoggerType<Context> {
   private ctx: Context;
   private errorHandling: ((error: Error) => void) | undefined;
   private pipeline: Pipeline<{
