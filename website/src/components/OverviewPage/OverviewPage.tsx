@@ -39,21 +39,24 @@ const groupByFolder = (
 };
 
 /**
- * Resolves a page's `icon` frontmatter value.
+ * Resolves a page's `icon` frontmatter value into a rendered element.
  *
  * The `lucideIconsPlugin` on the source loader turns these into elements for
  * the sidebar, but `getPageTree()` output here is serialized, so we resolve the
  * name to a Lucide component directly. Falls back to any icon passed via the
  * legacy `icons` prop.
+ *
+ * The element is rendered here rather than returning the component, so no
+ * component is created during render (see `@eslint-react/static-components`).
  */
-const resolveIcon = (
+const renderIcon = (
   iconKey: string | undefined,
   fallback?: Record<string, FC<{ className?: string }>>
-) => {
+): ReactNode => {
   if (!iconKey) return undefined;
-  const fromProp = fallback?.[iconKey];
-  if (fromProp) return fromProp;
-  return lucideIcons[iconKey as keyof typeof lucideIcons];
+  const Icon =
+    fallback?.[iconKey] ?? lucideIcons[iconKey as keyof typeof lucideIcons];
+  return Icon ? <Icon /> : undefined;
 };
 
 export const OverviewPage: FC<{
@@ -71,13 +74,12 @@ export const OverviewPage: FC<{
           <Cards>
             {group.items.map((item) => {
               const iconKey = (item as Item & { icon?: string }).icon;
-              const Icon = resolveIcon(iconKey, icons);
               return (
                 <Card
                   key={item.url}
                   title={item.name}
                   href={item.url}
-                  icon={Icon ? <Icon /> : undefined}
+                  icon={renderIcon(iconKey, icons)}
                 />
               );
             })}

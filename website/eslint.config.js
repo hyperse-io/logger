@@ -9,6 +9,7 @@ export default defineConfig(
         '@typescript-eslint/no-empty-object-type': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         '@typescript-eslint/triple-slash-reference': 'off',
+        '@eslint-react/no-array-index-key': 'off',
       },
     },
     {

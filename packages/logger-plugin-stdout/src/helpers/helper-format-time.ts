@@ -19,10 +19,9 @@ const addUnitOfTime = (
   unitValueInMilliseconds: number,
   unitName: string
 ) => {
-  let remainder = time.getTime() - lastTime.getTime();
+  const remainder = time.getTime() - lastTime.getTime();
   const unitCount = Math.floor(remainder / unitValueInMilliseconds);
 
-  remainder = remainder % unitValueInMilliseconds;
   return unitCount !== 0
     ? colorFn(prefix + unitCount + unitName) + ' '
     : unitValueInMilliseconds === 1
